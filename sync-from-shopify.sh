@@ -5,6 +5,11 @@
 
 echo "🔄 Starte Synchronisation von Shopify zu GitHub..."
 
+# Lade Environment-Variablen aus .env Datei (falls vorhanden)
+if [ -f .env ]; then
+    export $(cat .env | grep -v '^#' | xargs)
+fi
+
 # Prüfe ob Shopify CLI installiert ist
 if ! command -v shopify &> /dev/null; then
     echo "❌ Shopify CLI ist nicht installiert!"
@@ -14,6 +19,13 @@ fi
 # Prüfe ob wir in einem Git-Repository sind
 if ! git rev-parse --git-dir > /dev/null 2>&1; then
     echo "❌ Dies ist kein Git-Repository!"
+    exit 1
+fi
+
+# Prüfe ob Store und Theme ID gesetzt sind
+if [ -z "$SHOPIFY_STORE" ] || [ -z "$SHOPIFY_THEME_ID" ]; then
+    echo "❌ Fehler: SHOPIFY_STORE und SHOPIFY_THEME_ID müssen gesetzt sein!"
+    echo "   Erstelle eine .env Datei oder setze die Environment-Variablen."
     exit 1
 fi
 
