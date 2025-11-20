@@ -1,25 +1,10 @@
-# macOS
+# OS generated files #
+######################
 .DS_Store
-.AppleDouble
-.LSOverride
-
-# Shopify CLI
-.shopify/
-
-# Environment variables
-.env
-.env.local
-
-# Logs
-*.log
-
-# Node modules (falls vorhanden)
-node_modules/
-
-# IDE
-.vscode/
-.idea/
-*.swp
-*.swo
-*~
-
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+.shopify
