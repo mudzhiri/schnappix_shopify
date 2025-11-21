@@ -1,1 +1,81 @@
-{"name":"t:sections.header.name","type":"header","sections":{"17635647950f1d5fe2":{"type":"_blocks","blocks":{"ai_gen_block_ea63757_qiXGgL":{"type":"ai_gen_block_ea63757","settings":{"show_announcement":true,"announcement_text":"24\/7 Snacks & Drinks – Premium-Automaten in deiner Stadt","announcement_size":14,"announcement_padding":8,"announcement_bg_color":"#1B9CFF","announcement_text_color":"#FFFFFF","logo_text":"SCHNAPPIX 24\/7","logo_font":"assistant_n4","logo_size":24,"logo_color":"#FFFFFF","nav_link_1_text":"Startseite","nav_link_1_url":"","nav_link_2_text":"Sortiment","nav_link_2_url":"","nav_link_3_text":"Standorte","nav_link_3_url":"","nav_link_4_text":"Für Unternehmen","nav_link_4_url":"","nav_link_5_text":"Über uns","nav_link_5_url":"","nav_link_6_text":"Kontakt","nav_link_6_url":"","nav_font":"assistant_n4","nav_size":15,"nav_spacing":32,"nav_color":"#FFFFFF","nav_hover_color":"#1B9CFF","cta_text":"Standort finden","cta_url":"","cta_font":"assistant_n4","cta_size":14,"cta_padding_vertical":12,"cta_padding_horizontal":24,"cta_border_radius":4,"cta_spacing":12,"cta_bg_color":"#1B9CFF","cta_text_color":"#FFFFFF","cta_hover_bg_color":"#FF2DAA","cta_hover_text_color":"#FFFFFF","show_cart":true,"cart_text":"Warenkorb","cart_color":"#FFFFFF","max_width":1400,"vertical_padding":20,"horizontal_padding":40,"background_color":"#0A0A0A","border_thickness":1,"border_color":"#1B9CFF"},"blocks":{}}},"block_order":["ai_gen_block_ea63757_qiXGgL"],"settings":{}},"1763563788f3a0e85d":{"type":"_blocks","blocks":{"ai_gen_block_f0cba22_CmHx4b":{"type":"ai_gen_block_f0cba22","settings":{"show_badge":true,"badge_text":"24\/7 VERFÜGBAR","headline":true,"headline_part1":"Premium Snacks & Drinks","headline_accent":"24\/7","headline_part2":"","headline_size":56,"subline":"Moderne Selbstbedienungsautomaten an öffentlichen Plätzen, Bahnhöfen, Clubs und Wohngebieten. Immer verfügbar, immer frisch.","subline_size":18,"primary_btn_text":"Standorte ansehen","primary_btn_link":"","secondary_btn_text":"B2B Anfrage","secondary_btn_link":"","button_radius":8,"show_features":true,"feature_1_text":"24\/7 Verfügbar","feature_2_text":"Sichere Bezahlung","feature_3_text":"Videoüberwacht","section_height":600,"bg_color_1":"#0a0a0a","bg_color_2":"#1a1a2e","neon_blue":"#1b9cff","neon_pink":"#ff2daa","headline_color":"#ffffff","subline_color":"#b8b8b8","badge_bg_color":"#1a1a2e","badge_text_color":"#1b9cff","primary_btn_text_color":"#ffffff","secondary_btn_bg":"#1b9cff1a","secondary_btn_text_color":"#1b9cff","feature_text_color":"#ffffff"},"blocks":{}}},"block_order":["ai_gen_block_f0cba22_CmHx4b"],"settings":{}},"176356364223ae8cf1":{"type":"_blocks","blocks":{"ai_gen_block_24f9f1a_7R9CzM":{"type":"ai_gen_block_24f9f1a","settings":{"max_width":800,"line_inactive_color":"#e0e0e0","line_active_color":"#121212","dot_size":16,"dot_inactive_color":"#ffffff","dot_active_color":"#121212","dot_border_color":"#e0e0e0","card_background":"#ffffff","card_border_radius":8,"date_color":"#666666","date_font_size":14,"title_color":"#121212","title_font_size":24,"text_color":"#333333","text_font_size":16,"item_1_enabled":true,"item_1_date":"2020","item_1_title":"Company founded","item_1_description":"Our journey began with a simple idea and a passion for innovation.","item_2_enabled":true,"item_2_date":"2021","item_2_title":"First product launch","item_2_description":"We introduced our flagship product to the market with overwhelming success.","item_3_enabled":true,"item_3_date":"2022","item_3_title":"Global expansion","item_3_description":"Expanded operations to serve customers in over 50 countries worldwide.","item_4_enabled":true,"item_4_date":"2023","item_4_title":"Award winning","item_4_description":"Recognized as industry leader with multiple innovation awards.","item_5_enabled":true,"item_5_date":"2024","item_5_title":"Future vision","item_5_description":"Continuing to innovate and shape the future of our industry."},"blocks":{}}},"block_order":["ai_gen_block_24f9f1a_7R9CzM"],"settings":{}},"1763563403e7e705e8":{"type":"_blocks","blocks":{"ai_gen_block_3f0f408_RYEVVR":{"type":"ai_gen_block_3f0f408","settings":{"max_width":1200,"spacing":40,"grid_gap":30,"background_color":"#ffffff","text_color":"#121212","accent_color":"#334fb4","show_feature":true,"feature_height":500,"feature_category":"Featured","feature_title":"The Future of Urban Retail","feature_excerpt":"Exploring how 24\/7 automated stores are transforming the shopping experience in modern cities.","feature_title_size":36,"content_padding":40,"article_1_category":"Trends","article_1_title":"International Snacks Taking Over","article_1_excerpt":"Discover the latest Asian and American trend items now available.","article_1_author":"","article_1_date":"","article_2_category":"Technology","article_2_title":"Vending Machine Innovation","article_2_excerpt":"How smart vending solutions are revolutionizing convenience retail.","article_2_author":"","article_2_date":"","article_3_category":"Lifestyle","article_3_title":"Energy Drinks for Every Moment","article_3_excerpt":"Find the perfect boost for your day, available around the clock.","article_3_author":"","article_3_date":"","article_aspect_ratio":"4 \/ 3","article_title_size":20},"blocks":{}}},"block_order":["ai_gen_block_3f0f408_RYEVVR"],"settings":{}},"announcement-bar":{"type":"announcement-bar","blocks":{"announcement-bar-0":{"type":"announcement","settings":{"text":"Welcome to our store","link":""}}},"block_order":["announcement-bar-0"],"settings":{"auto_rotate":false,"change_slides_speed":5,"color_scheme":"scheme-1","show_line_separator":true,"show_social":false,"enable_country_selector":false,"enable_language_selector":false}},"header":{"type":"header","blocks":{"track123_product_recommendations_3TWme7":{"type":"shopify:\/\/apps\/track123\/blocks\/productRecommendations\/60c49c11-a7c0-49a0-861e-2f84d2f294e6","settings":{"product_recommendations_layout":"grid","product_recommendations_nums":10,"product_recommendations_source":"newest","collection_list":[],"product_image_format":"fit","produce_action_type":"viewItem","custom_css":""}}},"block_order":["track123_product_recommendations_3TWme7"],"settings":{"logo_position":"middle-left","mobile_logo_position":"center","menu":"main-menu","menu_type_desktop":"dropdown","sticky_header_type":"on-scroll-up","show_line_separator":true,"color_scheme":"scheme-1","menu_color_scheme":"scheme-1","enable_country_selector":true,"enable_language_selector":true,"enable_customer_avatar":true,"margin_bottom":0,"padding_top":20,"padding_bottom":20}},"custom_liquid_LKrtLT":{"type":"custom-liquid","name":"t:sections.custom-liquid.presets.name","settings":{"custom_liquid":"","color_scheme":"","padding_top":40,"padding_bottom":52}},"custom_liquid_jLthVF":{"type":"custom-liquid","name":"t:sections.custom-liquid.presets.name","settings":{"custom_liquid":"<header class=\"schnappix-header\">\n  <!-- Announcement Bar -->\n  <div class=\"announcement-bar\">\n    <p>24\/7 Snacks & Drinks – Premium-Automaten in deiner Stadt<\/p>\n  <\/div>\n\n  <div class=\"header-wrapper\">\n    <!-- Logo -->\n    <div class=\"header-logo\">\n      <a href=\"{{ routes.root_url }}\">\n        SCHNAPPIX 24\/7\n      <\/a>\n    <\/div>\n\n    <!-- Desktop Navigation -->\n    <nav class=\"desktop-nav\">\n      <ul>\n        <li><a href=\"{{ routes.root_url }}\">Startseite<\/a><\/li>\n        <li><a href=\"\/collections\/all\">Sortiment<\/a><\/li>\n        <li><a href=\"\/pages\/standorte\">Standorte<\/a><\/li>\n        <li><a href=\"\/pages\/fuer-unternehmen\">Für Unternehmen<\/a><\/li>\n        <li><a href=\"\/pages\/ueber-uns\">Über uns<\/a><\/li>\n        <li><a href=\"\/pages\/kontakt\">Kontakt<\/a><\/li>\n      <\/ul>\n    <\/nav>\n\n    <!-- CTA + Cart -->\n    <div class=\"header-actions\">\n      <a class=\"cta-button\" href=\"\/pages\/standorte\">Standort finden<\/a>\n      <a class=\"cart-link\" href=\"{{ routes.cart_url }}\">Warenkorb ({{ cart.item_count }})<\/a>\n    <\/div>\n\n    <!-- Mobile Menu Button -->\n    <div class=\"mobile-menu-button\" onclick=\"toggleMobileMenu()\">\n      <span><\/span>\n      <span><\/span>\n      <span><\/span>\n    <\/div>\n  <\/div>\n\n  <!-- Mobile Menu -->\n  <div id=\"mobile-menu\" class=\"mobile-menu\">\n    <ul>\n      <li><a href=\"{{ routes.root_url }}\">Startseite<\/a><\/li>\n      <li><a href=\"\/collections\/all\">Sortiment<\/a><\/li>\n      <li><a href=\"\/pages\/standorte\">Standorte<\/a><\/li>\n      <li><a href=\"\/pages\/fuer-unternehmen\">Für Unternehmen<\/a><\/li>\n      <li><a href=\"\/pages\/ueber-uns\">Über uns<\/a><\/li>\n      <li><a href=\"\/pages\/kontakt\">Kontakt<\/a><\/li>\n    <\/ul>\n    <a class=\"cta-button\" href=\"\/pages\/standorte\">Standort finden<\/a>\n  <\/div>\n\n  <style>\n    \/* Announcement Bar *\/\n    .announcement-bar {\n      width: 100%;\n      background: #1B9CFF;\n      padding: 8px 0;\n      text-align: center;\n      color: #FFFFFF;\n      font-family: Inter, sans-serif;\n      font-size: 14px;\n    }\n\n    \/* Header Layout *\/\n    .schnappix-header {\n      background: #0A0A0A;\n      color: #FFFFFF;\n      padding: 15px 30px;\n      border-bottom: 1px solid #222;\n    }\n\n    .header-wrapper {\n      display: flex;\n      justify-content: space-between;\n      align-items: center;\n      max-width: 1400px;\n      margin: 0 auto;\n    }\n\n    \/* Logo *\/\n    .header-logo a {\n      color: #FFFFFF;\n      font-size: 24px;\n      font-weight: 700;\n      text-decoration: none;\n      font-family: Montserrat, sans-serif;\n    }\n\n    \/* Desktop Navigation *\/\n    .desktop-nav ul {\n      list-style: none;\n      margin: 0;\n      padding: 0;\n      display: flex;\n      gap: 25px;\n    }\n\n    .desktop-nav a {\n      text-decoration: none;\n      color: #FFFFFF;\n      font-family: Inter, sans-serif;\n      font-size: 15px;\n    }\n\n    .desktop-nav a:hover {\n      color: #1B9CFF;\n    }\n\n    \/* CTA Button *\/\n    .cta-button {\n      background: #1B9CFF;\n      color: #FFFFFF !important;\n      padding: 10px 18px;\n      border-radius: 6px;\n      text-decoration: none;\n      font-family: Montserrat, sans-serif;\n      font-weight: 600;\n      margin-left: 20px;\n    }\n\n    .cta-button:hover {\n      background: #FF2DAA;\n    }\n\n    .cart-link {\n      color: #FFFFFF;\n      margin-left: 15px;\n      font-family: Inter, sans-serif;\n    }\n\n    \/* Mobile Menu Button *\/\n    .mobile-menu-button {\n      display: none;\n      flex-direction: column;\n      gap: 5px;\n      cursor: pointer;\n    }\n\n    .mobile-menu-button span {\n      width: 25px;\n      height: 3px;\n      background: #FFFFFF;\n    }\n\n    \/* Mobile Menu *\/\n    .mobile-menu {\n      display: none;\n      background: #0A0A0A;\n      padding: 20px;\n      border-top: 1px solid #222;\n    }\n\n    .mobile-menu ul {\n      list-style: none;\n      padding: 0;\n      margin: 0 0 20px 0;\n    }\n\n    .mobile-menu ul li {\n      padding: 10px 0;\n    }\n\n    .mobile-menu a {\n      color: #FFFFFF;\n      font-family: Inter, sans-serif;\n      font-size: 18px;\n      text-decoration: none;\n    }\n\n    .mobile-menu a:hover {\n      color: #1B9CFF;\n    }\n\n    @media (max-width: 900px) {\n      .desktop-nav {\n        display: none;\n      }\n      .header-actions {\n        display: none;\n      }\n      .mobile-menu-button {\n        display: flex;\n      }\n      .mobile-menu {\n        display: none;\n      }\n    }\n  <\/style>\n\n  <script>\n    function toggleMobileMenu() {\n      var menu = document.getElementById(\"mobile-menu\");\n      menu.style.display = (menu.style.display === \"block\") ? \"none\" : \"block\";\n    }\n  <\/script>\n<\/header>","color_scheme":"","padding_top":40,"padding_bottom":52}}},"order":["17635647950f1d5fe2","1763563788f3a0e85d","176356364223ae8cf1","1763563403e7e705e8","announcement-bar","header","custom_liquid_LKrtLT","custom_liquid_jLthVF"]}
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "name": "t:sections.header.name",
+  "type": "header",
+  "sections": {
+    "17635647950f1d5fe2": {
+      "type": "_blocks",
+      "settings": {}
+    },
+    "1763563788f3a0e85d": {
+      "type": "_blocks",
+      "settings": {}
+    },
+    "176356364223ae8cf1": {
+      "type": "_blocks",
+      "settings": {}
+    },
+    "1763563403e7e705e8": {
+      "type": "_blocks",
+      "settings": {}
+    },
+    "announcement-bar": {
+      "type": "announcement-bar",
+      "settings": {
+        "auto_rotate": false,
+        "change_slides_speed": 5,
+        "color_scheme": "scheme-1",
+        "show_line_separator": true,
+        "show_social": false,
+        "enable_country_selector": false,
+        "enable_language_selector": false
+      }
+    },
+    "header": {
+      "type": "header",
+      "settings": {
+        "logo_position": "middle-left",
+        "mobile_logo_position": "center",
+        "menu": "main-menu",
+        "menu_type_desktop": "dropdown",
+        "sticky_header_type": "on-scroll-up",
+        "show_line_separator": true,
+        "color_scheme": "scheme-1",
+        "menu_color_scheme": "scheme-1",
+        "enable_country_selector": true,
+        "enable_language_selector": true,
+        "enable_customer_avatar": true,
+        "margin_bottom": 0,
+        "padding_top": 20,
+        "padding_bottom": 20
+      }
+    },
+    "custom_liquid_LKrtLT": {
+      "type": "custom-liquid",
+      "name": "t:sections.custom-liquid.presets.name",
+      "settings": {
+        "custom_liquid": "",
+        "color_scheme": "",
+        "padding_top": 40,
+        "padding_bottom": 52
+      }
+    }
+  },
+  "order": [
+    "17635647950f1d5fe2",
+    "1763563788f3a0e85d",
+    "176356364223ae8cf1",
+    "1763563403e7e705e8",
+    "announcement-bar",
+    "header",
+    "custom_liquid_LKrtLT"
+  ]
+}
