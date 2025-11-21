@@ -1,0 +1,575 @@
+{% doc %}
+  @prompt
+    Erstelle eine vollständige, professionelle und moderne Website-Struktur und Texte für eine Marke namens SCHNAPPIX 24/7.
+    SCHNAPPIX 24/7 ist ein modernes 24/7-Selbstbedienungskonzept mit Premium-Snackautomaten, Getränkeautomaten, Vape- & Hygieneautomaten und Trendprodukten aus Korea, Japan und den USA.
+    Die Automaten stehen an öffentlichen Plätzen, Bahnhöfen, Clubs, Schulen, Tankstellen, Wohngebieten und eröffnen moderne 24/7 Mini-Stores.
+    
+    ⸻
+    
+    Ziele der Website
+    	•	Sofort erklären, was SCHNAPPIX ist
+    	•	Vertrauen schaffen
+    	•	Standorte präsentieren
+    	•	Sortiment (Snacks, Drinks, Trends, Hygiene, Vapes) zeigen
+    	•	Firmenkunden (B2B) gewinnen
+    	•	Kontaktanfragen generieren
+    
+    ⸻
+    
+    Designstil
+    	•	Modern, urban, clean
+    	•	Schwarzer Hintergrund mit Neon-Elementen
+    	•	Farbpalette: Schwarz (#0A0A0A), Neon-Blau (#1B9CFF), Neon-Pink (#FF2DAA), Weiß (#FFFFFF)
+    	•	Schrift: Montserrat für Überschriften, Inter für Texte
+    	•	Wording: Direkt, zuverlässig, modern, vertrauenswürdig
+    
+    ⸻
+    
+    Bitte erstellen:
+    
+    1. Startseite
+    
+    Mit klaren Bausteinen:
+    	•	Hero-Section: starke Headline + Subline + Buttons
+    	•	Vorteil-Section (24/7, Premium-Produkte, sichere Bezahlung, Videoüberwachung)
+    	•	Produktkategorien (Snacks, Drinks, Asia/US-Trends, Hygiene, Vapes)
+    	•	Standortübersicht (funktioniert als Section)
+    	•	Fotos der Automaten
+    	•	Kundenbewertungen
+    	•	CTA: „Standort ansehen“, „Automat für Firma anfragen“
+    
+    ⸻
+    
+    2. Standort-Seite
+    	•	Listung aller Automatenstandorte
+    	•	Buttons: „Google Maps öffnen“
+    	•	Kleine Beschreibung je Standort
+    	•	Hinweis auf 24/7 & Sortimentsvariationen
+    
+    ⸻
+    
+    3. Produkte / Sortiment
+    
+    Erstelle Kategorie-Abschnitte:
+    	•	Snacks
+    	•	Getränke
+    	•	Energy & Functional
+    	•	Japan/Korea/USA Trendprodukte
+    	•	Hygiene & Convenience
+    	•	Vapes (mit Hinweis Altersverifikation PAX)
+    
+    Jede Kategorie soll eine kurze, moderne Beschreibung bekommen.
+    
+    ⸻
+    
+    4. B2B / Geschäftskunden
+    
+    Erstelle eine komplette B2B-Seite:
+    	•	Warum ein SCHNAPPIX-Automat?
+    	•	Angebot: „Automat kostenlos aufstellen lassen“
+    	•	Vorteile für Firmenkunden
+    	•	Kurz
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .schnappix-hero-{{ ai_gen_id }} {
+    position: relative;
+    min-height: {{ block.settings.section_height }}px;
+    background: linear-gradient(135deg, {{ block.settings.bg_color_1 }} 0%, {{ block.settings.bg_color_2 }} 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    padding: 60px 20px;
+  }
+
+  .schnappix-hero-{{ ai_gen_id }}::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: url('data:image/svg+xml,<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><defs><pattern id="grid" width="100" height="100" patternUnits="userSpaceOnUse"><path d="M 100 0 L 0 0 0 100" fill="none" stroke="rgba(27,156,255,0.1)" stroke-width="1"/></pattern></defs><rect width="100%" height="100%" fill="url(%23grid)"/></svg>');
+    opacity: 0.3;
+    pointer-events: none;
+  }
+
+  .schnappix-hero-content-{{ ai_gen_id }} {
+    position: relative;
+    z-index: 2;
+    max-width: 1200px;
+    width: 100%;
+    text-align: center;
+  }
+
+  .schnappix-hero-badge-{{ ai_gen_id }} {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: {{ block.settings.badge_bg_color }};
+    color: {{ block.settings.badge_text_color }};
+    padding: 8px 20px;
+    border-radius: 50px;
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 24px;
+    border: 1px solid {{ block.settings.neon_blue }};
+    box-shadow: 0 0 20px {{ block.settings.neon_blue }}40;
+  }
+
+  .schnappix-hero-badge-icon-{{ ai_gen_id }} {
+    width: 16px;
+    height: 16px;
+    background: {{ block.settings.neon_blue }};
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .schnappix-hero-headline-{{ ai_gen_id }} {
+    font-size: {{ block.settings.headline_size }}px;
+    font-weight: 800;
+    color: {{ block.settings.headline_color }};
+    margin: 0 0 20px;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+  }
+
+  .schnappix-hero-headline-{{ ai_gen_id }} .neon-accent {
+    background: linear-gradient(135deg, {{ block.settings.neon_blue }} 0%, {{ block.settings.neon_pink }} 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .schnappix-hero-subline-{{ ai_gen_id }} {
+    font-size: {{ block.settings.subline_size }}px;
+    color: {{ block.settings.subline_color }};
+    margin: 0 0 40px;
+    line-height: 1.6;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .schnappix-hero-buttons-{{ ai_gen_id }} {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .schnappix-hero-btn-{{ ai_gen_id }} {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 16px 32px;
+    font-size: 16px;
+    font-weight: 600;
+    text-decoration: none;
+    border-radius: {{ block.settings.button_radius }}px;
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+  }
+
+  .schnappix-hero-btn-primary-{{ ai_gen_id }} {
+    background: linear-gradient(135deg, {{ block.settings.neon_blue }} 0%, {{ block.settings.neon_pink }} 100%);
+    color: {{ block.settings.primary_btn_text_color }};
+    box-shadow: 0 4px 20px {{ block.settings.neon_blue }}40;
+  }
+
+  .schnappix-hero-btn-primary-{{ ai_gen_id }}:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 30px {{ block.settings.neon_blue }}60;
+  }
+
+  .schnappix-hero-btn-secondary-{{ ai_gen_id }} {
+    background: {{ block.settings.secondary_btn_bg }};
+    color: {{ block.settings.secondary_btn_text_color }};
+    border-color: {{ block.settings.neon_blue }};
+  }
+
+  .schnappix-hero-btn-secondary-{{ ai_gen_id }}:hover {
+    background: {{ block.settings.neon_blue }};
+    color: {{ block.settings.primary_btn_text_color }};
+    transform: translateY(-2px);
+  }
+
+  .schnappix-hero-features-{{ ai_gen_id }} {
+    display: flex;
+    gap: 40px;
+    justify-content: center;
+    margin-top: 60px;
+    flex-wrap: wrap;
+  }
+
+  .schnappix-hero-feature-{{ ai_gen_id }} {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: {{ block.settings.feature_text_color }};
+    font-size: 14px;
+  }
+
+  .schnappix-hero-feature-icon-{{ ai_gen_id }} {
+    width: 24px;
+    height: 24px;
+    background: {{ block.settings.neon_blue }}20;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: {{ block.settings.neon_blue }};
+  }
+
+  @media screen and (max-width: 749px) {
+    .schnappix-hero-{{ ai_gen_id }} {
+      min-height: {{ block.settings.section_height | times: 0.7 }}px;
+      padding: 40px 20px;
+    }
+
+    .schnappix-hero-headline-{{ ai_gen_id }} {
+      font-size: {{ block.settings.headline_size | times: 0.6 }}px;
+    }
+
+    .schnappix-hero-subline-{{ ai_gen_id }} {
+      font-size: {{ block.settings.subline_size | times: 0.9 }}px;
+    }
+
+    .schnappix-hero-buttons-{{ ai_gen_id }} {
+      flex-direction: column;
+      width: 100%;
+    }
+
+    .schnappix-hero-btn-{{ ai_gen_id }} {
+      width: 100%;
+      justify-content: center;
+    }
+
+    .schnappix-hero-features-{{ ai_gen_id }} {
+      flex-direction: column;
+      gap: 20px;
+      align-items: center;
+    }
+  }
+{% endstyle %}
+
+<div class="schnappix-hero-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  <div class="schnappix-hero-content-{{ ai_gen_id }}">
+    {% if block.settings.show_badge %}
+      <div class="schnappix-hero-badge-{{ ai_gen_id }}">
+        <span class="schnappix-hero-badge-icon-{{ ai_gen_id }}">
+          <svg width="8" height="8" viewBox="0 0 8 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="4" cy="4" r="4" fill="white"/>
+          </svg>
+        </span>
+        {{ block.settings.badge_text }}
+      </div>
+    {% endif %}
+
+    {% if block.settings.headline != blank %}
+      <h1 class="schnappix-hero-headline-{{ ai_gen_id }}">
+        {{ block.settings.headline_part1 }} <span class="neon-accent">{{ block.settings.headline_accent }}</span> {{ block.settings.headline_part2 }}
+      </h1>
+    {% endif %}
+
+    {% if block.settings.subline != blank %}
+      <p class="schnappix-hero-subline-{{ ai_gen_id }}">
+        {{ block.settings.subline }}
+      </p>
+    {% endif %}
+
+    <div class="schnappix-hero-buttons-{{ ai_gen_id }}">
+      {% if block.settings.primary_btn_text != blank %}
+        <a href="{{ block.settings.primary_btn_link }}" class="schnappix-hero-btn-{{ ai_gen_id }} schnappix-hero-btn-primary-{{ ai_gen_id }}">
+          {{ block.settings.primary_btn_text }}
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M7.5 15L12.5 10L7.5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </a>
+      {% endif %}
+
+      {% if block.settings.secondary_btn_text != blank %}
+        <a href="{{ block.settings.secondary_btn_link }}" class="schnappix-hero-btn-{{ ai_gen_id }} schnappix-hero-btn-secondary-{{ ai_gen_id }}">
+          {{ block.settings.secondary_btn_text }}
+        </a>
+      {% endif %}
+    </div>
+
+    {% if block.settings.show_features %}
+      <div class="schnappix-hero-features-{{ ai_gen_id }}">
+        {% if block.settings.feature_1_text != blank %}
+          <div class="schnappix-hero-feature-{{ ai_gen_id }}">
+            <span class="schnappix-hero-feature-icon-{{ ai_gen_id }}">
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M11.6667 3.5L5.25 9.91667L2.33333 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </span>
+            {{ block.settings.feature_1_text }}
+          </div>
+        {% endif %}
+
+        {% if block.settings.feature_2_text != blank %}
+          <div class="schnappix-hero-feature-{{ ai_gen_id }}">
+            <span class="schnappix-hero-feature-icon-{{ ai_gen_id }}">
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M11.6667 3.5L5.25 9.91667L2.33333 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </span>
+            {{ block.settings.feature_2_text }}
+          </div>
+        {% endif %}
+
+        {% if block.settings.feature_3_text != blank %}
+          <div class="schnappix-hero-feature-{{ ai_gen_id }}">
+            <span class="schnappix-hero-feature-icon-{{ ai_gen_id }}">
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M11.6667 3.5L5.25 9.91667L2.33333 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </span>
+            {{ block.settings.feature_3_text }}
+          </div>
+        {% endif %}
+      </div>
+    {% endif %}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "SCHNAPPIX Hero",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Badge"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_badge",
+      "label": "Badge anzeigen",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "badge_text",
+      "label": "Badge Text",
+      "default": "24/7 VERFÜGBAR"
+    },
+    {
+      "type": "header",
+      "content": "Überschriften"
+    },
+    {
+      "type": "checkbox",
+      "id": "headline",
+      "label": "Überschrift anzeigen",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "headline_part1",
+      "label": "Überschrift Teil 1",
+      "default": "Premium Snacks & Drinks"
+    },
+    {
+      "type": "text",
+      "id": "headline_accent",
+      "label": "Überschrift Akzent (Neon)",
+      "default": "24/7"
+    },
+    {
+      "type": "text",
+      "id": "headline_part2",
+      "label": "Überschrift Teil 2"
+    },
+    {
+      "type": "range",
+      "id": "headline_size",
+      "min": 32,
+      "max": 80,
+      "step": 2,
+      "unit": "px",
+      "label": "Überschriftgröße",
+      "default": 56
+    },
+    {
+      "type": "textarea",
+      "id": "subline",
+      "label": "Unterüberschrift",
+      "default": "Moderne Selbstbedienungsautomaten an öffentlichen Plätzen, Bahnhöfen, Clubs und Wohngebieten. Immer verfügbar, immer frisch."
+    },
+    {
+      "type": "range",
+      "id": "subline_size",
+      "min": 14,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "label": "Unterüberschriftgröße",
+      "default": 18
+    },
+    {
+      "type": "header",
+      "content": "Buttons"
+    },
+    {
+      "type": "text",
+      "id": "primary_btn_text",
+      "label": "Primärer Button Text",
+      "default": "Standorte ansehen"
+    },
+    {
+      "type": "url",
+      "id": "primary_btn_link",
+      "label": "Primärer Button Link"
+    },
+    {
+      "type": "text",
+      "id": "secondary_btn_text",
+      "label": "Sekundärer Button Text",
+      "default": "B2B Anfrage"
+    },
+    {
+      "type": "url",
+      "id": "secondary_btn_link",
+      "label": "Sekundärer Button Link"
+    },
+    {
+      "type": "range",
+      "id": "button_radius",
+      "min": 0,
+      "max": 50,
+      "step": 2,
+      "unit": "px",
+      "label": "Button Radius",
+      "default": 8
+    },
+    {
+      "type": "header",
+      "content": "Features"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_features",
+      "label": "Features anzeigen",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "feature_1_text",
+      "label": "Feature 1",
+      "default": "24/7 Verfügbar"
+    },
+    {
+      "type": "text",
+      "id": "feature_2_text",
+      "label": "Feature 2",
+      "default": "Sichere Bezahlung"
+    },
+    {
+      "type": "text",
+      "id": "feature_3_text",
+      "label": "Feature 3",
+      "default": "Videoüberwacht"
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "section_height",
+      "min": 400,
+      "max": 800,
+      "step": 20,
+      "unit": "px",
+      "label": "Sektionshöhe",
+      "default": 600
+    },
+    {
+      "type": "header",
+      "content": "Farben"
+    },
+    {
+      "type": "color",
+      "id": "bg_color_1",
+      "label": "Hintergrund Start",
+      "default": "#0A0A0A"
+    },
+    {
+      "type": "color",
+      "id": "bg_color_2",
+      "label": "Hintergrund Ende",
+      "default": "#1a1a2e"
+    },
+    {
+      "type": "color",
+      "id": "neon_blue",
+      "label": "Neon Blau",
+      "default": "#1B9CFF"
+    },
+    {
+      "type": "color",
+      "id": "neon_pink",
+      "label": "Neon Pink",
+      "default": "#FF2DAA"
+    },
+    {
+      "type": "color",
+      "id": "headline_color",
+      "label": "Überschrift Farbe",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "subline_color",
+      "label": "Unterüberschrift Farbe",
+      "default": "#B8B8B8"
+    },
+    {
+      "type": "color",
+      "id": "badge_bg_color",
+      "label": "Badge Hintergrund",
+      "default": "#1a1a2e"
+    },
+    {
+      "type": "color",
+      "id": "badge_text_color",
+      "label": "Badge Text",
+      "default": "#1B9CFF"
+    },
+    {
+      "type": "color",
+      "id": "primary_btn_text_color",
+      "label": "Primärer Button Text",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "secondary_btn_bg",
+      "label": "Sekundärer Button Hintergrund",
+      "default": "rgba(27, 156, 255, 0.1)"
+    },
+    {
+      "type": "color",
+      "id": "secondary_btn_text_color",
+      "label": "Sekundärer Button Text",
+      "default": "#1B9CFF"
+    },
+    {
+      "type": "color",
+      "id": "feature_text_color",
+      "label": "Feature Text",
+      "default": "#FFFFFF"
+    }
+  ],
+  "presets": [
+    {
+      "name": "SCHNAPPIX Hero"
+    }
+  ]
+}
+{% endschema %}
