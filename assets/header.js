@@ -213,19 +213,20 @@ function initHeaderAnimations() {
     });
   }
   
-  // Force icons to be visible and trigger animation
-  const icons = document.querySelectorAll('.header__icon, .header__hamburger');
-  icons.forEach(icon => {
-    // Ensure initial state
-    icon.style.opacity = '0';
-    icon.style.transform = 'translateX(100px)';
-    icon.style.visibility = 'visible';
-    // Force animation to restart
-    icon.style.animation = 'none';
-    setTimeout(() => {
-      icon.style.animation = '';
-    }, 10);
-  });
+  // Ensure icons are visible and animation can start
+  setTimeout(() => {
+    const icons = document.querySelectorAll('.header__right .header__icon, .header__right .header__hamburger');
+    icons.forEach((icon, index) => {
+      // Reset to initial state
+      icon.style.opacity = '0';
+      icon.style.transform = 'translateX(150px)';
+      // Trigger animation with delay
+      const delay = 0.2 + (index * 0.3);
+      setTimeout(() => {
+        icon.style.animation = `iconFlyIn 1s ease-out ${delay}s forwards`;
+      }, 50);
+    });
+  }, 100);
 }
 
 if (document.readyState === 'loading') {
