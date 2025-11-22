@@ -216,7 +216,6 @@ function initHeaderAnimations() {
   // Force icon animations to trigger - with retry mechanism
   function triggerIconAnimations() {
     const icons = document.querySelectorAll('.header__icon, .header__hamburger');
-    console.log('Found icons:', icons.length); // Debug log
     
     if (icons.length === 0) {
       // Retry after a short delay if icons aren't loaded yet
