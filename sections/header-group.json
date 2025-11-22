@@ -11,40 +11,12 @@
   "name": "t:sections.header.name",
   "type": "header",
   "sections": {
-    "17635647950f1d5fe2": {
-      "type": "_blocks",
-      "settings": {}
-    },
-    "1763563788f3a0e85d": {
-      "type": "_blocks",
-      "settings": {}
-    },
-    "176356364223ae8cf1": {
-      "type": "_blocks",
-      "settings": {}
-    },
-    "1763563403e7e705e8": {
-      "type": "_blocks",
-      "settings": {}
-    },
-    "announcement-bar": {
-      "type": "announcement-bar",
-      "settings": {
-        "auto_rotate": false,
-        "change_slides_speed": 5,
-        "color_scheme": "scheme-1",
-        "show_line_separator": true,
-        "show_social": false,
-        "enable_country_selector": false,
-        "enable_language_selector": false
-      }
-    },
     "header": {
       "type": "header",
       "settings": {
         "logo_position": "middle-left",
         "mobile_logo_position": "left",
-        "menu": "test-menu",
+        "menu": "",
         "menu_type_desktop": "mega",
         "sticky_header_type": "on-scroll-up",
         "show_line_separator": true,
@@ -70,11 +42,6 @@
     }
   },
   "order": [
-    "17635647950f1d5fe2",
-    "1763563788f3a0e85d",
-    "176356364223ae8cf1",
-    "1763563403e7e705e8",
-    "announcement-bar",
     "header",
     "custom_liquid_LKrtLT"
   ]
