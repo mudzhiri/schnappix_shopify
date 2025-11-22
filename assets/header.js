@@ -213,19 +213,38 @@ function initHeaderAnimations() {
     });
   }
   
-  // Force icon animations to trigger
-  const icons = document.querySelectorAll('.header__icon, .header__hamburger');
-  icons.forEach((icon, index) => {
-    // Reset and force animation
-    icon.style.opacity = '0';
-    icon.style.transform = 'translateX(100px)';
+  // Force icon animations to trigger - with retry mechanism
+  function triggerIconAnimations() {
+    const icons = document.querySelectorAll('.header__icon, .header__hamburger');
+    if (icons.length === 0) {
+      // Retry after a short delay if icons aren't loaded yet
+      setTimeout(triggerIconAnimations, 100);
+      return;
+    }
     
-    // Trigger animation with delay
-    setTimeout(() => {
-      icon.style.animation = `iconFlyInFromRight 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards`;
-      icon.style.animationDelay = `${0.2 + (index * 0.3)}s`;
-    }, 50);
-  });
+    icons.forEach((icon, index) => {
+      // Reset initial state
+      icon.style.opacity = '0';
+      icon.style.transform = 'translateX(100px)';
+      icon.style.visibility = 'visible';
+      
+      // Add animation class with delay
+      const delay = 0.2 + (index * 0.3);
+      setTimeout(() => {
+        icon.classList.add('animate-icon');
+        icon.style.animationDelay = `${delay}s`;
+      }, 50);
+    });
+  }
+  
+  // Trigger immediately and also on load
+  setTimeout(triggerIconAnimations, 100);
+  window.addEventListener('load', triggerIconAnimations);
+  
+  // Also trigger for theme editor
+  if (typeof Shopify !== 'undefined' && Shopify.designMode) {
+    document.addEventListener('shopify:section:load', triggerIconAnimations);
+  }
 }
 
 if (document.readyState === 'loading') {

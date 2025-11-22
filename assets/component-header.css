@@ -211,8 +211,14 @@
   position: relative;
   transition: color var(--header-transition), transform var(--header-transition);
   border-radius: 0px; /* Square, bold icons - no rounded corners */
-  opacity: 0 !important;
-  transform: translateX(100px) !important; /* Start from right */
+  opacity: 0;
+  transform: translateX(100px); /* Start from right */
+  visibility: visible;
+}
+
+/* Animation wird per JavaScript getriggert */
+.header__icon.animate-icon,
+.header__hamburger.animate-icon {
   animation: iconFlyInFromRight 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards !important;
 }
 
