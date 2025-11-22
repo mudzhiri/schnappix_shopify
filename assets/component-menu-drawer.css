@@ -45,18 +45,18 @@
 }
 
 /* ============================================
-   Panel (Slide-in from right)
+   Panel (Slide-in from LEFT - SCHNAPPIX Style)
    ============================================ */
 .menu-drawer-modern__panel {
   position: absolute;
   top: 0;
-  right: 0;
+  left: 0; /* Changed from right to left */
   width: 100%;
   max-width: 40rem;
   height: 100%;
-  background-color: rgb(var(--color-background));
-  box-shadow: -4px 0 20px rgba(0, 0, 0, 0.15);
-  transform: translateX(100%);
+  background-color: #111111; /* Solid black background */
+  box-shadow: 4px 0 20px rgba(0, 0, 0, 0.3); /* Shadow on right side now */
+  transform: translateX(-100%); /* Start from left */
   transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   display: flex;
   flex-direction: column;
@@ -64,7 +64,7 @@
 }
 
 .menu-drawer-modern[data-open="true"] .menu-drawer-modern__panel {
-  transform: translateX(0);
+  transform: translateX(0); /* Slide in from left */
 }
 
 @media screen and (max-width: 749px) {

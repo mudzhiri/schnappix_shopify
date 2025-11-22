@@ -47,7 +47,7 @@
   opacity: 0.3;
 }
 
-/* Dark Gradient Overlay */
+/* Dark Gradient Overlay - SCHNAPPIX Style (black → transparent) */
 .schnappix-hero__overlay {
   position: absolute;
   top: 0;
@@ -56,9 +56,10 @@
   height: 100%;
   background: linear-gradient(
     180deg,
-    rgba(0, 0, 0, 0.3) 0%,
-    rgba(0, 0, 0, var(--hero-overlay-opacity, 0.5)) 50%,
-    rgba(0, 0, 0, 0.7) 100%
+    rgba(17, 17, 17, 0.8) 0%,
+    rgba(17, 17, 17, 0.5) 30%,
+    rgba(17, 17, 17, 0.2) 60%,
+    rgba(17, 17, 17, 0) 100%
   );
   z-index: 2;
 }
@@ -87,9 +88,14 @@
 .schnappix-hero__content-inner {
   max-width: 800px;
   margin: 0 auto;
-  animation: fadeInUp 1.2s ease-out 0.4s both;
   opacity: 0;
-  transform: translateY(30px);
+  transform: translateY(20px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+.schnappix-hero__content-inner.animate-in {
+  opacity: 1;
+  transform: none;
 }
 
 /* Logo */
@@ -112,15 +118,16 @@
   }
 }
 
-/* Headline */
+/* Headline - SCHNAPPIX Style: white, huge, tight spacing */
 .schnappix-hero__headline {
-  color: var(--hero-text-color, #ffffff);
-  font-weight: 900;
+  color: #FFFFFF; /* White headline */
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 800; /* ExtraBold */
   font-size: 3.5rem;
   line-height: 1.1;
   margin: 0 0 1.5rem 0;
   text-transform: uppercase;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.01em; /* Tight spacing */
   text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.8);
   animation: fadeInUp 1s ease-out 0.3s both;
 }

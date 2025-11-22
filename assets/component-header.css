@@ -7,7 +7,7 @@
    CSS Variables
    ============================================ */
 :root {
-  --header-accent-color: var(--spx-orange, #E65100); /* SCHNAPPIX Orange */
+  --header-accent-color: var(--spx-orange, #E85522); /* SCHNAPPIX Orange */
   --header-transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   --header-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
   --header-shadow-scrolled: 0 4px 20px rgba(0, 0, 0, 0.12);
@@ -31,7 +31,7 @@
 .header--modern {
   position: sticky;
   top: 0;
-  background-color: var(--spx-black, #1A1A1A);
+  background-color: var(--spx-black, #111111); /* Solid black background */
   transition: all 0.25s ease, box-shadow var(--header-transition);
   z-index: 40;
 }
@@ -55,7 +55,7 @@
 .header--modern.header--shrink {
   padding-top: 0.6rem !important;
   padding-bottom: 0.6rem !important;
-  background: rgba(26, 26, 26, 0.95) !important;
+  background: rgba(17, 17, 17, 0.95) !important;
   backdrop-filter: blur(10px);
 }
 
@@ -74,6 +74,23 @@
   max-width: var(--page-width);
   margin: 0 auto;
   gap: 2rem;
+  position: relative;
+}
+
+/* Logo centered on all screens */
+.header__left {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1001;
+}
+
+@media screen and (max-width: 749px) {
+  .header__left {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+  }
 }
 
 /* ============================================
@@ -107,7 +124,8 @@
 }
 
 .header__logo-link:hover {
-  opacity: 0.8;
+  transition: all 0.25s ease;
+  filter: drop-shadow(0 0 8px rgba(232, 85, 34, 0.4)); /* Subtle glow animation */
 }
 
 .header__logo-wrapper {
@@ -191,10 +209,19 @@
   text-decoration: none;
   position: relative;
   transition: color var(--header-transition), transform var(--header-transition);
-  border-radius: 50%;
+  border-radius: 0px; /* Square, bold icons - no rounded corners */
   opacity: 0;
   transform: translateX(-100px);
   animation: iconFlyIn 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+/* Square, bold, black icons */
+.header__icon svg {
+  width: 2.4rem;
+  height: 2.4rem;
+  stroke-width: 2;
+  fill: #111111; /* Black icons */
+  stroke: #111111;
 }
 
 /* Stagger Animation für Icons - 3 Sekunden Gesamtdauer */
@@ -228,8 +255,13 @@
 }
 
 .header__icon:hover {
-  color: var(--spx-orange, #E65100);
+  color: var(--spx-orange, #E85522);
   transform: scale(1.05) translateX(0);
+}
+
+.header__icon:hover svg {
+  fill: #E85522; /* Orange on hover */
+  stroke: #E85522;
 }
 
 .header__icon:active {
@@ -254,7 +286,7 @@
 /* Search / Account / Cart Icons Hover Animation */
 .header__icon:hover .svg-wrapper svg {
   transform: scale(1.2);
-  fill: var(--spx-orange, #E65100);
+  fill: var(--spx-orange, #E85522);
 }
 
 /* ============================================
@@ -326,7 +358,7 @@
 .header__hamburger:hover .header__hamburger-inner,
 .header__hamburger:hover .header__hamburger-inner::before,
 .header__hamburger:hover .header__hamburger-inner::after {
-  background-color: var(--spx-orange, #E65100);
+  background-color: var(--spx-orange, #E85522);
 }
 
 /* Hamburger Active State (X) */
@@ -354,7 +386,7 @@
   min-width: 1.8rem;
   height: 1.8rem;
   padding: 0 0.4rem;
-  background-color: var(--spx-orange, #E65100);
+  background-color: var(--spx-orange, #E85522);
   color: var(--spx-white, #FFFFFF);
   font-size: 1rem;
   font-weight: 700;
@@ -461,7 +493,7 @@
   bottom: -2px;
   width: 0%;
   height: 3px;
-  background: var(--spx-orange, #E65100);
+  background: var(--spx-orange, #E85522);
   transition: width 0.25s ease-out;
 }
 
