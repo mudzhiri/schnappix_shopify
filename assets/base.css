@@ -298,6 +298,19 @@ html {
   scroll-behavior: smooth;
 }
 
+/* Auto-scroll to sections - account for sticky header */
+section[id],
+[id^="shopify-section-"] {
+  scroll-margin-top: 100px;
+}
+
+@media screen and (max-width: 749px) {
+  section[id],
+  [id^="shopify-section-"] {
+    scroll-margin-top: 80px;
+  }
+}
+
 .hxxl {
   font-size: clamp(calc(var(--font-heading-scale) * 5.6rem), 14vw, calc(var(--font-heading-scale) * 7.2rem));
   line-height: 1.1;
