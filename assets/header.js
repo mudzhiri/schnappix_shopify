@@ -68,6 +68,9 @@ class ModernHeader {
 
     // Prevent body scroll when menu is open
     this.observeMenuState();
+
+    // Header shrink on scroll
+    this.setupHeaderShrink();
   }
 
   toggleMenu() {
@@ -167,15 +170,50 @@ class ModernHeader {
       attributeFilter: ['data-open'],
     });
   }
+
+  // Header Shrink on Scroll
+  setupHeaderShrink() {
+    if (!this.header) return;
+
+    let ticking = false;
+
+    const handleScroll = () => {
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          if (window.scrollY > 40) {
+            this.header.classList.add('header--shrink');
+          } else {
+            this.header.classList.remove('header--shrink');
+          }
+          ticking = false;
+        });
+        ticking = true;
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+  }
 }
 
 // Initialize when DOM is ready
 if (document.readyState === 'loading') {
   document.addEventListener('DOMContentLoaded', () => {
     new ModernHeader();
+    
+    // Add header-animate class for smooth entrance
+    const header = document.querySelector('header.header--modern');
+    if (header) {
+      header.classList.add('header-animate');
+    }
   });
 } else {
   new ModernHeader();
+  
+  // Add header-animate class for smooth entrance
+  const header = document.querySelector('header.header--modern');
+  if (header) {
+    header.classList.add('header-animate');
+  }
 }
 
 // Re-initialize on dynamic content load (for theme editor)
