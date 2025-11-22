@@ -1,0 +1,122 @@
+/**
+ * SCHNAPPIX Animation Debug - Force Visible Animations
+ * This ensures animations are always visible
+ */
+
+/* Force Header Animation */
+header.header--modern {
+  animation: headerInDebug 1.2s ease-out forwards !important;
+  animation-delay: 0.2s !important;
+}
+
+@keyframes headerInDebug {
+  from {
+    opacity: 0 !important;
+    transform: translateY(-40px) !important;
+  }
+  to {
+    opacity: 1 !important;
+    transform: translateY(0) !important;
+  }
+}
+
+/* Force Product Cards Animation */
+.product-card-wrapper {
+  animation: cardFadeInUpDebug 1s ease-out forwards !important;
+}
+
+.product-card-wrapper:nth-child(1) { animation-delay: 0.1s !important; }
+.product-card-wrapper:nth-child(2) { animation-delay: 0.25s !important; }
+.product-card-wrapper:nth-child(3) { animation-delay: 0.4s !important; }
+.product-card-wrapper:nth-child(4) { animation-delay: 0.55s !important; }
+.product-card-wrapper:nth-child(5) { animation-delay: 0.7s !important; }
+.product-card-wrapper:nth-child(6) { animation-delay: 0.85s !important; }
+.product-card-wrapper:nth-child(n+7) { animation-delay: 1s !important; }
+
+@keyframes cardFadeInUpDebug {
+  from {
+    opacity: 0 !important;
+    transform: translateY(50px) !important;
+  }
+  to {
+    opacity: 1 !important;
+    transform: translateY(0) !important;
+  }
+}
+
+/* Force Hero Animation */
+.schnappix-hero__content-inner {
+  animation: heroFadeInDebug 1.5s ease-out 0.3s both !important;
+}
+
+@keyframes heroFadeInDebug {
+  from {
+    opacity: 0 !important;
+    transform: translateY(50px) !important;
+  }
+  to {
+    opacity: 1 !important;
+    transform: translateY(0) !important;
+  }
+}
+
+.schnappix-hero__logo {
+  animation: logoRevealDebug 1.2s ease-out 0.5s both !important;
+}
+
+@keyframes logoRevealDebug {
+  from {
+    opacity: 0 !important;
+    transform: translateY(-30px) scale(0.8) !important;
+  }
+  to {
+    opacity: 1 !important;
+    transform: translateY(0) scale(1) !important;
+  }
+}
+
+.schnappix-hero__headline {
+  animation: headlineRevealDebug 1.3s ease-out 0.7s both !important;
+}
+
+@keyframes headlineRevealDebug {
+  from {
+    opacity: 0 !important;
+    transform: translateY(40px) !important;
+  }
+  to {
+    opacity: 1 !important;
+    transform: translateY(0) !important;
+  }
+}
+
+.schnappix-hero__subheadline {
+  animation: subheadlineRevealDebug 1.2s ease-out 0.9s both !important;
+}
+
+@keyframes subheadlineRevealDebug {
+  from {
+    opacity: 0 !important;
+    transform: translateY(30px) !important;
+  }
+  to {
+    opacity: 1 !important;
+    transform: translateY(0) !important;
+  }
+}
+
+.schnappix-hero__buttons {
+  animation: buttonsRevealDebug 1s ease-out 1.1s both !important;
+}
+
+@keyframes buttonsRevealDebug {
+  from {
+    opacity: 0 !important;
+    transform: translateY(20px) !important;
+  }
+  to {
+    opacity: 1 !important;
+    transform: translateY(0) !important;
+  }
+}
+
