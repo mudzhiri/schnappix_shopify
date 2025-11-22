@@ -56,9 +56,27 @@
         "mobile_content_alignment": "center",
         "show_text_below": true
       }
+    },
+    "schnappix_hero_yx6FFx": {
+      "type": "schnappix-hero",
+      "name": "SCHNAPPIX Hero",
+      "settings": {
+        "video": "",
+        "headline": "Premium Snacks & Drinks 24/7",
+        "subheadline": "Moderne Selbstbedienungsautomaten an öffentlichen Plätzen, Bahnhöfen und Wohngebieten. Immer verfügbar, immer frisch.",
+        "button_1_text": "Standorte finden",
+        "button_1_link": "",
+        "button_2_text": "B2B Anfrage",
+        "button_2_link": "",
+        "primary_color": "#E45521",
+        "text_color": "#FFFFFF",
+        "overlay_opacity": 50,
+        "content_alignment": "center"
+      }
     }
   },
   "order": [
-    "image_banner_Vt8zaN"
+    "image_banner_Vt8zaN",
+    "schnappix_hero_yx6FFx"
   ]
 }
