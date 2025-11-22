@@ -39,6 +39,13 @@
 {%- endstyle -%}
 
 {%- liquid
+  assign animation_class = 'section-animate-stagger'
+  if section.settings.enable_desktop_slider
+    assign animation_class = 'section-animate'
+  endif
+-%}
+
+{%- liquid
   assign products_to_display = section.settings.collection.all_products_count
 
   if section.settings.collection.all_products_count > section.settings.products_to_show
@@ -68,7 +75,7 @@
   class="color-{{ section.settings.color_scheme }} isolate gradient"
 >
   <div
-    class="collection{% if section.settings.quick_add == 'bulk' %} collection-quick-add-bulk{% endif %} section-{{ section.id }}-padding{% if section.settings.full_width %} collection--full-width{% endif %}"
+    class="collection featured-collection{% if section.settings.quick_add == 'bulk' %} collection-quick-add-bulk{% endif %} section-{{ section.id }}-padding{% if section.settings.full_width %} collection--full-width{% endif %}{% unless show_desktop_slider %} {{ animation_class }}{% endunless %}"
     id="collection-{{ section.id }}"
     data-id="{{ section.id }}"
   >

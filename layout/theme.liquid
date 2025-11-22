@@ -36,6 +36,7 @@
     <script src="{{ 'constants.js' | asset_url }}" defer="defer"></script>
     <script src="{{ 'pubsub.js' | asset_url }}" defer="defer"></script>
     <script src="{{ 'global.js' | asset_url }}" defer="defer"></script>
+    <script src="{{ 'schnappix-animations.js' | asset_url }}" defer="defer"></script>
     <script src="{{ 'details-disclosure.js' | asset_url }}" defer="defer"></script>
     <script src="{{ 'details-modal.js' | asset_url }}" defer="defer"></script>
     <script src="{{ 'search-form.js' | asset_url }}" defer="defer"></script>
@@ -262,6 +263,7 @@
     {% endstyle %}
 
     {{ 'base.css' | asset_url | stylesheet_tag }}
+    {{ 'schnappix-animations.css' | asset_url | stylesheet_tag }}
     <link rel="stylesheet" href="{{ 'component-cart-items.css' | asset_url }}" media="print" onload="this.media='all'">
 
     {%- if settings.cart_type == 'drawer' -%}
@@ -378,5 +380,21 @@
     {%- if settings.cart_type == 'drawer' -%}
       <script src="{{ 'cart-drawer.js' | asset_url }}" defer="defer"></script>
     {%- endif -%}
+
+    {%- comment -%} SCHNAPPIX Loading Screen {%- endcomment -%}
+    <div class="schnappix-loader" id="schnappix-loader">
+      <div class="schnappix-loader__content">
+        {%- if settings.logo != blank -%}
+          <div class="schnappix-loader__logo">
+            {%- assign logo_alt = settings.logo.alt | default: shop.name | escape -%}
+            {{ settings.logo | image_url: width: 240 | image_tag: alt: logo_alt, class: 'schnappix-loader__logo-image' }}
+          </div>
+        {%- else -%}
+          <div class="schnappix-loader__logo-text" style="font-family: 'Bebas Neue', sans-serif; font-size: 3rem; color: var(--spx-white); letter-spacing: 0.2em; margin-bottom: 2rem;">SCHNAPPIX</div>
+        {%- endif -%}
+        <div class="schnappix-loader__spinner"></div>
+        <div class="schnappix-loader__text">24/7</div>
+      </div>
+    </div>
   </body>
 </html>
