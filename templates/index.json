@@ -21,9 +21,9 @@
         "button_1_link": "",
         "button_2_text": "B2B Anfrage",
         "button_2_link": "",
-        "primary_color": "#E45521",
-        "text_color": "#FFFFFF",
-        "overlay_opacity": 50,
+        "primary_color": "#e45521",
+        "text_color": "#ffffff",
+        "overlay_opacity": 100,
         "content_alignment": "center"
       }
     }
