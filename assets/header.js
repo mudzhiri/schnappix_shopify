@@ -213,8 +213,19 @@ function initHeaderAnimations() {
     });
   }
   
-  // Animation wird jetzt direkt im CSS ausgelöst - kein JavaScript nötig
-  // Icons sollten automatisch animieren wenn CSS geladen ist
+  // Force icons to be visible and trigger animation
+  const icons = document.querySelectorAll('.header__icon, .header__hamburger');
+  icons.forEach(icon => {
+    // Ensure initial state
+    icon.style.opacity = '0';
+    icon.style.transform = 'translateX(100px)';
+    icon.style.visibility = 'visible';
+    // Force animation to restart
+    icon.style.animation = 'none';
+    setTimeout(() => {
+      icon.style.animation = '';
+    }, 10);
+  });
 }
 
 if (document.readyState === 'loading') {
