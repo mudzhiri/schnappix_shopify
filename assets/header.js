@@ -213,20 +213,36 @@ function initHeaderAnimations() {
     });
   }
   
-  // Ensure icons are visible and animation can start
-  setTimeout(() => {
+  // Force icon animations to trigger
+  function triggerIconAnimations() {
     const icons = document.querySelectorAll('.header__right .header__icon, .header__right .header__hamburger');
+    if (icons.length === 0) {
+      setTimeout(triggerIconAnimations, 100);
+      return;
+    }
+    
     icons.forEach((icon, index) => {
-      // Reset to initial state
+      // Force initial state
       icon.style.opacity = '0';
       icon.style.transform = 'translateX(150px)';
-      // Trigger animation with delay
+      icon.style.visibility = 'visible';
+      icon.style.display = 'flex';
+      
+      // Calculate delay
       const delay = 0.2 + (index * 0.3);
-      setTimeout(() => {
+      
+      // Force animation restart
+      icon.style.animation = 'none';
+      requestAnimationFrame(() => {
         icon.style.animation = `iconFlyIn 1s ease-out ${delay}s forwards`;
-      }, 50);
+      });
     });
-  }, 100);
+  }
+  
+  // Trigger multiple times to ensure it works
+  setTimeout(triggerIconAnimations, 100);
+  setTimeout(triggerIconAnimations, 500);
+  window.addEventListener('load', triggerIconAnimations);
 }
 
 if (document.readyState === 'loading') {

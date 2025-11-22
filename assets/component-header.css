@@ -212,9 +212,10 @@
   transition: color var(--header-transition);
   border-radius: 0px;
   /* ANIMATION: Start from right, fly to position */
-  opacity: 0;
-  transform: translateX(150px);
-  animation: iconFlyIn 1s ease-out forwards;
+  opacity: 0 !important;
+  transform: translateX(150px) !important;
+  animation: iconFlyIn 1s ease-out forwards !important;
+  visibility: visible !important;
 }
 
 /* Square, bold, black icons */
@@ -240,12 +241,12 @@
 
 @keyframes iconFlyIn {
   from {
-    opacity: 0;
-    transform: translateX(150px);
+    opacity: 0 !important;
+    transform: translateX(150px) !important;
   }
   to {
-    opacity: 1;
-    transform: translateX(0);
+    opacity: 1 !important;
+    transform: translateX(0) !important;
   }
 }
 
