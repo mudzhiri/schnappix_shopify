@@ -211,8 +211,8 @@
   transition: color var(--header-transition), transform var(--header-transition);
   border-radius: 0px; /* Square, bold icons - no rounded corners */
   opacity: 0;
-  transform: translateX(-100px);
-  animation: iconFlyIn 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+  transform: translateX(100px); /* Start from right */
+  animation: iconFlyInFromRight 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
 }
 
 /* Square, bold, black icons */
@@ -224,7 +224,7 @@
   stroke: #111111;
 }
 
-/* Stagger Animation für Icons - 3 Sekunden Gesamtdauer */
+/* Stagger Animation für Icons - 3 Sekunden Gesamtdauer - von rechts nach links */
 .header__icon:nth-child(1) { animation-delay: 0.2s; }
 .header__icon:nth-child(2) { animation-delay: 0.5s; }
 .header__icon:nth-child(3) { animation-delay: 0.8s; }
@@ -236,21 +236,21 @@
 .header__icon:nth-child(9) { animation-delay: 2.6s; }
 .header__icon:nth-child(n+10) { animation-delay: 2.9s; }
 
-@keyframes iconFlyIn {
+@keyframes iconFlyInFromRight {
   0% {
     opacity: 0;
-    transform: translateX(-100px) scale(0.5);
+    transform: translateX(100px) scale(0.5); /* Start from right */
   }
   60% {
     opacity: 1;
-    transform: translateX(10px) scale(1.1);
+    transform: translateX(-10px) scale(1.1); /* Overshoot to left */
   }
   80% {
-    transform: translateX(-5px) scale(0.95);
+    transform: translateX(5px) scale(0.95); /* Bounce back */
   }
   100% {
     opacity: 1;
-    transform: translateX(0) scale(1);
+    transform: translateX(0) scale(1); /* Final position */
   }
 }
 
