@@ -6,6 +6,13 @@
   --focused-base-outline: 0.2rem solid rgba(var(--color-foreground), 0.5);
   --focused-base-outline-offset: 0.3rem;
   --focused-base-box-shadow: 0 0 0 0.3rem rgb(var(--color-background)), 0 0 0.5rem 0.4rem rgba(var(--color-foreground), 0.3);
+  
+  /* SCHNAPPIX 24/7 Corporate Identity Colors */
+  --spx-orange: #E65100;
+  --spx-black: #1A1A1A;
+  --spx-white: #FFFFFF;
+  --spx-gray: #4A4A4A;
+  --spx-orange-dark: #CC4100;
 }
 
 .product-card-wrapper .card,
@@ -265,6 +272,21 @@ h5,
   color: rgb(var(--color-foreground));
   line-height: calc(1 + 0.3 / max(1, var(--font-heading-scale)));
   word-break: break-word;
+}
+
+/* SCHNAPPIX 24/7 Typography Overrides */
+.heading, .menu-item {
+  font-family: 'Bebas Neue', sans-serif;
+  letter-spacing: 0.5px;
+}
+
+body, p, a, span, input, button, .button {
+  font-family: 'Inter', var(--font-body-family);
+}
+
+/* Smooth Scroll */
+html {
+  scroll-behavior: smooth;
 }
 
 .hxxl {
@@ -1196,8 +1218,17 @@ button.shopify-payment-button__button--unbranded {
   --shadow-visible: var(--buttons-shadow-visible);
   --border-offset: var(--buttons-border-offset); /* reduce radius edge artifacts */
   --border-opacity: calc(1 - var(--buttons-border-opacity));
-  border-radius: var(--buttons-radius-outset);
+  border-radius: 8px;
   position: relative;
+  background-color: var(--spx-orange, #E65100) !important;
+  color: var(--spx-white, #FFFFFF) !important;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+button.shopify-payment-button__button--unbranded:hover {
+  background-color: var(--spx-orange-dark, #CC4100) !important;
+  transform: scale(1.02);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
 }
 
 .button,
@@ -1215,16 +1246,32 @@ button.shopify-payment-button__button--unbranded {
   justify-content: center;
   align-items: center;
   border: 0;
-  padding: 0 3rem;
+  padding: 1.2rem 2.2rem;
   cursor: pointer;
   font: inherit;
   font-size: 1.5rem;
   text-decoration: none;
-  color: rgb(var(--color-button-text));
-  transition: box-shadow var(--duration-short) ease;
+  color: var(--spx-white, #FFFFFF);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   -webkit-appearance: none;
   appearance: none;
-  background-color: rgba(var(--color-button), var(--alpha-button-background));
+  background-color: var(--spx-orange, #E65100);
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.button:hover,
+.shopify-challenge__button:hover,
+.customer button:hover {
+  background-color: var(--spx-orange-dark, #CC4100);
+  transform: scale(1.02);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.button:active,
+.shopify-challenge__button:active,
+.customer button:active {
+  transform: scale(0.98);
 }
 
 .button:before,
