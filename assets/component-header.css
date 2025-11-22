@@ -220,6 +220,13 @@
 .header__icon.animate-icon,
 .header__hamburger.animate-icon {
   animation: iconFlyInFromRight 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards !important;
+  opacity: 1 !important;
+}
+
+/* Fallback: Animation auch ohne Klasse, wenn CSS geladen wird */
+.header__icon,
+.header__hamburger {
+  animation: iconFlyInFromRight 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
 }
 
 /* Square, bold, black icons */

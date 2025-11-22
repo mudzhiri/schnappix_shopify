@@ -216,6 +216,8 @@ function initHeaderAnimations() {
   // Force icon animations to trigger - with retry mechanism
   function triggerIconAnimations() {
     const icons = document.querySelectorAll('.header__icon, .header__hamburger');
+    console.log('Found icons:', icons.length); // Debug log
+    
     if (icons.length === 0) {
       // Retry after a short delay if icons aren't loaded yet
       setTimeout(triggerIconAnimations, 100);
@@ -227,19 +229,30 @@ function initHeaderAnimations() {
       icon.style.opacity = '0';
       icon.style.transform = 'translateX(100px)';
       icon.style.visibility = 'visible';
+      icon.style.display = 'flex'; // Ensure display is set
       
-      // Add animation class with delay
+      // Calculate delay
       const delay = 0.2 + (index * 0.3);
-      setTimeout(() => {
+      
+      // Force animation to start
+      requestAnimationFrame(() => {
+        icon.style.animation = `iconFlyInFromRight 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) ${delay}s forwards`;
         icon.classList.add('animate-icon');
-        icon.style.animationDelay = `${delay}s`;
-      }, 50);
+        
+        // Force completion after animation
+        setTimeout(() => {
+          icon.style.opacity = '1';
+          icon.style.transform = 'translateX(0)';
+        }, (delay + 0.8) * 1000);
+      });
     });
   }
   
   // Trigger immediately and also on load
-  setTimeout(triggerIconAnimations, 100);
-  window.addEventListener('load', triggerIconAnimations);
+  setTimeout(triggerIconAnimations, 200);
+  window.addEventListener('load', () => {
+    setTimeout(triggerIconAnimations, 100);
+  });
   
   // Also trigger for theme editor
   if (typeof Shopify !== 'undefined' && Shopify.designMode) {
