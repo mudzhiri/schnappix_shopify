@@ -213,50 +213,8 @@ function initHeaderAnimations() {
     });
   }
   
-  // Force icon animations to trigger - with retry mechanism
-  function triggerIconAnimations() {
-    const icons = document.querySelectorAll('.header__icon, .header__hamburger');
-    
-    if (icons.length === 0) {
-      // Retry after a short delay if icons aren't loaded yet
-      setTimeout(triggerIconAnimations, 100);
-      return;
-    }
-    
-    icons.forEach((icon, index) => {
-      // Reset initial state
-      icon.style.opacity = '0';
-      icon.style.transform = 'translateX(100px)';
-      icon.style.visibility = 'visible';
-      icon.style.display = 'flex'; // Ensure display is set
-      
-      // Calculate delay
-      const delay = 0.2 + (index * 0.3);
-      
-      // Force animation to start
-      requestAnimationFrame(() => {
-        icon.style.animation = `iconFlyInFromRight 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) ${delay}s forwards`;
-        icon.classList.add('animate-icon');
-        
-        // Force completion after animation
-        setTimeout(() => {
-          icon.style.opacity = '1';
-          icon.style.transform = 'translateX(0)';
-        }, (delay + 0.8) * 1000);
-      });
-    });
-  }
-  
-  // Trigger immediately and also on load
-  setTimeout(triggerIconAnimations, 200);
-  window.addEventListener('load', () => {
-    setTimeout(triggerIconAnimations, 100);
-  });
-  
-  // Also trigger for theme editor
-  if (typeof Shopify !== 'undefined' && Shopify.designMode) {
-    document.addEventListener('shopify:section:load', triggerIconAnimations);
-  }
+  // Animation wird jetzt direkt im CSS ausgelöst - kein JavaScript nötig
+  // Icons sollten automatisch animieren wenn CSS geladen ist
 }
 
 if (document.readyState === 'loading') {
