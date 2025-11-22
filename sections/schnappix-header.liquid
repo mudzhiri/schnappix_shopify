@@ -1,0 +1,291 @@
+{{ 'schnappix-header.css' | asset_url | stylesheet_tag }}
+
+{%- style -%}
+  .schnappix-header {
+    --header-bg-color: {{ section.settings.background_color }};
+    --header-text-color: {{ section.settings.text_color }};
+    --header-accent-color: {{ section.settings.accent_color }};
+    --header-height: {{ section.settings.header_height }}px;
+  }
+{%- endstyle -%}
+
+<header 
+  class="schnappix-header" 
+  data-header
+  data-sticky="{{ section.settings.sticky_header }}"
+  data-hamburger-desktop="{{ section.settings.hamburger_on_desktop }}"
+>
+  <div class="schnappix-header__container page-width">
+    
+    {%- comment -%} Mobile Hamburger Button {%- endcomment -%}
+    <button 
+      class="schnappix-header__hamburger" 
+      type="button"
+      aria-label="{{ 'sections.header.menu' | t }}"
+      aria-expanded="false"
+      data-hamburger-toggle
+    >
+      <span class="schnappix-header__hamburger-box">
+        <span class="schnappix-header__hamburger-inner"></span>
+      </span>
+    </button>
+
+    {%- comment -%} Logo {%- endcomment -%}
+    <div class="schnappix-header__logo">
+      <a href="{{ routes.root_url }}" class="schnappix-header__logo-link">
+        {%- if section.settings.logo != blank -%}
+          {{
+            section.settings.logo
+            | image_url: width: 200
+            | image_tag:
+              loading: 'eager',
+              width: section.settings.logo.width,
+              height: section.settings.logo.height,
+              alt: shop.name,
+              class: 'schnappix-header__logo-image'
+          }}
+        {%- else -%}
+          <span class="schnappix-header__logo-text">{{ shop.name }}</span>
+        {%- endif -%}
+      </a>
+    </div>
+
+    {%- comment -%} Desktop Navigation Menu (only if hamburger is disabled on desktop) {%- endcomment -%}
+    {%- if section.settings.menu != blank and section.settings.hamburger_on_desktop == false -%}
+      <nav class="schnappix-header__nav" aria-label="Main navigation">
+        <ul class="schnappix-header__nav-list">
+          {%- for link in linklists[section.settings.menu].links -%}
+            <li class="schnappix-header__nav-item">
+              <a 
+                href="{{ link.url }}" 
+                class="schnappix-header__nav-link{% if link.active %} is-active{% endif %}"
+              >
+                {{ link.title }}
+              </a>
+            </li>
+          {%- endfor -%}
+        </ul>
+      </nav>
+    {%- endif -%}
+
+    {%- comment -%} Right Side Actions {%- endcomment -%}
+    <div class="schnappix-header__actions">
+      
+      {%- comment -%} Search Button {%- endcomment -%}
+      {%- if section.settings.show_search -%}
+        <button 
+          class="schnappix-header__action-btn schnappix-header__search-btn" 
+          type="button"
+          aria-label="{{ 'general.search.search' | t }}"
+          data-search-toggle
+        >
+          <svg class="schnappix-header__icon" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M9 17A8 8 0 1 0 9 1a8 8 0 0 0 0 16zM18.707 17.293l-3.5-3.5a1 1 0 0 0-1.414 1.414l3.5 3.5a1 1 0 0 0 1.414-1.414z" fill="currentColor"/>
+          </svg>
+        </button>
+      {%- endif -%}
+
+      {%- comment -%} Account Button {%- endcomment -%}
+      {%- if shop.customer_accounts_enabled and section.settings.show_account -%}
+        <a 
+          href="{{ routes.account_url }}" 
+          class="schnappix-header__action-btn schnappix-header__account-btn"
+          aria-label="{{ 'customer.account.title' | t }}"
+        >
+          <svg class="schnappix-header__icon" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M10 10a5 5 0 1 0 0-10 5 5 0 0 0 0 10zm0 2c-3.314 0-6 1.343-6 3v1h12v-1c0-1.657-2.686-3-6-3z" fill="currentColor"/>
+          </svg>
+        </a>
+      {%- endif -%}
+
+      {%- comment -%} Cart Button {%- endcomment -%}
+      <a 
+        href="{{ routes.cart_url }}" 
+        class="schnappix-header__action-btn schnappix-header__cart-btn"
+        aria-label="{{ 'templates.cart.cart' | t }}"
+        data-cart-count
+      >
+        <svg class="schnappix-header__icon" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M5 4h12l-1 6H6L5 4zm0 0L4 2H2M7 16a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3zm9 0a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <span class="schnappix-header__cart-count" data-cart-count-badge>0</span>
+      </a>
+    </div>
+  </div>
+
+  {%- comment -%} Mobile/Desktop Menu Drawer {%- endcomment -%}
+  <div class="schnappix-header__drawer" data-menu-drawer>
+    <div class="schnappix-header__drawer-overlay" data-drawer-overlay></div>
+    <div class="schnappix-header__drawer-content">
+      <div class="schnappix-header__drawer-header">
+        <h2 class="schnappix-header__drawer-title">Menü</h2>
+        <button 
+          class="schnappix-header__drawer-close" 
+          type="button"
+          aria-label="{{ 'accessibility.close' | t }}"
+          data-drawer-close
+        >
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+      </div>
+      
+      <nav class="schnappix-header__drawer-nav">
+        {%- if section.settings.menu != blank -%}
+          <ul class="schnappix-header__drawer-list">
+            {%- for link in linklists[section.settings.menu].links -%}
+              <li class="schnappix-header__drawer-item">
+                <a 
+                  href="{{ link.url }}" 
+                  class="schnappix-header__drawer-link{% if link.active %} is-active{% endif %}"
+                >
+                  {{ link.title }}
+                </a>
+                {%- if link.links != blank -%}
+                  <ul class="schnappix-header__drawer-sublist">
+                    {%- for childlink in link.links -%}
+                      <li>
+                        <a href="{{ childlink.url }}" class="schnappix-header__drawer-sublink">
+                          {{ childlink.title }}
+                        </a>
+                      </li>
+                    {%- endfor -%}
+                  </ul>
+                {%- endif -%}
+              </li>
+            {%- endfor -%}
+          </ul>
+        {%- endif -%}
+      </nav>
+    </div>
+  </div>
+
+  {%- comment -%} Search Overlay {%- endcomment -%}
+  {%- if section.settings.show_search -%}
+    <div class="schnappix-header__search" data-search-overlay>
+      <div class="schnappix-header__search-overlay" data-search-overlay-close></div>
+      <div class="schnappix-header__search-content">
+        <form action="{{ routes.search_url }}" method="get" class="schnappix-header__search-form">
+          <input
+            type="search"
+            name="q"
+            placeholder="{{ 'general.search.search' | t }}"
+            class="schnappix-header__search-input"
+            autocomplete="off"
+            aria-label="{{ 'general.search.search' | t }}"
+          >
+          <button type="submit" class="schnappix-header__search-submit">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M9 17A8 8 0 1 0 9 1a8 8 0 0 0 0 16zM18.707 17.293l-3.5-3.5a1 1 0 0 0-1.414 1.414l3.5 3.5a1 1 0 0 0 1.414-1.414z" fill="currentColor"/>
+            </svg>
+          </button>
+        </form>
+        <button 
+          class="schnappix-header__search-close" 
+          type="button"
+          aria-label="{{ 'accessibility.close' | t }}"
+          data-search-close
+        >
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+  {%- endif -%}
+</header>
+
+<script src="{{ 'schnappix-header.js' | asset_url }}" defer="defer"></script>
+
+{% schema %}
+{
+  "name": "SCHNAPPIX Header",
+  "tag": "header",
+  "class": "section-header",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Logo"
+    },
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": "Logo Image",
+      "info": "Upload your SCHNAPPIX logo"
+    },
+    {
+      "type": "header",
+      "content": "Menu"
+    },
+    {
+      "type": "link_list",
+      "id": "menu",
+      "label": "Menu",
+      "default": "main-menu"
+    },
+    {
+      "type": "header",
+      "content": "Style"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background Color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text Color",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Accent Color",
+      "default": "#E45521"
+    },
+    {
+      "type": "range",
+      "id": "header_height",
+      "min": 60,
+      "max": 120,
+      "step": 5,
+      "unit": "px",
+      "label": "Header Height",
+      "default": 80
+    },
+    {
+      "type": "checkbox",
+      "id": "sticky_header",
+      "label": "Sticky Header",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Features"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_search",
+      "label": "Show Search",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_account",
+      "label": "Show Account",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "hamburger_on_desktop",
+      "label": "Show Hamburger on Desktop",
+      "default": true,
+      "info": "If enabled, hamburger menu will be shown on desktop. If disabled, regular menu will be shown on desktop."
+    }
+  ]
+}
+{% endschema %}
+
