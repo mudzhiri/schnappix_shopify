@@ -34,10 +34,14 @@
   background-color: var(--spx-black, #1A1A1A);
   transition: all 0.25s ease, box-shadow var(--header-transition);
   z-index: 40;
+}
+
+/* Header Animation - Applied via JavaScript */
+.header--modern.header-animate {
   opacity: 0;
   transform: translateY(-20px);
-  animation: headerIn 0.6s ease-out forwards;
-  animation-delay: 0.2s;
+  animation: headerIn 0.8s ease-out forwards;
+  animation-delay: 0.1s;
 }
 
 @keyframes headerIn {

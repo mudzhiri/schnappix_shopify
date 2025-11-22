@@ -87,7 +87,9 @@
 .schnappix-hero__content-inner {
   max-width: 800px;
   margin: 0 auto;
-  animation: fadeInUp 1s ease-out;
+  animation: fadeInUp 1.2s ease-out 0.4s both;
+  opacity: 0;
+  transform: translateY(30px);
 }
 
 /* Logo */

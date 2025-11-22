@@ -196,24 +196,32 @@ class ModernHeader {
 }
 
 // Initialize when DOM is ready
+function initHeaderAnimations() {
+  const header = document.querySelector('header.header--modern');
+  if (header) {
+    // Force animation to start
+    header.style.opacity = '0';
+    header.style.transform = 'translateY(-20px)';
+    
+    // Trigger animation after a small delay
+    requestAnimationFrame(() => {
+      header.classList.add('header-animate');
+      setTimeout(() => {
+        header.style.opacity = '1';
+        header.style.transform = 'translateY(0)';
+      }, 100);
+    });
+  }
+}
+
 if (document.readyState === 'loading') {
   document.addEventListener('DOMContentLoaded', () => {
     new ModernHeader();
-    
-    // Add header-animate class for smooth entrance
-    const header = document.querySelector('header.header--modern');
-    if (header) {
-      header.classList.add('header-animate');
-    }
+    initHeaderAnimations();
   });
 } else {
   new ModernHeader();
-  
-  // Add header-animate class for smooth entrance
-  const header = document.querySelector('header.header--modern');
-  if (header) {
-    header.classList.add('header-animate');
-  }
+  initHeaderAnimations();
 }
 
 // Re-initialize on dynamic content load (for theme editor)
