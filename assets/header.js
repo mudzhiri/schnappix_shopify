@@ -212,6 +212,20 @@ function initHeaderAnimations() {
       }, 100);
     });
   }
+  
+  // Force icon animations to trigger
+  const icons = document.querySelectorAll('.header__icon, .header__hamburger');
+  icons.forEach((icon, index) => {
+    // Reset and force animation
+    icon.style.opacity = '0';
+    icon.style.transform = 'translateX(100px)';
+    
+    // Trigger animation with delay
+    setTimeout(() => {
+      icon.style.animation = `iconFlyInFromRight 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards`;
+      icon.style.animationDelay = `${0.2 + (index * 0.3)}s`;
+    }, 50);
+  });
 }
 
 if (document.readyState === 'loading') {
