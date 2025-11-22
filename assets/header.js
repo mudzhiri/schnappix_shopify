@@ -199,18 +199,22 @@ class ModernHeader {
 function initHeaderAnimations() {
   const header = document.querySelector('header.header--modern');
   if (header) {
-    // Force animation to start
+    // Force animation to start - make it very visible
     header.style.opacity = '0';
-    header.style.transform = 'translateY(-20px)';
+    header.style.transform = 'translateY(-30px)';
+    header.style.transition = 'none';
     
     // Trigger animation after a small delay
-    requestAnimationFrame(() => {
+    setTimeout(() => {
       header.classList.add('header-animate');
+      header.style.transition = '';
+      
+      // Force completion after animation
       setTimeout(() => {
         header.style.opacity = '1';
         header.style.transform = 'translateY(0)';
-      }, 100);
-    });
+      }, 1100);
+    }, 50);
   }
 }
 
