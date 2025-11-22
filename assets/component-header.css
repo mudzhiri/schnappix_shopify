@@ -1,0 +1,346 @@
+/**
+ * Modern Premium Header Styles for SchnapPIX 24/7
+ * Tech-style design inspired by Apple, Nothing, Tesla
+ */
+
+/* ============================================
+   CSS Variables
+   ============================================ */
+:root {
+  --header-accent-color: #FF6A00; /* SchnapPIX Orange */
+  --header-transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  --header-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+  --header-shadow-scrolled: 0 4px 20px rgba(0, 0, 0, 0.12);
+}
+
+/* ============================================
+   Header Wrapper
+   ============================================ */
+.header-wrapper {
+  position: relative;
+  z-index: 1000;
+}
+
+.header-wrapper--border-bottom {
+  border-bottom: 0.1rem solid rgba(var(--color-foreground), 0.08);
+}
+
+/* ============================================
+   Main Header
+   ============================================ */
+.header--modern {
+  position: relative;
+  background-color: rgb(var(--color-background));
+  transition: box-shadow var(--header-transition);
+}
+
+.header--modern.scrolled-past-header {
+  box-shadow: var(--header-shadow-scrolled);
+}
+
+/* ============================================
+   Header Inner Container
+   ============================================ */
+.header__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  max-width: var(--page-width);
+  margin: 0 auto;
+  gap: 2rem;
+}
+
+/* ============================================
+   Header Left (Logo)
+   ============================================ */
+.header__left {
+  display: flex;
+  align-items: center;
+  flex: 0 0 auto;
+  z-index: 1001;
+}
+
+.header__logo-link {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: rgb(var(--color-foreground));
+  transition: opacity var(--header-transition);
+}
+
+.header__logo-link:hover {
+  opacity: 0.8;
+}
+
+.header__logo-wrapper {
+  display: flex;
+  align-items: center;
+  transition: width var(--header-transition);
+}
+
+.header__logo {
+  height: auto;
+  width: auto;
+  max-height: 4rem;
+  object-fit: contain;
+}
+
+.header__logo-text {
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  margin: 0;
+}
+
+@media screen and (min-width: 750px) {
+  .header__logo {
+    max-height: 5rem;
+  }
+}
+
+/* ============================================
+   Header Right (Actions)
+   ============================================ */
+.header__right {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  flex: 0 0 auto;
+  z-index: 1001;
+}
+
+@media screen and (min-width: 750px) {
+  .header__right {
+    gap: 2rem;
+  }
+}
+
+/* ============================================
+   Header Icons
+   ============================================ */
+.header__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 4rem;
+  height: 4rem;
+  padding: 0;
+  background: transparent;
+  border: none;
+  color: rgb(var(--color-foreground));
+  cursor: pointer;
+  text-decoration: none;
+  position: relative;
+  transition: color var(--header-transition), transform var(--header-transition);
+  border-radius: 50%;
+}
+
+.header__icon:hover {
+  color: var(--header-accent-color);
+  transform: scale(1.05);
+}
+
+.header__icon:active {
+  transform: scale(0.95);
+}
+
+.header__icon .svg-wrapper {
+  width: 2rem;
+  height: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.header__icon .svg-wrapper svg {
+  width: 100%;
+  height: 100%;
+  fill: currentColor;
+}
+
+/* ============================================
+   Hamburger Menu Button
+   ============================================ */
+.header__hamburger {
+  position: relative;
+  width: 4rem;
+  height: 4rem;
+  padding: 0;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  z-index: 1002;
+}
+
+.header__hamburger-box {
+  position: relative;
+  width: 2.4rem;
+  height: 1.8rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.header__hamburger-inner {
+  position: relative;
+  width: 100%;
+  height: 0.2rem;
+  background-color: currentColor;
+  border-radius: 0.1rem;
+  transition: background-color var(--header-transition), transform var(--header-transition);
+}
+
+.header__hamburger-inner::before,
+.header__hamburger-inner::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 0.2rem;
+  background-color: currentColor;
+  border-radius: 0.1rem;
+  transition: transform var(--header-transition), top var(--header-transition), bottom var(--header-transition);
+}
+
+.header__hamburger-inner::before {
+  top: -0.6rem;
+}
+
+.header__hamburger-inner::after {
+  bottom: -0.6rem;
+}
+
+/* Hamburger Active State (X) */
+.header__hamburger[aria-expanded="true"] .header__hamburger-inner {
+  background-color: transparent;
+}
+
+.header__hamburger[aria-expanded="true"] .header__hamburger-inner::before {
+  top: 0;
+  transform: rotate(45deg);
+}
+
+.header__hamburger[aria-expanded="true"] .header__hamburger-inner::after {
+  bottom: 0;
+  transform: rotate(-45deg);
+}
+
+/* ============================================
+   Cart Count Badge
+   ============================================ */
+.cart-count-bubble {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  min-width: 1.8rem;
+  height: 1.8rem;
+  padding: 0 0.4rem;
+  background-color: var(--header-accent-color);
+  color: rgb(var(--color-background));
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1.8rem;
+  text-align: center;
+  border-radius: 0.9rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cart-count-bubble span {
+  font-size: 1rem;
+  line-height: 1;
+}
+
+/* ============================================
+   Account Icon
+   ============================================ */
+.header__icon--account account-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+}
+
+.header__icon--account account-icon .svg-wrapper {
+  width: 100%;
+  height: 100%;
+}
+
+/* ============================================
+   Sticky Header States
+   ============================================ */
+.shopify-section-header-sticky {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.shopify-section-header-hidden {
+  transform: translateY(-100%);
+  transition: transform 0.3s ease;
+}
+
+.shopify-section-header-sticky.animate {
+  transform: translateY(0);
+  transition: transform 0.3s ease;
+}
+
+/* ============================================
+   Responsive Adjustments
+   ============================================ */
+@media screen and (max-width: 749px) {
+  .header__inner {
+    gap: 1rem;
+  }
+
+  .header__icon {
+    width: 3.6rem;
+    height: 3.6rem;
+  }
+
+  .header__icon .svg-wrapper {
+    width: 1.8rem;
+    height: 1.8rem;
+  }
+
+  .header__logo {
+    max-height: 3.5rem;
+  }
+}
+
+/* ============================================
+   Accessibility
+   ============================================ */
+.header__icon:focus-visible {
+  outline: 0.2rem solid var(--header-accent-color);
+  outline-offset: 0.2rem;
+}
+
+/* ============================================
+   Search Modal Integration
+   ============================================ */
+.header__search {
+  position: relative;
+}
+
+/* ============================================
+   Motion Reduction
+   ============================================ */
+@media (prefers-reduced-motion: reduce) {
+  .header--modern,
+  .header__icon,
+  .header__hamburger-inner,
+  .header__hamburger-inner::before,
+  .header__hamburger-inner::after,
+  .header__logo-wrapper {
+    transition: none;
+  }
+
+  .shopify-section-header-hidden,
+  .shopify-section-header-sticky.animate {
+    transition: none;
+  }
+}
+
