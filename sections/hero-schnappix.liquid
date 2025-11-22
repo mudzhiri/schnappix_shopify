@@ -1,0 +1,156 @@
+{% comment %}
+  SCHNAPPIX 24/7 Hero Section
+  Modern hero with glassmorphism, animated gradient border, and smooth animations
+{% endcomment %}
+
+{{ 'hero-schnappix.css' | asset_url | stylesheet_tag }}
+
+{%- style -%}
+  #Hero-{{ section.id }} {
+    min-height: {% if section.settings.mobile_height == 'full' %}100vh{% else %}60vh{% endif %};
+  }
+
+  @media screen and (min-width: 750px) {
+    #Hero-{{ section.id }} {
+      min-height: 100vh;
+    }
+  }
+
+  #Hero-{{ section.id }}::before {
+    background-color: {{ section.settings.overlay_color }};
+    opacity: {{ section.settings.overlay_opacity | divided_by: 100.0 }};
+  }
+{%- endstyle -%}
+
+<section id="Hero-{{ section.id }}" class="hero-schnappix{% if section.settings.enable_animation %} hero-schnappix--animated{% endif %}">
+  {%- if section.settings.background_image != blank -%}
+    <div class="hero-schnappix__background">
+      {{
+        section.settings.background_image
+        | image_url: width: 3840
+        | image_tag:
+          loading: 'eager',
+          fetchpriority: 'high',
+          sizes: '100vw',
+          widths: '375, 550, 750, 1100, 1500, 1780, 2000, 3000, 3840',
+          alt: section.settings.main_headline | escape
+      }}
+    </div>
+  {%- else -%}
+    <div class="hero-schnappix__background hero-schnappix__background--placeholder">
+      {{ 'hero-schnappix-bg.jpg' | asset_url | image_tag: loading: 'eager', fetchpriority: 'high' }}
+    </div>
+  {%- endif -%}
+
+  <div class="hero-schnappix__overlay"></div>
+
+  <div class="hero-schnappix__content page-width">
+    <div class="hero-schnappix__card">
+      {%- if section.settings.main_headline != blank -%}
+        <h1 class="hero-schnappix__headline">
+          {{ section.settings.main_headline }}
+        </h1>
+      {%- endif -%}
+
+      {%- if section.settings.subheadline != blank -%}
+        <p class="hero-schnappix__subheadline">
+          {{ section.settings.subheadline }}
+        </p>
+      {%- endif -%}
+
+      {%- if section.settings.cta_button_text != blank and section.settings.cta_button_link != blank -%}
+        <a href="{{ section.settings.cta_button_link }}" class="hero-schnappix__button button">
+          {{ section.settings.cta_button_text }}
+        </a>
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+{%- if section.settings.enable_animation -%}
+  <script src="{{ 'hero-schnappix.js' | asset_url }}" defer="defer"></script>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "SCHNAPPIX Hero",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "background_image",
+      "label": "Background Image",
+      "info": "Recommended: 1920x1080px or larger"
+    },
+    {
+      "type": "text",
+      "id": "main_headline",
+      "label": "Main Headline",
+      "default": "Premium Snacks & Drinks 24/7"
+    },
+    {
+      "type": "textarea",
+      "id": "subheadline",
+      "label": "Subheadline",
+      "default": "Moderne Selbstbedienungsautomaten an öffentlichen Plätzen, Bahnhöfen und Wohngebieten. Immer verfügbar, immer frisch."
+    },
+    {
+      "type": "text",
+      "id": "cta_button_text",
+      "label": "CTA Button Text",
+      "default": "Standorte finden"
+    },
+    {
+      "type": "url",
+      "id": "cta_button_link",
+      "label": "CTA Button Link"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_animation",
+      "label": "Enable Advanced Animations",
+      "default": true,
+      "info": "Enables typing animation and pulse glow effects"
+    },
+    {
+      "type": "color",
+      "id": "overlay_color",
+      "label": "Overlay Color",
+      "default": "#111111"
+    },
+    {
+      "type": "range",
+      "id": "overlay_opacity",
+      "label": "Overlay Opacity",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "default": 60
+    },
+    {
+      "type": "select",
+      "id": "mobile_height",
+      "label": "Mobile Height",
+      "options": [
+        {
+          "value": "full",
+          "label": "Full Screen"
+        },
+        {
+          "value": "medium",
+          "label": "Medium (60vh)"
+        }
+      ],
+      "default": "full"
+    }
+  ],
+  "presets": [
+    {
+      "name": "SCHNAPPIX Hero"
+    }
+  ]
+}
+{% endschema %}
+
