@@ -1,0 +1,251 @@
+{{ 'schnappix-hero.css' | asset_url | stylesheet_tag }}
+
+{%- style -%}
+  #SchnappixHero-{{ section.id }} {
+    --hero-overlay-opacity: {{ section.settings.overlay_opacity | divided_by: 100.0 }};
+    --hero-primary-color: {{ section.settings.primary_color }};
+    --hero-text-color: {{ section.settings.text_color }};
+  }
+{%- endstyle -%}
+
+{%- liquid
+  assign full_width = '100vw'
+  assign widths = '375, 550, 750, 1100, 1500, 1780, 2000, 3000, 3840'
+  assign fetch_priority = 'auto'
+  if section.index == 1
+    assign fetch_priority = 'high'
+  endif
+-%}
+
+<div
+  id="SchnappixHero-{{ section.id }}"
+  class="schnappix-hero{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--fade-in{% endif %}"
+>
+  {%- comment -%} Background Media {%- endcomment -%}
+  <div class="schnappix-hero__media">
+    {%- if section.settings.video != blank -%}
+      <video
+        class="schnappix-hero__video"
+        autoplay
+        muted
+        loop
+        playsinline
+        preload="metadata"
+      >
+        <source src="{{ section.settings.video }}" type="video/mp4">
+      </video>
+    {%- elsif section.settings.image != blank -%}
+      {{
+        section.settings.image
+        | image_url: width: 3840
+        | image_tag:
+          loading: 'eager',
+          width: section.settings.image.width,
+          height: section.settings.image.height,
+          sizes: full_width,
+          widths: widths,
+          fetchpriority: fetch_priority,
+          class: 'schnappix-hero__image'
+      }}
+    {%- else -%}
+      <div class="schnappix-hero__placeholder">
+        {{ 'lifestyle-1' | placeholder_svg_tag: 'placeholder-svg' }}
+      </div>
+    {%- endif -%}
+    
+    {%- comment -%} Dark Gradient Overlay {%- endcomment -%}
+    <div class="schnappix-hero__overlay"></div>
+  </div>
+
+  {%- comment -%} Content Container {%- endcomment -%}
+  <div class="schnappix-hero__content page-width" data-alignment="{{ section.settings.content_alignment }}">
+    <div class="schnappix-hero__content-inner">
+      
+      {%- comment -%} Logo {%- endcomment -%}
+      {%- if section.settings.logo != blank -%}
+        <div class="schnappix-hero__logo">
+          {{
+            section.settings.logo
+            | image_url: width: 500
+            | image_tag:
+              loading: 'eager',
+              width: section.settings.logo.width,
+              height: section.settings.logo.height,
+              alt: shop.name,
+              class: 'schnappix-hero__logo-image'
+          }}
+        </div>
+      {%- endif -%}
+
+      {%- comment -%} Headline {%- endcomment -%}
+      {%- if section.settings.headline != blank -%}
+        <h1 class="schnappix-hero__headline h0">
+          {{ section.settings.headline }}
+        </h1>
+      {%- endif -%}
+
+      {%- comment -%} Subheadline {%- endcomment -%}
+      {%- if section.settings.subheadline != blank -%}
+        <p class="schnappix-hero__subheadline">
+          {{ section.settings.subheadline }}
+        </p>
+      {%- endif -%}
+
+      {%- comment -%} CTA Buttons {%- endcomment -%}
+      <div class="schnappix-hero__buttons">
+        {%- if section.settings.button_1_text != blank -%}
+          <a
+            href="{{ section.settings.button_1_link }}"
+            class="schnappix-hero__button schnappix-hero__button--primary button"
+            {% if section.settings.button_1_link == blank %}
+              role="link"
+              aria-disabled="true"
+            {% endif %}
+          >
+            {{ section.settings.button_1_text }}
+          </a>
+        {%- endif -%}
+
+        {%- if section.settings.button_2_text != blank -%}
+          <a
+            href="{{ section.settings.button_2_link }}"
+            class="schnappix-hero__button schnappix-hero__button--secondary button button--secondary"
+            {% if section.settings.button_2_link == blank %}
+              role="link"
+              aria-disabled="true"
+            {% endif %}
+          >
+            {{ section.settings.button_2_text }}
+          </a>
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "SCHNAPPIX Hero",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Media"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Hero Image",
+      "info": "Recommended: 1920x1080px or larger"
+    },
+    {
+      "type": "text",
+      "id": "video",
+      "label": "Hero Video URL (MP4)",
+      "info": "Optional: Enter direct URL to MP4 video. If set, video will override image."
+    },
+    {
+      "type": "header",
+      "content": "Logo"
+    },
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": "Logo Image",
+      "info": "Optional: Upload your SCHNAPPIX logo"
+    },
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "text",
+      "id": "headline",
+      "label": "Headline",
+      "default": "Premium Snacks & Drinks 24/7"
+    },
+    {
+      "type": "textarea",
+      "id": "subheadline",
+      "label": "Subheadline",
+      "default": "Moderne Selbstbedienungsautomaten an öffentlichen Plätzen, Bahnhöfen und Wohngebieten. Immer verfügbar, immer frisch."
+    },
+    {
+      "type": "header",
+      "content": "Buttons"
+    },
+    {
+      "type": "text",
+      "id": "button_1_text",
+      "label": "Button 1 Text",
+      "default": "Standorte finden"
+    },
+    {
+      "type": "url",
+      "id": "button_1_link",
+      "label": "Button 1 Link"
+    },
+    {
+      "type": "text",
+      "id": "button_2_text",
+      "label": "Button 2 Text",
+      "default": "B2B Anfrage"
+    },
+    {
+      "type": "url",
+      "id": "button_2_link",
+      "label": "Button 2 Link"
+    },
+    {
+      "type": "header",
+      "content": "Style"
+    },
+    {
+      "type": "color",
+      "id": "primary_color",
+      "label": "Primary Color",
+      "default": "#E45521"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text Color",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "range",
+      "id": "overlay_opacity",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "label": "Overlay Opacity",
+      "default": 50,
+      "info": "Dark gradient overlay for text readability"
+    },
+    {
+      "type": "select",
+      "id": "content_alignment",
+      "label": "Content Alignment",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        }
+      ],
+      "default": "center"
+    }
+  ],
+  "presets": [
+    {
+      "name": "SCHNAPPIX Hero"
+    }
+  ]
+}
+{% endschema %}
+
