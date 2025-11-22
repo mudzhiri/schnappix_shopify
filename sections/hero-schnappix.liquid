@@ -39,8 +39,9 @@
     </div>
   {%- else -%}
     <div class="hero-schnappix__background hero-schnappix__background--placeholder">
-      {%- if 'hero-schnappix-bg.jpg' | asset_url -%}
-        <img src="{{ 'hero-schnappix-bg.jpg' | asset_url }}" alt="{{ section.settings.main_headline | escape }}" loading="eager" fetchpriority="high">
+      {%- assign default_bg = 'hero-schnappix-bg.jpg' | asset_url -%}
+      {%- if default_bg != blank -%}
+        <img src="{{ default_bg }}" alt="{{ section.settings.main_headline | escape }}" loading="eager" fetchpriority="high">
       {%- else -%}
         <div class="hero-schnappix__placeholder-gradient"></div>
       {%- endif -%}
