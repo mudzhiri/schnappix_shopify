@@ -14,10 +14,10 @@
     "schnappix-header": {
       "type": "schnappix-header",
       "settings": {
-        "menu": "test-menu",
+        "menu": "schnappix",
         "background_color": "#000000",
-        "text_color": "#FFFFFF",
-        "accent_color": "#E45521",
+        "text_color": "#ffffff",
+        "accent_color": "#e45521",
         "header_height": 80,
         "sticky_header": true,
         "show_search": true,
@@ -27,11 +27,9 @@
     },
     "header": {
       "type": "header",
+      "disabled": true,
       "settings": {
-        "logo_position": "middle-left",
-        "mobile_logo_position": "left",
         "menu": "",
-        "menu_type_desktop": "mega",
         "sticky_header_type": "on-scroll-up",
         "show_line_separator": true,
         "color_scheme": "scheme-1",
@@ -43,21 +41,10 @@
         "padding_top": 20,
         "padding_bottom": 20
       }
-    },
-    "custom_liquid_LKrtLT": {
-      "type": "custom-liquid",
-      "name": "t:sections.custom-liquid.presets.name",
-      "settings": {
-        "custom_liquid": "",
-        "color_scheme": "",
-        "padding_top": 40,
-        "padding_bottom": 52
-      }
     }
   },
   "order": [
     "schnappix-header",
-    "header",
-    "custom_liquid_LKrtLT"
+    "header"
   ]
 }
