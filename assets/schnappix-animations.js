@@ -86,33 +86,27 @@ class SchnappixAnimations {
   setupProductCardAnimations() {
     const cards = document.querySelectorAll('.product-card-wrapper');
     
-    if (cards.length === 0) {
-      // Try again after a delay in case cards load later
-      setTimeout(() => {
-        this.setupProductCardAnimations();
-      }, 500);
-      return;
-    }
+    if (cards.length === 0) return;
     
     cards.forEach((card, index) => {
-      // Force initial state
-      card.style.opacity = '0';
-      card.style.transform = 'translateY(40px)';
-      card.style.transition = 'none';
-      
       // Add entrance animation delay based on index
-      const delay = index * 0.15;
-      card.style.animationDelay = `${delay}s`;
+      card.style.animationDelay = `${index * 0.1}s`;
       
-      // Trigger animation after a small delay
+      // Force animation to start
+      card.style.opacity = '0';
+      card.style.transform = 'translateY(30px)';
+      
+      // Trigger animation
+      requestAnimationFrame(() => {
+        card.style.opacity = '1';
+        card.style.transform = 'translateY(0)';
+      });
+      
+      // Ensure cards are visible after animation completes
       setTimeout(() => {
-        card.style.transition = '';
-        // Force animation to complete
-        setTimeout(() => {
-          card.style.opacity = '1';
-          card.style.transform = 'translateY(0)';
-        }, 1000 + (delay * 1000));
-      }, 100);
+        card.style.opacity = '1';
+        card.style.transform = 'translateY(0)';
+      }, 1000 + (index * 100));
     });
   }
 
