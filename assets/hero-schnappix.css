@@ -214,12 +214,29 @@
 }
 
 /* ============================================
+   CTA Buttons Container
+   ============================================ */
+.hero-schnappix__buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  align-items: center;
+  justify-content: center;
+}
+
+@media screen and (min-width: 750px) {
+  .hero-schnappix__buttons {
+    flex-direction: row;
+    gap: 2rem;
+  }
+}
+
+/* ============================================
    CTA Button
    ============================================ */
 .hero-schnappix__button {
   display: inline-block;
   padding: 1.5rem 3.5rem;
-  background-color: #E85522;
   color: #FFFFFF;
   font-family: 'Montserrat', sans-serif;
   font-weight: 700;
@@ -229,12 +246,33 @@
   border: none;
   cursor: pointer;
   transition: all 0.3s ease;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3), 0 0 20px rgba(255, 106, 0, 0.3);
   opacity: 0;
   transform: translateY(20px);
   animation: fadeInUp 1s ease-out 1.2s forwards;
   position: relative;
   overflow: hidden;
+  text-align: center;
+  min-width: 200px;
+}
+
+/* Primary Button */
+.hero-schnappix__button--primary {
+  background-color: #E85522;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3), 0 0 20px rgba(255, 106, 0, 0.3);
+}
+
+/* Secondary Button */
+.hero-schnappix__button--secondary {
+  background-color: transparent;
+  border: 2px solid #E85522;
+  color: #E85522;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+.hero-schnappix__button--secondary:hover {
+  background-color: #E85522;
+  color: #FFFFFF;
+  border-color: #E85522;
 }
 
 .hero-schnappix__button::before {
@@ -253,7 +291,7 @@
   transition: left 0.5s ease;
 }
 
-.hero-schnappix__button:hover {
+.hero-schnappix__button--primary:hover {
   background-color: #D1450F;
   transform: translateY(-2px);
   box-shadow: 0 6px 30px rgba(0, 0, 0, 0.4), 0 0 30px rgba(255, 106, 0, 0.5);
@@ -265,6 +303,23 @@
 
 .hero-schnappix__button:active {
   transform: translateY(0);
+}
+
+/* Stagger animation for multiple buttons */
+.hero-schnappix__button:nth-child(1) {
+  animation-delay: 1.2s;
+}
+
+.hero-schnappix__button:nth-child(2) {
+  animation-delay: 1.4s;
+}
+
+.hero-schnappix__button:nth-child(3) {
+  animation-delay: 1.6s;
+}
+
+.hero-schnappix__button:nth-child(n+4) {
+  animation-delay: 1.8s;
 }
 
 /* ============================================

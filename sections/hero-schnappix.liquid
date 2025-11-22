@@ -1,6 +1,7 @@
 {% comment %}
   SCHNAPPIX 24/7 Hero Section
   Modern hero with glassmorphism, animated gradient border, and smooth animations
+  Supports multiple CTA buttons via blocks
 {% endcomment %}
 
 {{ 'hero-schnappix.css' | asset_url | stylesheet_tag }}
@@ -38,7 +39,11 @@
     </div>
   {%- else -%}
     <div class="hero-schnappix__background hero-schnappix__background--placeholder">
-      {{ 'hero-schnappix-bg.jpg' | asset_url | image_tag: loading: 'eager', fetchpriority: 'high' }}
+      {%- if 'hero-schnappix-bg.jpg' | asset_url -%}
+        <img src="{{ 'hero-schnappix-bg.jpg' | asset_url }}" alt="{{ section.settings.main_headline | escape }}" loading="eager" fetchpriority="high">
+      {%- else -%}
+        <div class="hero-schnappix__placeholder-gradient"></div>
+      {%- endif -%}
     </div>
   {%- endif -%}
 
@@ -58,11 +63,26 @@
         </p>
       {%- endif -%}
 
-      {%- if section.settings.cta_button_text != blank and section.settings.cta_button_link != blank -%}
-        <a href="{{ section.settings.cta_button_link }}" class="hero-schnappix__button button">
-          {{ section.settings.cta_button_text }}
-        </a>
-      {%- endif -%}
+      <div class="hero-schnappix__buttons">
+        {%- comment -%} Main CTA Button {%- endcomment -%}
+        {%- if section.settings.cta_button_text != blank and section.settings.cta_button_link != blank -%}
+          <a href="{{ section.settings.cta_button_link }}" class="hero-schnappix__button hero-schnappix__button--primary button">
+            {{ section.settings.cta_button_text }}
+          </a>
+        {%- endif -%}
+
+        {%- comment -%} Additional CTA Buttons from Blocks {%- endcomment -%}
+        {%- for block in section.blocks -%}
+          {%- case block.type -%}
+            {%- when 'cta_button' -%}
+              {%- if block.settings.button_text != blank and block.settings.button_link != blank -%}
+                <a href="{{ block.settings.button_link }}" class="hero-schnappix__button hero-schnappix__button--secondary button" {{ block.shopify_attributes }}>
+                  {{ block.settings.button_text }}
+                </a>
+              {%- endif -%}
+          {%- endcase -%}
+        {%- endfor -%}
+      </div>
     </div>
   </div>
 </section>
@@ -98,13 +118,13 @@
     {
       "type": "text",
       "id": "cta_button_text",
-      "label": "CTA Button Text",
+      "label": "Primary CTA Button Text",
       "default": "Standorte finden"
     },
     {
       "type": "url",
       "id": "cta_button_link",
-      "label": "CTA Button Link"
+      "label": "Primary CTA Button Link"
     },
     {
       "type": "checkbox",
@@ -146,11 +166,38 @@
       "default": "full"
     }
   ],
+  "blocks": [
+    {
+      "type": "cta_button",
+      "name": "Additional CTA Button",
+      "settings": [
+        {
+          "type": "text",
+          "id": "button_text",
+          "label": "Button Text",
+          "default": "B2B Anfrage"
+        },
+        {
+          "type": "url",
+          "id": "button_link",
+          "label": "Button Link"
+        }
+      ]
+    }
+  ],
   "presets": [
     {
-      "name": "SCHNAPPIX Hero"
+      "name": "SCHNAPPIX Hero",
+      "blocks": [
+        {
+          "type": "cta_button",
+          "settings": {
+            "button_text": "B2B Anfrage",
+            "button_link": "/pages/contact"
+          }
+        }
+      ]
     }
   ]
 }
 {% endschema %}
-
