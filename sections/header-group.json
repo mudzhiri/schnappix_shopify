@@ -14,19 +14,18 @@
     "schnappix_header_premium": {
       "type": "schnappix-header-premium",
       "settings": {
-        "menu": "main-menu",
+        "menu": "schnappix",
         "show_search": true,
         "show_account": true,
-        "show_24_7": true,
+        "show_24_7": false,
         "show_localization": true,
         "show_country_selector": true,
         "show_language_selector": true,
-        "background_variant": "black"
+        "background_variant": "gradient"
       }
     },
     "header": {
       "type": "header",
-      "disabled": true,
       "settings": {
         "menu": "",
         "sticky_header_type": "on-scroll-up",
