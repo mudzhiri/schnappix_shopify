@@ -16,7 +16,7 @@
       this.buttons = section.querySelector('[data-hero-buttons]');
       this.button1 = section.querySelector('[data-hero-button-1]');
       this.button2 = section.querySelector('[data-hero-button-2]');
-      this.backgroundImages = section.querySelectorAll('[data-parallax="true"]');
+      this.backgroundImages = section.querySelectorAll('.shx-hero-v1-parallax');
       this.video = section.querySelector('.shx-hero-v1-background-video');
       
       this.settings = {

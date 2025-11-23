@@ -85,40 +85,42 @@
     {%- case section.settings.background_type -%}
       {%- when 'image' -%}
         {%- if section.settings.background_image != blank -%}
-          {{
-            section.settings.background_image
-            | image_url: width: 3840
-            | image_tag:
-              loading: 'eager',
-              fetchpriority: 'high',
-              sizes: '100vw',
-              widths: '375, 550, 750, 1100, 1500, 1780, 2000, 3000, 3840',
-              alt: section.settings.title | escape,
-              class: 'shx-hero-v1-background-image'
-          }}
-          {%- if section.settings.enable_parallax -%}
-            <script>
-              document.querySelector('#{{ hero_id }} .shx-hero-v1-background-image').setAttribute('data-parallax', 'true');
-            </script>
-          {%- endif -%}
+          {%- assign bg_image = section.settings.background_image | image_url: width: 3840 -%}
+          <img
+            src="{{ bg_image }}"
+            srcset="
+              {{ section.settings.background_image | image_url: width: 375 }} 375w,
+              {{ section.settings.background_image | image_url: width: 550 }} 550w,
+              {{ section.settings.background_image | image_url: width: 750 }} 750w,
+              {{ section.settings.background_image | image_url: width: 1100 }} 1100w,
+              {{ section.settings.background_image | image_url: width: 1500 }} 1500w,
+              {{ section.settings.background_image | image_url: width: 1780 }} 1780w,
+              {{ section.settings.background_image | image_url: width: 2000 }} 2000w,
+              {{ section.settings.background_image | image_url: width: 3000 }} 3000w,
+              {{ section.settings.background_image | image_url: width: 3840 }} 3840w
+            "
+            sizes="100vw"
+            alt="{{ section.settings.title | escape }}"
+            class="shx-hero-v1-background-image{% if section.settings.enable_parallax %} shx-hero-v1-parallax{% endif %}"
+            loading="eager"
+            fetchpriority="high"
+          >
         {%- endif -%}
         {%- if section.settings.background_image_mobile != blank -%}
-          {{
-            section.settings.background_image_mobile
-            | image_url: width: 750
-            | image_tag:
-              loading: 'eager',
-              fetchpriority: 'high',
-              sizes: '100vw',
-              widths: '375, 550, 750',
-              alt: section.settings.title | escape,
-              class: 'shx-hero-v1-background-image-mobile'
-          }}
-          {%- if section.settings.enable_parallax -%}
-            <script>
-              document.querySelector('#{{ hero_id }} .shx-hero-v1-background-image-mobile').setAttribute('data-parallax', 'true');
-            </script>
-          {%- endif -%}
+          {%- assign bg_image_mobile = section.settings.background_image_mobile | image_url: width: 750 -%}
+          <img
+            src="{{ bg_image_mobile }}"
+            srcset="
+              {{ section.settings.background_image_mobile | image_url: width: 375 }} 375w,
+              {{ section.settings.background_image_mobile | image_url: width: 550 }} 550w,
+              {{ section.settings.background_image_mobile | image_url: width: 750 }} 750w
+            "
+            sizes="100vw"
+            alt="{{ section.settings.title | escape }}"
+            class="shx-hero-v1-background-image-mobile{% if section.settings.enable_parallax %} shx-hero-v1-parallax{% endif %}"
+            loading="eager"
+            fetchpriority="high"
+          >
         {%- endif -%}
       {%- when 'video' -%}
         {%- if section.settings.video_url != blank -%}
