@@ -13,16 +13,8 @@
       "type": "schnappix-hero",
       "name": "Schnappix 24/7 Hero",
       "settings": {
-        "heading": "Smarter Umsatz – Moderne Automaten. Rund um die Uhr.",
-        "subheading": "<p>Schnappix 24/7 bringt moderne Self-Service-Automaten mitten in den Alltag der Menschen. Snacks, Drinks, Hygiene – jederzeit verfügbar. Perfekt für Städte, Firmen, Fitnessstudios und mehr.</p>",
-        "show_bullets": true,
-        "primary_button_label": "Jetzt Umsatzmöglichkeiten entdecken",
-        "primary_button_link": "/pages/standorte-partner",
-        "content_alignment": "left",
-        "background_color": "#FFFFFF",
         "overlay_opacity": 0,
-        "section_padding_top": "4",
-        "section_padding_bottom": "4"
+        "content_alignment": "left"
       }
     },
     "hero_schnappix_eGWEQG": {
