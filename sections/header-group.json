@@ -14,24 +14,24 @@
     "schnappix_header": {
       "type": "schnappix-header",
       "settings": {
-        "background_style": "gradient",
+        "background_style": "black",
         "enable_sticky": true,
+        "logo": "shopify://shop_images/SCHNAPPIX_black.svg",
+        "logo_width": 208,
         "show_24_7": true,
         "show_search": true,
         "show_account": true,
         "show_cart": true,
-        "show_locale_switcher": true,
-        "logo_width": 180
+        "show_locale_switcher": true
       }
     },
     "schnappix_header_premium": {
       "type": "schnappix-header-premium",
-      "disabled": true,
       "settings": {
         "menu": "schnappix",
         "show_search": true,
         "show_account": true,
-        "show_24_7": false,
+        "show_24_7": true,
         "show_localization": true,
         "show_country_selector": true,
         "show_language_selector": true,
