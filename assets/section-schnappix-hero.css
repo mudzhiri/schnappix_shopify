@@ -1,0 +1,270 @@
+/**
+ * Schnappix 24/7 Hero Section Styles
+ * Desktop: Text left, Image right
+ * Mobile: Image top, Text bottom
+ */
+
+/* ============================================
+   Section Container
+   ============================================ */
+.schnappix-hero {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+}
+
+.schnappix-hero__overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.3);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.schnappix-hero__overlay::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: inherit;
+}
+
+/* ============================================
+   Container (Grid Layout)
+   ============================================ */
+.schnappix-hero__container {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 3rem;
+  align-items: center;
+}
+
+@media screen and (min-width: 990px) {
+  .schnappix-hero__container {
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+    gap: 5rem;
+  }
+}
+
+/* ============================================
+   Content (Text Area)
+   ============================================ */
+.schnappix-hero__content {
+  max-width: 640px;
+  width: 100%;
+}
+
+.schnappix-hero__content--align-left {
+  text-align: left;
+}
+
+.schnappix-hero__content--align-center {
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+@media screen and (min-width: 990px) {
+  .schnappix-hero__content--align-center {
+    margin-left: 0;
+    margin-right: auto;
+  }
+}
+
+/* ============================================
+   Heading
+   ============================================ */
+.schnappix-hero__heading {
+  font-family: var(--font-heading-family);
+  font-style: var(--font-heading-style);
+  font-weight: var(--font-heading-weight);
+  font-size: calc(var(--font-heading-scale) * 3.2rem);
+  line-height: 1.2;
+  color: rgb(var(--color-foreground));
+  margin: 0 0 1.5rem 0;
+  letter-spacing: -0.01em;
+}
+
+@media screen and (min-width: 750px) {
+  .schnappix-hero__heading {
+    font-size: calc(var(--font-heading-scale) * 4rem);
+  }
+}
+
+@media screen and (min-width: 990px) {
+  .schnappix-hero__heading {
+    font-size: calc(var(--font-heading-scale) * 4.8rem);
+  }
+}
+
+/* ============================================
+   Subheading
+   ============================================ */
+.schnappix-hero__subheading {
+  font-family: var(--font-body-family);
+  font-style: var(--font-body-style);
+  font-weight: var(--font-body-weight);
+  font-size: calc(var(--font-body-scale) * 1.6rem);
+  line-height: 1.6;
+  color: rgba(var(--color-foreground), 0.85);
+  margin: 0 0 2.5rem 0;
+}
+
+.schnappix-hero__subheading p {
+  margin: 0 0 1rem 0;
+}
+
+.schnappix-hero__subheading p:last-child {
+  margin-bottom: 0;
+}
+
+@media screen and (min-width: 750px) {
+  .schnappix-hero__subheading {
+    font-size: calc(var(--font-body-scale) * 1.8rem);
+  }
+}
+
+/* ============================================
+   Bullet Points List
+   ============================================ */
+.schnappix-hero__list {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 3rem 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+.schnappix-hero__list-item {
+  font-family: var(--font-body-family);
+  font-style: var(--font-body-style);
+  font-weight: var(--font-body-weight);
+  font-size: calc(var(--font-body-scale) * 1.5rem);
+  line-height: 1.6;
+  color: rgb(var(--color-foreground));
+  position: relative;
+  padding-left: 2.5rem;
+}
+
+.schnappix-hero__list-item::before {
+  content: '✓';
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: var(--spx-orange, #E85522);
+  font-weight: 700;
+  font-size: 1.8rem;
+  line-height: 1.4;
+}
+
+@media screen and (min-width: 750px) {
+  .schnappix-hero__list-item {
+    font-size: calc(var(--font-body-scale) * 1.6rem);
+  }
+}
+
+/* ============================================
+   Button Wrapper
+   ============================================ */
+.schnappix-hero__button-wrapper {
+  margin-top: 2rem;
+}
+
+.schnappix-hero__button {
+  background-color: var(--spx-orange, #E85522);
+  color: var(--spx-white, #FFFFFF);
+  border-color: var(--spx-orange, #E85522);
+  font-weight: 700;
+  padding: 1.4rem 3.2rem;
+  font-size: calc(var(--font-body-scale) * 1.6rem);
+  transition: all 0.3s ease;
+}
+
+.schnappix-hero__button:hover {
+  background-color: var(--spx-orange-dark, #D1450F);
+  border-color: var(--spx-orange-dark, #D1450F);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(232, 85, 34, 0.4);
+}
+
+/* ============================================
+   Image Wrapper
+   ============================================ */
+.schnappix-hero__image-wrapper {
+  position: relative;
+  width: 100%;
+  order: -1;
+}
+
+@media screen and (min-width: 990px) {
+  .schnappix-hero__image-wrapper {
+    order: 0;
+  }
+}
+
+.schnappix-hero__image {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: contain;
+  object-position: center;
+  border-radius: var(--media-radius, 0);
+}
+
+/* ============================================
+   Mobile Optimizations
+   ============================================ */
+@media screen and (max-width: 749px) {
+  .schnappix-hero {
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+
+  .schnappix-hero__content {
+    max-width: 100%;
+  }
+
+  .schnappix-hero__heading {
+    font-size: calc(var(--font-heading-scale) * 2.8rem);
+  }
+
+  .schnappix-hero__subheading {
+    font-size: calc(var(--font-body-scale) * 1.5rem);
+  }
+
+  .schnappix-hero__list {
+    gap: 1rem;
+  }
+
+  .schnappix-hero__list-item {
+    font-size: calc(var(--font-body-scale) * 1.4rem);
+    padding-left: 2rem;
+  }
+
+  .schnappix-hero__button {
+    width: 100%;
+    text-align: center;
+  }
+}
+
+/* ============================================
+   Accessibility
+   ============================================ */
+@media (prefers-reduced-motion: reduce) {
+  .schnappix-hero__button {
+    transition: none;
+  }
+
+  .schnappix-hero__button:hover {
+    transform: none;
+  }
+}
+

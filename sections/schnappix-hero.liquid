@@ -1,233 +1,130 @@
-{{ 'schnappix-hero.css' | asset_url | stylesheet_tag }}
+{% comment %}
+  Schnappix 24/7 Hero Section
+  Desktop: Text left, Image right
+  Mobile: Image top, Text bottom
+{% endcomment %}
+
+{{ 'section-schnappix-hero.css' | asset_url | stylesheet_tag }}
 
 {%- style -%}
   #SchnappixHero-{{ section.id }} {
-    --hero-overlay-opacity: {{ section.settings.overlay_opacity | divided_by: 100.0 }};
-    --hero-primary-color: {{ section.settings.primary_color }};
-    --hero-text-color: {{ section.settings.text_color }};
+    background-color: {{ section.settings.background_color }};
+    padding-top: {{ section.settings.section_padding_top }}rem;
+    padding-bottom: {{ section.settings.section_padding_bottom }}rem;
+  }
+
+  #SchnappixHero-{{ section.id }}::before {
+    opacity: {{ section.settings.overlay_opacity | divided_by: 100.0 }};
   }
 {%- endstyle -%}
 
-{%- liquid
-  assign full_width = '100vw'
-  assign widths = '375, 550, 750, 1100, 1500, 1780, 2000, 3000, 3840'
-  assign fetch_priority = 'auto'
-  if section.index == 1
-    assign fetch_priority = 'high'
-  endif
--%}
+<section id="SchnappixHero-{{ section.id }}" class="schnappix-hero{% if section.settings.image != blank %} schnappix-hero--has-image{% endif %}">
+  <div class="schnappix-hero__overlay"></div>
+  
+  <div class="page-width">
+    <div class="schnappix-hero__container">
+      {%- comment -%} Text Content (Left on desktop, Bottom on mobile) {%- endcomment -%}
+      <div class="schnappix-hero__content schnappix-hero__content--align-{{ section.settings.content_alignment }}">
+        {%- if section.settings.heading != blank -%}
+          <h1 class="schnappix-hero__heading">
+            {{ section.settings.heading }}
+          </h1>
+        {%- endif -%}
 
-<div
-  id="SchnappixHero-{{ section.id }}"
-  class="schnappix-hero{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--fade-in{% endif %}"
->
-  {%- comment -%} Background Media {%- endcomment -%}
-  <div class="schnappix-hero__media">
-    {%- if section.settings.video != blank -%}
-      <video
-        class="schnappix-hero__video"
-        autoplay
-        muted
-        loop
-        playsinline
-        preload="metadata"
-      >
-        <source src="{{ section.settings.video }}" type="video/mp4">
-      </video>
-    {%- elsif section.settings.image != blank -%}
-      {{
-        section.settings.image
-        | image_url: width: 3840
-        | image_tag:
-          loading: 'eager',
-          width: section.settings.image.width,
-          height: section.settings.image.height,
-          sizes: full_width,
-          widths: widths,
-          fetchpriority: fetch_priority,
-          class: 'schnappix-hero__image'
-      }}
-    {%- else -%}
-      <div class="schnappix-hero__placeholder">
-        {{ 'lifestyle-1' | placeholder_svg_tag: 'placeholder-svg' }}
+        {%- if section.settings.subheading != blank -%}
+          <div class="schnappix-hero__subheading">
+            {{ section.settings.subheading }}
+          </div>
+        {%- endif -%}
+
+        {%- if section.settings.show_bullets and section.blocks.size > 0 -%}
+          <ul class="schnappix-hero__list">
+            {%- for block in section.blocks -%}
+              {%- if block.type == 'bullet_point' and block.settings.text != blank -%}
+                <li class="schnappix-hero__list-item" {{ block.shopify_attributes }}>
+                  {{ block.settings.text }}
+                </li>
+              {%- endif -%}
+            {%- endfor -%}
+          </ul>
+        {%- endif -%}
+
+        {%- if section.settings.primary_button_label != blank and section.settings.primary_button_link != blank -%}
+          <div class="schnappix-hero__button-wrapper">
+            <a href="{{ section.settings.primary_button_link }}" class="button button--primary schnappix-hero__button">
+              {{ section.settings.primary_button_label }}
+            </a>
+          </div>
+        {%- endif -%}
       </div>
-    {%- endif -%}
-    
-    {%- comment -%} Dark Gradient Overlay {%- endcomment -%}
-    <div class="schnappix-hero__overlay"></div>
-  </div>
 
-  {%- comment -%} Content Container {%- endcomment -%}
-  <div class="schnappix-hero__content page-width" data-alignment="{{ section.settings.content_alignment }}">
-    <div class="schnappix-hero__content-inner">
-      
-      {%- comment -%} Logo {%- endcomment -%}
-      {%- if section.settings.logo != blank -%}
-        <div class="schnappix-hero__logo">
+      {%- comment -%} Hero Image (Right on desktop, Top on mobile) {%- endcomment -%}
+      {%- if section.settings.image != blank -%}
+        <div class="schnappix-hero__image-wrapper">
           {{
-            section.settings.logo
-            | image_url: width: 500
+            section.settings.image
+            | image_url: width: 1200
             | image_tag:
               loading: 'eager',
-              width: section.settings.logo.width,
-              height: section.settings.logo.height,
-              alt: shop.name,
-              class: 'schnappix-hero__logo-image'
+              fetchpriority: 'high',
+              sizes: '(min-width: 990px) 50vw, 100vw',
+              widths: '375, 550, 750, 1100, 1200',
+              alt: section.settings.image.alt | default: 'Schnappix 24/7 Snack- und Getränkeautomat',
+              class: 'schnappix-hero__image'
           }}
         </div>
       {%- endif -%}
-
-      {%- comment -%} Headline {%- endcomment -%}
-      {%- if section.settings.headline != blank -%}
-        <h1 class="schnappix-hero__headline h0">
-          {{ section.settings.headline }}
-        </h1>
-      {%- endif -%}
-
-      {%- comment -%} Subheadline {%- endcomment -%}
-      {%- if section.settings.subheadline != blank -%}
-        <p class="schnappix-hero__subheadline">
-          {{ section.settings.subheadline }}
-        </p>
-      {%- endif -%}
-
-      {%- comment -%} CTA Buttons {%- endcomment -%}
-      <div class="schnappix-hero__buttons">
-        {%- if section.settings.button_1_text != blank -%}
-          <a
-            href="{{ section.settings.button_1_link }}"
-            class="schnappix-hero__button schnappix-hero__button--primary button"
-            {% if section.settings.button_1_link == blank %}
-              role="link"
-              aria-disabled="true"
-            {% endif %}
-          >
-            {{ section.settings.button_1_text }}
-          </a>
-        {%- endif -%}
-
-        {%- if section.settings.button_2_text != blank -%}
-          <a
-            href="{{ section.settings.button_2_link }}"
-            class="schnappix-hero__button schnappix-hero__button--secondary button button--secondary"
-            {% if section.settings.button_2_link == blank %}
-              role="link"
-              aria-disabled="true"
-            {% endif %}
-          >
-            {{ section.settings.button_2_text }}
-          </a>
-        {%- endif -%}
-      </div>
     </div>
   </div>
-</div>
+</section>
 
 {% schema %}
 {
-  "name": "SCHNAPPIX Hero",
+  "name": "Schnappix 24/7 Hero",
   "tag": "section",
   "class": "section",
+  "category": "Hero",
   "settings": [
     {
-      "type": "header",
-      "content": "Media"
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Smarter Umsatz – Moderne Automaten. Rund um die Uhr."
+    },
+    {
+      "type": "richtext",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "<p>Schnappix 24/7 bringt moderne Self-Service-Automaten mitten in den Alltag der Menschen. Snacks, Drinks, Hygiene – jederzeit verfügbar. Perfekt für Städte, Firmen, Fitnessstudios und mehr.</p>"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_bullets",
+      "label": "Show Bullet Points",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "primary_button_label",
+      "label": "Primary Button Label",
+      "default": "Jetzt Umsatzmöglichkeiten entdecken"
+    },
+    {
+      "type": "url",
+      "id": "primary_button_link",
+      "label": "Primary Button Link",
+      "default": "/pages/standorte-partner"
     },
     {
       "type": "image_picker",
       "id": "image",
       "label": "Hero Image",
-      "info": "Recommended: 1920x1080px or larger"
-    },
-    {
-      "type": "text",
-      "id": "video",
-      "label": "Hero Video URL (MP4)",
-      "info": "Optional: Enter direct URL to MP4 video. If set, video will override image."
-    },
-    {
-      "type": "header",
-      "content": "Logo"
-    },
-    {
-      "type": "image_picker",
-      "id": "logo",
-      "label": "Logo Image",
-      "info": "Optional: Upload your SCHNAPPIX logo"
-    },
-    {
-      "type": "header",
-      "content": "Content"
-    },
-    {
-      "type": "text",
-      "id": "headline",
-      "label": "Headline",
-      "default": "Premium Snacks & Drinks 24/7"
-    },
-    {
-      "type": "textarea",
-      "id": "subheadline",
-      "label": "Subheadline",
-      "default": "Moderne Selbstbedienungsautomaten an öffentlichen Plätzen, Bahnhöfen und Wohngebieten. Immer verfügbar, immer frisch."
-    },
-    {
-      "type": "header",
-      "content": "Buttons"
-    },
-    {
-      "type": "text",
-      "id": "button_1_text",
-      "label": "Button 1 Text",
-      "default": "Standorte finden"
-    },
-    {
-      "type": "url",
-      "id": "button_1_link",
-      "label": "Button 1 Link"
-    },
-    {
-      "type": "text",
-      "id": "button_2_text",
-      "label": "Button 2 Text",
-      "default": "B2B Anfrage"
-    },
-    {
-      "type": "url",
-      "id": "button_2_link",
-      "label": "Button 2 Link"
-    },
-    {
-      "type": "header",
-      "content": "Style"
-    },
-    {
-      "type": "color",
-      "id": "primary_color",
-      "label": "Primary Color",
-      "default": "#E45521"
-    },
-    {
-      "type": "color",
-      "id": "text_color",
-      "label": "Text Color",
-      "default": "#FFFFFF"
-    },
-    {
-      "type": "range",
-      "id": "overlay_opacity",
-      "min": 0,
-      "max": 100,
-      "step": 5,
-      "unit": "%",
-      "label": "Overlay Opacity",
-      "default": 50,
-      "info": "Dark gradient overlay for text readability"
+      "info": "Recommended: 1200x800px or larger. Vending machine illustration."
     },
     {
       "type": "select",
       "id": "content_alignment",
-      "label": "Content Alignment",
+      "label": "Content Alignment (Desktop)",
       "options": [
         {
           "value": "left",
@@ -238,14 +135,125 @@
           "label": "Center"
         }
       ],
-      "default": "center"
+      "default": "left"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background Color",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "range",
+      "id": "overlay_opacity",
+      "label": "Overlay Opacity",
+      "min": 0,
+      "max": 80,
+      "step": 5,
+      "unit": "%",
+      "default": 0,
+      "info": "Adds a dark overlay for better text readability"
+    },
+    {
+      "type": "select",
+      "id": "section_padding_top",
+      "label": "Section Padding Top",
+      "options": [
+        {
+          "value": "2",
+          "label": "Small"
+        },
+        {
+          "value": "4",
+          "label": "Medium"
+        },
+        {
+          "value": "6",
+          "label": "Large"
+        },
+        {
+          "value": "8",
+          "label": "Extra Large"
+        }
+      ],
+      "default": "4"
+    },
+    {
+      "type": "select",
+      "id": "section_padding_bottom",
+      "label": "Section Padding Bottom",
+      "options": [
+        {
+          "value": "2",
+          "label": "Small"
+        },
+        {
+          "value": "4",
+          "label": "Medium"
+        },
+        {
+          "value": "6",
+          "label": "Large"
+        },
+        {
+          "value": "8",
+          "label": "Extra Large"
+        }
+      ],
+      "default": "4"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "bullet_point",
+      "name": "Bullet Point",
+      "settings": [
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Text",
+          "default": "100 % automatisiert – kein Personal nötig"
+        }
+      ]
     }
   ],
   "presets": [
     {
-      "name": "SCHNAPPIX Hero"
+      "name": "Schnappix 24/7 Hero",
+      "category": "Hero",
+      "blocks": [
+        {
+          "type": "bullet_point",
+          "settings": {
+            "text": "100 % automatisiert – kein Personal nötig"
+          }
+        },
+        {
+          "type": "bullet_point",
+          "settings": {
+            "text": "Stabile Margen & hohe Nachfrage an Hotspots"
+          }
+        },
+        {
+          "type": "bullet_point",
+          "settings": {
+            "text": "Premium-Automaten mit Telemetrie, KI & Remote-Monitoring"
+          }
+        },
+        {
+          "type": "bullet_point",
+          "settings": {
+            "text": "24/7 Einnahmen ohne täglichen Aufwand"
+          }
+        },
+        {
+          "type": "bullet_point",
+          "settings": {
+            "text": "Installation, Service & Betreuung durch Schnappix (optional)"
+          }
+        }
+      ]
     }
   ]
 }
 {% endschema %}
-

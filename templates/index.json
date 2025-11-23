@@ -9,6 +9,61 @@
  */
 {
   "sections": {
+    "schnappix_hero_main": {
+      "type": "schnappix-hero",
+      "name": "Schnappix 24/7 Hero",
+      "settings": {
+        "heading": "Smarter Umsatz – Moderne Automaten. Rund um die Uhr.",
+        "subheading": "<p>Schnappix 24/7 bringt moderne Self-Service-Automaten mitten in den Alltag der Menschen. Snacks, Drinks, Hygiene – jederzeit verfügbar. Perfekt für Städte, Firmen, Fitnessstudios und mehr.</p>",
+        "show_bullets": true,
+        "primary_button_label": "Jetzt Umsatzmöglichkeiten entdecken",
+        "primary_button_link": "/pages/standorte-partner",
+        "content_alignment": "left",
+        "background_color": "#FFFFFF",
+        "overlay_opacity": 0,
+        "section_padding_top": "4",
+        "section_padding_bottom": "4"
+      },
+      "blocks": {
+        "bullet_1": {
+          "type": "bullet_point",
+          "settings": {
+            "text": "100 % automatisiert – kein Personal nötig"
+          }
+        },
+        "bullet_2": {
+          "type": "bullet_point",
+          "settings": {
+            "text": "Stabile Margen & hohe Nachfrage an Hotspots"
+          }
+        },
+        "bullet_3": {
+          "type": "bullet_point",
+          "settings": {
+            "text": "Premium-Automaten mit Telemetrie, KI & Remote-Monitoring"
+          }
+        },
+        "bullet_4": {
+          "type": "bullet_point",
+          "settings": {
+            "text": "24/7 Einnahmen ohne täglichen Aufwand"
+          }
+        },
+        "bullet_5": {
+          "type": "bullet_point",
+          "settings": {
+            "text": "Installation, Service & Betreuung durch Schnappix (optional)"
+          }
+        }
+      },
+      "block_order": [
+        "bullet_1",
+        "bullet_2",
+        "bullet_3",
+        "bullet_4",
+        "bullet_5"
+      ]
+    },
     "hero_schnappix_eGWEQG": {
       "type": "hero-schnappix",
       "name": "SCHNAPPIX Hero",
@@ -25,6 +80,7 @@
     }
   },
   "order": [
+    "schnappix_hero_main",
     "hero_schnappix_eGWEQG"
   ]
 }
