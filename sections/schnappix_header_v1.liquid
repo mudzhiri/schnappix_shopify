@@ -394,6 +394,12 @@
     border-left-color: var(--shx-v1-primary);
   }
 
+  .shx-v1-drawer-link--child {
+    padding-left: 3.5rem;
+    font-size: 0.95rem;
+    opacity: 0.9;
+  }
+
   /* ============================================
      Animations
      ============================================ */
@@ -615,6 +621,23 @@
           </button>
         </div>
         <nav class="shx-v1-drawer-nav">
+          {%- comment -%} Menu Links from selected menu {%- endcomment -%}
+          {%- if section.settings.menu != blank -%}
+            {%- for link in section.settings.menu.links -%}
+              <a href="{{ link.url }}" class="shx-v1-drawer-link">
+                {{ link.title }}
+              </a>
+              {%- if link.links != blank -%}
+                {%- for childlink in link.links -%}
+                  <a href="{{ childlink.url }}" class="shx-v1-drawer-link shx-v1-drawer-link--child">
+                    {{ childlink.title }}
+                  </a>
+                {%- endfor -%}
+              {%- endif -%}
+            {%- endfor -%}
+          {%- endif -%}
+          
+          {%- comment -%} Custom Blocks (Menu Links, Custom HTML) {%- endcomment -%}
           {%- for block in section.blocks -%}
             {%- case block.type -%}
               {%- when 'menu_link' -%}
@@ -788,6 +811,17 @@
       "unit": "px",
       "label": "Logo Width",
       "default": 180
+    },
+    {
+      "type": "header",
+      "content": "Menu Settings"
+    },
+    {
+      "type": "link_list",
+      "id": "menu",
+      "label": "Menu",
+      "default": "main-menu",
+      "info": "Select a menu to display in the hamburger drawer"
     },
     {
       "type": "header",
