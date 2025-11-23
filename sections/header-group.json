@@ -13,6 +13,7 @@
   "sections": {
     "schnappix_header_premium": {
       "type": "schnappix-header-premium",
+      "disabled": true,
       "settings": {
         "menu": "schnappix",
         "show_search": true,
@@ -40,10 +41,81 @@
         "padding_top": 20,
         "padding_bottom": 20
       }
+    },
+    "schnappix_header_v1_GkAzV7": {
+      "type": "schnappix_header_v1",
+      "blocks": {
+        "custom_html_xkiUeT": {
+          "type": "custom_html",
+          "settings": {
+            "html_content": ""
+          }
+        },
+        "menu_link_fYzRda": {
+          "type": "menu_link",
+          "settings": {
+            "link_label": "Menu Item",
+            "link_url": ""
+          }
+        },
+        "menu_link_tpp3AG": {
+          "type": "menu_link",
+          "settings": {
+            "link_label": "Home",
+            "link_url": "/"
+          }
+        },
+        "custom_icon_pyAD7Q": {
+          "type": "custom_icon",
+          "settings": {
+            "icon_url": "shopify://shop_images/1.svg",
+            "icon_link": "",
+            "icon_label": "Custom Icon"
+          }
+        },
+        "menu_link_GxwAjn": {
+          "type": "menu_link",
+          "settings": {
+            "link_label": "Products",
+            "link_url": "/collections/all"
+          }
+        },
+        "menu_link_7J9MpD": {
+          "type": "menu_link",
+          "settings": {
+            "link_label": "About",
+            "link_url": "/pages/about"
+          }
+        }
+      },
+      "block_order": [
+        "custom_html_xkiUeT",
+        "menu_link_fYzRda",
+        "menu_link_tpp3AG",
+        "custom_icon_pyAD7Q",
+        "menu_link_GxwAjn",
+        "menu_link_7J9MpD"
+      ],
+      "name": "Schnappix Header v1",
+      "settings": {
+        "logo_width": 180,
+        "show_hamburger": true,
+        "show_search": true,
+        "show_account": true,
+        "show_cart": true,
+        "show_language_selector": true,
+        "header_height_desktop": 84,
+        "header_height_mobile": 60,
+        "padding_horizontal": 24,
+        "background_style": "gradient",
+        "glow_intensity": 30,
+        "sticky_on_scroll": true
+      }
     }
   },
   "order": [
     "schnappix_header_premium",
-    "header"
+    "header",
+    "schnappix_header_v1_GkAzV7"
   ]
 }
