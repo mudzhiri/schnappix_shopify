@@ -1,0 +1,256 @@
+/**
+ * Vertical Section Navigation Bar v1
+ * Version: 1.0
+ * Brand: SCHNAPPIX 24/7
+ */
+
+/* ============================================
+   CSS Variables
+   ============================================ */
+:root {
+  --vnav-v1-primary: #F15A29;
+  --vnav-v1-secondary: #FFFFFF;
+  --vnav-v1-background: #000000;
+  --vnav-v1-gap: 14px;
+  --vnav-v1-inactive-width: 4px;
+  --vnav-v1-inactive-height: 24px;
+  --vnav-v1-active-width: 6px;
+  --vnav-v1-active-height: 48px;
+  --vnav-v1-opacity-inactive: 0.3;
+  --vnav-v1-animation-duration: 220ms;
+}
+
+/* ============================================
+   Navigation Container
+   ============================================ */
+.vnav-v1 {
+  position: fixed;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 999;
+  pointer-events: none;
+  transition: opacity var(--vnav-v1-animation-duration) ease-out;
+}
+
+/* Hide on mobile/desktop */
+.vnav-v1[data-hide-mobile="true"] {
+  display: none;
+}
+
+@media screen and (min-width: 750px) {
+  .vnav-v1[data-hide-mobile="true"] {
+    display: block;
+  }
+  
+  .vnav-v1[data-hide-desktop="true"] {
+    display: none;
+  }
+}
+
+/* ============================================
+   Navigation List
+   ============================================ */
+.vnav-v1__list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--vnav-v1-gap);
+}
+
+/* ============================================
+   Navigation Item
+   ============================================ */
+.vnav-v1__item {
+  margin: 0;
+  padding: 0;
+}
+
+/* ============================================
+   Navigation Marker (Link)
+   ============================================ */
+.vnav-v1__marker {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+  cursor: pointer;
+  pointer-events: all;
+  transition: all var(--vnav-v1-animation-duration) ease-out;
+  position: relative;
+  padding: 4px;
+  border-radius: 4px;
+}
+
+.vnav-v1__marker:hover {
+  transform: scale(1.1);
+}
+
+.vnav-v1__marker:focus {
+  outline: 2px solid var(--vnav-v1-primary);
+  outline-offset: 4px;
+  border-radius: 4px;
+}
+
+/* ============================================
+   Navigation Line
+   ============================================ */
+.vnav-v1__line {
+  width: var(--vnav-v1-inactive-width);
+  height: var(--vnav-v1-inactive-height);
+  background-color: var(--vnav-v1-item-color, var(--vnav-v1-secondary));
+  border-radius: 2px;
+  opacity: var(--vnav-v1-opacity-inactive);
+  transition: 
+    width var(--vnav-v1-animation-duration) ease-out,
+    height var(--vnav-v1-animation-duration) ease-out,
+    opacity var(--vnav-v1-animation-duration) ease-out,
+    background-color var(--vnav-v1-animation-duration) ease-out,
+    box-shadow var(--vnav-v1-animation-duration) ease-out;
+  will-change: width, height, opacity, transform;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+}
+
+/* Active State */
+.vnav-v1__marker--active .vnav-v1__line {
+  width: var(--vnav-v1-active-width);
+  height: var(--vnav-v1-active-height);
+  opacity: 1;
+  background-color: var(--vnav-v1-item-color, var(--vnav-v1-primary));
+  box-shadow: 
+    0 0 8px rgba(241, 90, 41, 0.4),
+    0 0 16px rgba(241, 90, 41, 0.2);
+}
+
+/* Hover State (for inactive markers) */
+.vnav-v1__marker:not(.vnav-v1__marker--active):hover .vnav-v1__line {
+  opacity: 0.6;
+  background-color: var(--vnav-v1-item-color, var(--vnav-v1-secondary));
+}
+
+/* ============================================
+   Navigation Label
+   ============================================ */
+.vnav-v1__label {
+  font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: var(--vnav-v1-secondary);
+  opacity: 0;
+  transform: translateX(8px);
+  transition: 
+    opacity var(--vnav-v1-animation-duration) ease-out,
+    transform var(--vnav-v1-animation-duration) ease-out;
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+.vnav-v1__marker--active .vnav-v1__label {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.vnav-v1--left .vnav-v1__label {
+  transform: translateX(-8px);
+}
+
+.vnav-v1--left .vnav-v1__marker--active .vnav-v1__label {
+  transform: translateX(0);
+}
+
+/* ============================================
+   Position Variants
+   ============================================ */
+.vnav-v1--left {
+  left: 24px;
+  right: auto;
+}
+
+.vnav-v1--right {
+  right: 24px;
+  left: auto;
+}
+
+/* ============================================
+   Responsive Design
+   ============================================ */
+@media screen and (max-width: 989px) {
+  .vnav-v1 {
+    opacity: 0.8;
+  }
+  
+  .vnav-v1__marker:hover {
+    transform: scale(1.05);
+  }
+}
+
+@media screen and (max-width: 749px) {
+  .vnav-v1 {
+    opacity: 0.7;
+  }
+  
+  .vnav-v1__line {
+    width: calc(var(--vnav-v1-inactive-width) * 0.9);
+    height: calc(var(--vnav-v1-inactive-height) * 0.9);
+  }
+  
+  .vnav-v1__marker--active .vnav-v1__line {
+    width: calc(var(--vnav-v1-active-width) * 0.9);
+    height: calc(var(--vnav-v1-active-height) * 0.9);
+  }
+}
+
+/* ============================================
+   Accessibility
+   ============================================ */
+@media (prefers-reduced-motion: reduce) {
+  .vnav-v1__line,
+  .vnav-v1__label,
+  .vnav-v1__marker {
+    transition: none !important;
+    animation: none !important;
+  }
+  
+  .vnav-v1__marker:hover {
+    transform: none;
+  }
+}
+
+/* Screen reader only text */
+.vnav-v1__marker .visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+/* ============================================
+   Performance Optimizations
+   ============================================ */
+.vnav-v1__line {
+  transform: translateZ(0);
+  will-change: width, height, opacity;
+}
+
+.vnav-v1__marker {
+  transform: translateZ(0);
+}
+
+/* ============================================
+   Print Styles
+   ============================================ */
+@media print {
+  .vnav-v1 {
+    display: none;
+  }
+}
+

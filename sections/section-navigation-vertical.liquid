@@ -1,0 +1,300 @@
+{% comment %}
+  Vertical Section Navigation Bar v1
+  Version: 1.0
+  Prefix: vnav-v1-
+  Brand: SCHNAPPIX 24/7
+{% endcomment %}
+
+{{ 'section-navigation-vertical.css' | asset_url | stylesheet_tag }}
+
+{%- liquid
+  assign nav_id = 'vnav-v1-' | append: section.id
+  assign position = section.settings.position
+-%}
+
+{%- style -%}
+  #{{ nav_id }} {
+    --vnav-v1-primary: {{ section.settings.primary_color }};
+    --vnav-v1-secondary: {{ section.settings.secondary_color }};
+    --vnav-v1-background: {{ section.settings.background_color }};
+    --vnav-v1-gap: {{ section.settings.line_gap }}px;
+    --vnav-v1-inactive-width: {{ section.settings.inactive_width }}px;
+    --vnav-v1-inactive-height: {{ section.settings.inactive_height }}px;
+    --vnav-v1-active-width: {{ section.settings.active_width }}px;
+    --vnav-v1-active-height: {{ section.settings.active_height }}px;
+    --vnav-v1-opacity-inactive: {{ section.settings.opacity_inactive | divided_by: 100.0 }};
+    --vnav-v1-animation-duration: {{ section.settings.animation_duration }}ms;
+    {% if position == 'left' %}
+      left: {{ section.settings.offset_horizontal }}px;
+      right: auto;
+    {% else %}
+      right: {{ section.settings.offset_horizontal }}px;
+      left: auto;
+    {% endif %}
+  }
+{%- endstyle -%}
+
+<nav 
+  id="{{ nav_id }}" 
+  class="vnav-v1 vnav-v1--{{ position }}"
+  role="navigation"
+  aria-label="{{ 'general.navigation.section_navigation' | t | default: 'Section Navigation' }}"
+  data-vertical-nav
+>
+  <ul class="vnav-v1__list" role="list">
+    {%- for block in section.blocks -%}
+      {%- if block.settings.enable_item -%}
+        {%- assign section_id = block.settings.section_id | default: '' -%}
+        {%- assign label = block.settings.label | default: 'Section' -%}
+        {%- assign custom_color = block.settings.custom_color | default: '' -%}
+        
+        <li class="vnav-v1__item" {{ block.shopify_attributes }}>
+          <a
+            href="#{{ section_id }}"
+            class="vnav-v1__marker{% if forloop.first %} vnav-v1__marker--active{% endif %}"
+            data-section-id="{{ section_id }}"
+            aria-label="{{ label }}"
+            title="{{ label }}"
+            {% if custom_color != blank %}
+              style="--vnav-v1-item-color: {{ custom_color }};"
+            {% endif %}
+          >
+            <span class="vnav-v1__line"></span>
+            {%- if section.settings.show_labels -%}
+              <span class="vnav-v1__label">{{ label }}</span>
+            {%- endif -%}
+          </a>
+        </li>
+      {%- endif -%}
+    {%- endfor -%}
+  </ul>
+</nav>
+
+<script src="{{ 'section-navigation-vertical.js' | asset_url }}" defer="defer"></script>
+
+{% schema %}
+{
+  "name": "Vertical Section Navigation v1",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Position"
+    },
+    {
+      "type": "select",
+      "id": "position",
+      "label": "Position",
+      "options": [
+        {
+          "value": "left",
+          "label": "Center Left"
+        },
+        {
+          "value": "right",
+          "label": "Center Right"
+        }
+      ],
+      "default": "right"
+    },
+    {
+      "type": "range",
+      "id": "offset_horizontal",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Horizontal Offset",
+      "default": 24,
+      "info": "Distance from screen edge"
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "primary_color",
+      "label": "Primary Color (Active)",
+      "default": "#F15A29"
+    },
+    {
+      "type": "color",
+      "id": "secondary_color",
+      "label": "Secondary Color",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background Color",
+      "default": "#000000"
+    },
+    {
+      "type": "header",
+      "content": "Line Styling"
+    },
+    {
+      "type": "range",
+      "id": "line_gap",
+      "min": 8,
+      "max": 24,
+      "step": 2,
+      "unit": "px",
+      "label": "Gap Between Lines",
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "inactive_width",
+      "min": 2,
+      "max": 6,
+      "step": 1,
+      "unit": "px",
+      "label": "Inactive Line Width",
+      "default": 4
+    },
+    {
+      "type": "range",
+      "id": "inactive_height",
+      "min": 16,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "label": "Inactive Line Height",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "active_width",
+      "min": 4,
+      "max": 10,
+      "step": 1,
+      "unit": "px",
+      "label": "Active Line Width",
+      "default": 6
+    },
+    {
+      "type": "range",
+      "id": "active_height",
+      "min": 32,
+      "max": 80,
+      "step": 4,
+      "unit": "px",
+      "label": "Active Line Height",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "opacity_inactive",
+      "min": 10,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "label": "Inactive Line Opacity",
+      "default": 30
+    },
+    {
+      "type": "header",
+      "content": "Animation"
+    },
+    {
+      "type": "range",
+      "id": "animation_duration",
+      "min": 100,
+      "max": 500,
+      "step": 20,
+      "unit": "ms",
+      "label": "Animation Duration",
+      "default": 220
+    },
+    {
+      "type": "header",
+      "content": "Display"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_labels",
+      "label": "Show Labels",
+      "default": false,
+      "info": "Display section labels next to markers"
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_on_mobile",
+      "label": "Hide on Mobile",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_on_desktop",
+      "label": "Hide on Desktop",
+      "default": false
+    }
+  ],
+  "blocks": [
+    {
+      "type": "navigation_item",
+      "name": "Navigation Item",
+      "settings": [
+        {
+          "type": "text",
+          "id": "section_id",
+          "label": "Section ID",
+          "default": "shopify-section-hero",
+          "info": "The ID of the section to navigate to (e.g., shopify-section-hero)"
+        },
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Label",
+          "default": "Section",
+          "info": "Label for accessibility and tooltip"
+        },
+        {
+          "type": "color",
+          "id": "custom_color",
+          "label": "Custom Color (Optional)",
+          "info": "Override default color for this marker"
+        },
+        {
+          "type": "checkbox",
+          "id": "enable_item",
+          "label": "Enable Item",
+          "default": true
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Vertical Section Navigation v1",
+      "blocks": [
+        {
+          "type": "navigation_item",
+          "settings": {
+            "section_id": "shopify-section-hero",
+            "label": "Hero"
+          }
+        },
+        {
+          "type": "navigation_item",
+          "settings": {
+            "section_id": "shopify-section-featured-collection",
+            "label": "Products"
+          }
+        },
+        {
+          "type": "navigation_item",
+          "settings": {
+            "section_id": "shopify-section-rich-text",
+            "label": "About"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
+
