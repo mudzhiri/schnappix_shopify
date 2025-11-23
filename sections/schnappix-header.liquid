@@ -1,0 +1,531 @@
+{% comment %}
+  Schnappix 24/7 – Custom Animated Header
+  Section: sections/schnappix-header.liquid
+{% endcomment %}
+
+<header
+  id="SchnappixHeader"
+  class="schnappix-header schnappix-header--{{ section.settings.background_style }}{% if section.settings.enable_sticky %} schnappix-header--sticky{% endif %}"
+>
+  <div class="schnappix-header__inner">
+
+    {%- comment -%} LEFT: Hamburger {%- endcomment -%}
+    <button
+      class="schnappix-header__hamburger"
+      type="button"
+      aria-label="{{ 'sections.header.menu' | t | default: 'Menu' }}"
+      aria-expanded="false"
+      data-schnappix-hamburger
+    >
+      <span class="schnappix-header__hamburger-line"></span>
+      <span class="schnappix-header__hamburger-line"></span>
+      <span class="schnappix-header__hamburger-line"></span>
+    </button>
+
+    {%- comment -%} CENTER: Logo {%- endcomment -%}
+    <div class="schnappix-header__logo-wrap">
+      {% if section.settings.logo != blank %}
+        <a href="{{ routes.root_url }}" class="schnappix-header__logo-link" aria-label="{{ shop.name }}">
+          {{
+            section.settings.logo
+            | image_url: width: section.settings.logo_width
+            | image_tag:
+              class: 'schnappix-header__logo-image',
+              alt: shop.name
+          }}
+          {% if section.settings.show_24_7 %}
+            <span class="schnappix-header__logo-tag">24/7</span>
+          {% endif %}
+        </a>
+      {% else %}
+        <a href="{{ routes.root_url }}" class="schnappix-header__logo-text">
+          <span class="schnappix-header__logo-text-main">SCHNAPP</span>
+          <span class="schnappix-header__logo-text-pix">PIX</span>
+          {% if section.settings.show_24_7 %}
+            <span class="schnappix-header__logo-tag">24/7</span>
+          {% endif %}
+        </a>
+      {% endif %}
+    </div>
+
+    {%- comment -%} RIGHT: Icons {%- endcomment -%}
+    <div class="schnappix-header__icons">
+
+      {%- if section.settings.show_search -%}
+        <a
+          href="{{ routes.search_url }}"
+          class="schnappix-header__icon-link"
+          aria-label="{{ 'general.search.search' | t | default: 'Search' }}"
+        >
+          <span class="schnappix-icon schnappix-icon--search"></span>
+        </a>
+      {%- endif -%}
+
+      {%- if section.settings.show_account and shop.customer_accounts_enabled -%}
+        <a
+          href="{{ routes.account_url }}"
+          class="schnappix-header__icon-link"
+          aria-label="{{ 'customer.account.title' | t | default: 'Account' }}"
+        >
+          <span class="schnappix-icon schnappix-icon--account"></span>
+        </a>
+      {%- endif -%}
+
+      {%- if section.settings.show_locale_switcher and localization.available_countries.size > 1 -%}
+        <form
+          method="post"
+          action="{{ routes.root_url }}"
+          class="schnappix-header__locale-form"
+        >
+          <input type="hidden" name="return_to" value="{{ request.path }}">
+          <select
+            name="country_code"
+            class="schnappix-header__locale-select"
+            aria-label="{{ 'localization.country_label' | t | default: 'Country' }}"
+            onchange="this.form.submit()"
+          >
+            {% for country in localization.available_countries %}
+              <option
+                value="{{ country.iso_code }}"
+                {% if country.iso_code == localization.country.iso_code %}selected{% endif %}
+              >
+                {{ country.iso_code }} · {{ country.currency.symbol }}
+              </option>
+            {% endfor %}
+          </select>
+        </form>
+      {%- endif -%}
+
+      {%- if section.settings.show_cart -%}
+        <a
+          href="{{ routes.cart_url }}"
+          class="schnappix-header__icon-link schnappix-header__icon-link--cart"
+          aria-label="{{ 'templates.cart.cart' | t | default: 'Cart' }}"
+        >
+          <span class="schnappix-icon schnappix-icon--cart"></span>
+          {% if cart != empty %}
+            <span class="schnappix-header__cart-badge">
+              {{ cart.item_count }}
+            </span>
+          {% endif %}
+        </a>
+      {%- endif -%}
+
+    </div>
+  </div>
+</header>
+
+<style>
+  :root {
+    --schnappix-primary: #F15A29;
+    --schnappix-black: #000000;
+    --schnappix-white: #ffffff;
+  }
+
+  .schnappix-header {
+    width: 100%;
+    z-index: 50;
+    color: var(--schnappix-white);
+    animation: schnappix-header-slide-in 0.18s ease-out forwards;
+  }
+
+  .schnappix-header--black {
+    background: var(--schnappix-black);
+  }
+
+  .schnappix-header--gradient {
+    background: radial-gradient(circle at top left, #101725 0, #020308 40%, #000000 100%);
+  }
+
+  .schnappix-header--sticky {
+    position: sticky;
+    top: 0;
+  }
+
+  .schnappix-header__inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 24px;
+    height: 76px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    transition:
+      height 0.2s ease,
+      box-shadow 0.2s ease,
+      background 0.2s ease;
+  }
+
+  .schnappix-header--scrolled .schnappix-header__inner {
+    height: 56px;
+    box-shadow: 0 8px 24px rgba(241, 90, 41, 0.12);
+  }
+
+  .schnappix-header__hamburger {
+    width: 40px;
+    height: 40px;
+    border-radius: 999px;
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    background: rgba(255, 255, 255, 0.04);
+    display: inline-flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    cursor: pointer;
+    padding: 0;
+    transition:
+      background 0.2s ease,
+      border-color 0.2s ease,
+      transform 0.15s ease;
+    animation: schnappix-hamburger-in 0.18s ease-out forwards;
+  }
+
+  .schnappix-header__hamburger:hover {
+    background: rgba(241, 90, 29, 0.18);
+    border-color: rgba(241, 90, 29, 0.6);
+    transform: translateX(1px);
+  }
+
+  .schnappix-header__hamburger-line {
+    width: 18px;
+    height: 2px;
+    border-radius: 999px;
+    background: var(--schnappix-white);
+    transition:
+      transform 0.18s ease,
+      opacity 0.18s ease,
+      width 0.18s ease;
+  }
+
+  .schnappix-header__hamburger.is-open .schnappix-header__hamburger-line:nth-child(1) {
+    transform: translateY(4px) rotate(45deg);
+  }
+
+  .schnappix-header__hamburger.is-open .schnappix-header__hamburger-line:nth-child(2) {
+    opacity: 0;
+    width: 0;
+  }
+
+  .schnappix-header__hamburger.is-open .schnappix-header__hamburger-line:nth-child(3) {
+    transform: translateY(-4px) rotate(-45deg);
+  }
+
+  .schnappix-header__logo-wrap {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    animation: schnappix-logo-fade-up 0.22s ease-out forwards;
+  }
+
+  .schnappix-header__logo-link,
+  .schnappix-header__logo-text {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 6px;
+    text-decoration: none;
+  }
+
+  .schnappix-header__logo-image {
+    display: block;
+    filter: drop-shadow(0 0 16px rgba(241, 90, 41, 0.3));
+  }
+
+  .schnappix-header__logo-text-main {
+    font-family: var(--font-heading-family, system-ui);
+    font-weight: 800;
+    letter-spacing: 0.14em;
+    font-size: 1.45rem;
+    text-transform: uppercase;
+  }
+
+  .schnappix-header__logo-text-pix {
+    font-family: var(--font-heading-family, system-ui);
+    font-weight: 800;
+    font-size: 1.45rem;
+    padding: 4px 10px;
+    border-radius: 4px;
+    background: var(--schnappix-primary);
+    color: var(--schnappix-white);
+    box-shadow: 0 0 16px rgba(241, 90, 41, 0.55);
+  }
+
+  .schnappix-header__logo-tag {
+    font-size: 0.75rem;
+    font-weight: 600;
+    margin-left: 4px;
+    color: rgba(255, 255, 255, 0.85);
+  }
+
+  .schnappix-header__icons {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    animation: schnappix-icons-in 0.24s ease-out forwards;
+  }
+
+  .schnappix-header--scrolled .schnappix-header__icons {
+    transform: scale(0.92);
+  }
+
+  .schnappix-header__icon-link {
+    position: relative;
+    width: 36px;
+    height: 36px;
+    border-radius: 999px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    border: 1px solid transparent;
+    background: transparent;
+    transition:
+      background 0.18s ease,
+      border-color 0.18s ease,
+      transform 0.12s ease;
+  }
+
+  .schnappix-header__icon-link:hover {
+    background: rgba(255, 255, 255, 0.06);
+    border-color: rgba(255, 255, 255, 0.18);
+    transform: translateY(-1px);
+  }
+
+  .schnappix-header__cart-badge {
+    position: absolute;
+    top: 0;
+    right: -2px;
+    min-width: 16px;
+    height: 16px;
+    border-radius: 999px;
+    background: var(--schnappix-primary);
+    color: var(--schnappix-white);
+    font-size: 0.7rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .schnappix-header__locale-form {
+    display: none;
+  }
+
+  @media (min-width: 960px) {
+    .schnappix-header__locale-form {
+      display: block;
+    }
+  }
+
+  .schnappix-header__locale-select {
+    border-radius: 999px;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    background: rgba(0, 0, 0, 0.35);
+    color: var(--schnappix-white);
+    font-size: 0.75rem;
+    padding: 4px 10px;
+  }
+
+  /* Simple icon shapes (replace later with SVGs if desired) */
+  .schnappix-icon {
+    width: 18px;
+    height: 18px;
+    border-radius: 4px;
+    position: relative;
+  }
+
+  .schnappix-icon--search::before,
+  .schnappix-icon--account::before,
+  .schnappix-icon--cart::before {
+    content: "";
+    position: absolute;
+    inset: 3px;
+    border-radius: inherit;
+    border: 2px solid var(--schnappix-white);
+  }
+
+  .schnappix-icon--search::after {
+    content: "";
+    position: absolute;
+    width: 6px;
+    height: 2px;
+    border-radius: 2px;
+    background: var(--schnappix-white);
+    right: -1px;
+    bottom: 1px;
+    transform: rotate(35deg);
+  }
+
+  .schnappix-icon--account::after {
+    content: "";
+    position: absolute;
+    left: 3px;
+    right: 3px;
+    bottom: 3px;
+    height: 5px;
+    border-radius: 999px;
+    border: 2px solid var(--schnappix-white);
+    border-top: none;
+  }
+
+  .schnappix-icon--cart::before {
+    border-radius: 3px;
+  }
+
+  /* Animations */
+  @keyframes schnappix-header-slide-in {
+    from { transform: translateY(-16px); opacity: 0; }
+    to   { transform: translateY(0); opacity: 1; }
+  }
+
+  @keyframes schnappix-hamburger-in {
+    from { opacity: 0; transform: translateX(-12px); }
+    to   { opacity: 1; transform: translateX(0); }
+  }
+
+  @keyframes schnappix-logo-fade-up {
+    from { opacity: 0; transform: translateY(4px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes schnappix-icons-in {
+    from { opacity: 0; transform: translateX(12px); }
+    to   { opacity: 1; transform: translateX(0); }
+  }
+
+  @media (max-width: 749px) {
+    .schnappix-header__inner {
+      padding-inline: 16px;
+      height: 64px;
+    }
+    .schnappix-header__logo-text-main,
+    .schnappix-header__logo-text-pix {
+      font-size: 1.1rem;
+    }
+    .schnappix-header__icons {
+      gap: 8px;
+    }
+    /* Max 2 visible icons on mobile */
+    .schnappix-header__icon-link:nth-child(n+3) {
+      display: none;
+    }
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    var header = document.getElementById('SchnappixHeader');
+    if (!header) return;
+
+    // Scroll shrink
+    var lastKnownScrollY = 0;
+    var ticking = false;
+
+    function onScroll () {
+      lastKnownScrollY = window.scrollY || window.pageYOffset;
+
+      if (!ticking) {
+        window.requestAnimationFrame(function () {
+          if (lastKnownScrollY > 24) {
+            header.classList.add('schnappix-header--scrolled');
+          } else {
+            header.classList.remove('schnappix-header--scrolled');
+          }
+          ticking = false;
+        });
+        ticking = true;
+      }
+    }
+    window.addEventListener('scroll', onScroll);
+
+    // Hamburger animation only (hook into existing menu if needed)
+    var hamburger = header.querySelector('[data-schnappix-hamburger]');
+    if (hamburger) {
+      hamburger.addEventListener('click', function () {
+        var expanded = this.getAttribute('aria-expanded') === 'true';
+        this.setAttribute('aria-expanded', String(!expanded));
+        this.classList.toggle('is-open');
+        document.body.classList.toggle('schnappix-menu-open');
+        // Optional: here you can trigger your existing menu drawer open/close
+      });
+    }
+  });
+</script>
+
+{% schema %}
+{
+  "name": "SCHNAPPIX Header",
+  "class": "section-schnappix-header",
+  "settings": [
+    {
+      "type": "select",
+      "id": "background_style",
+      "label": "Background style",
+      "default": "gradient",
+      "options": [
+        { "value": "black", "label": "Clean black" },
+        { "value": "gradient", "label": "Dark blue-black gradient" }
+      ]
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_sticky",
+      "label": "Sticky header on scroll",
+      "default": true
+    },
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": "Logo image (optional)"
+    },
+    {
+      "type": "range",
+      "id": "logo_width",
+      "min": 80,
+      "max": 260,
+      "step": 4,
+      "unit": "px",
+      "label": "Logo width",
+      "default": 180
+    },
+    {
+      "type": "checkbox",
+      "id": "show_24_7",
+      "label": "Show 24/7 label next to logo",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_search",
+      "label": "Show search icon",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_account",
+      "label": "Show account icon",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_cart",
+      "label": "Show cart icon",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_locale_switcher",
+      "label": "Show country / currency switcher (desktop)",
+      "default": true
+    }
+  ],
+  "presets": [
+    {
+      "name": "SCHNAPPIX Header",
+      "category": "Header"
+    }
+  ]
+}
+{% endschema %}
+
