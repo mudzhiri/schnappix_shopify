@@ -132,10 +132,52 @@
         "padding_top": 36,
         "padding_bottom": 36
       }
+    },
+    "schnappix_hero_v1_Md4fBB": {
+      "type": "schnappix-hero-v1",
+      "name": "Hero v1",
+      "settings": {
+        "title": "Premium Snacks & Drinks 24/7",
+        "subtitle": "<p>Moderne Selbstbedienungsautomaten an öffentlichen Plätzen, Bahnhöfen und Wohngebieten. Immer verfügbar, immer frisch.</p>",
+        "button_1_text": "Standorte finden",
+        "button_1_link": "",
+        "button_2_text": "Mehr erfahren",
+        "button_2_link": "",
+        "content_alignment": "right",
+        "content_vertical": "bottom",
+        "text_direction": "vertical",
+        "content_width": "fluid",
+        "max_width": 800,
+        "background_type": "image",
+        "background_image": "shopify://shop_images/0_1.png",
+        "focal_point": "right right",
+        "image_fit": "cover",
+        "gradient": "linear-gradient(135deg, #0a0a0f 0%, #000000 50%, #0a0a0f 100%)",
+        "video_url": "",
+        "color_scheme": "light",
+        "overlay_opacity": 100,
+        "enable_neon_glow": false,
+        "padding_top": 80,
+        "padding_bottom": 80,
+        "padding_left": 25,
+        "padding_right": 25,
+        "gap": 24,
+        "min_height_desktop": 600,
+        "min_height_mobile": 400,
+        "load_animation": "fly-in",
+        "animation_duration": 1900,
+        "animation_delay": 0,
+        "animation_easing": "ease-out",
+        "enable_parallax": true,
+        "enable_ken_burn": true,
+        "hide_on_mobile": false,
+        "hide_on_desktop": false
+      }
     }
   },
   "order": [
     "featured_product_RHaLeK",
-    "multicolumn_xn6qEf"
+    "multicolumn_xn6qEf",
+    "schnappix_hero_v1_Md4fBB"
   ]
 }
