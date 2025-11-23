@@ -23,6 +23,9 @@ class SchnappixHeaderPremium {
   init() {
     if (!this.header) return;
 
+    // Force animations to trigger
+    this.triggerAnimations();
+
     // Sticky scroll handler
     this.handleScroll();
     window.addEventListener('scroll', () => this.handleScroll(), { passive: true });
@@ -110,6 +113,50 @@ class SchnappixHeaderPremium {
 
     // Return focus to hamburger
     this.hamburger.focus();
+  }
+
+  triggerAnimations() {
+    // Force animations by re-triggering them
+    requestAnimationFrame(() => {
+      const hamburger = this.header.querySelector('.schnappix-header-premium__hamburger');
+      const logoLink = this.header.querySelector('.schnappix-header-premium__logo-link');
+      const icons = this.header.querySelectorAll('.schnappix-header-premium__icon');
+
+      if (hamburger) {
+        hamburger.classList.add('animate');
+        // Reset and retrigger
+        setTimeout(() => {
+          hamburger.style.animation = 'none';
+          requestAnimationFrame(() => {
+            hamburger.style.animation = '';
+            hamburger.style.animation = 'slideInFromLeft 0.18s ease-out 0.1s forwards';
+          });
+        }, 10);
+      }
+
+      if (logoLink) {
+        logoLink.classList.add('animate');
+        setTimeout(() => {
+          logoLink.style.animation = 'none';
+          requestAnimationFrame(() => {
+            logoLink.style.animation = '';
+            logoLink.style.animation = 'logoFadeIn 0.22s ease 0.15s forwards';
+          });
+        }, 10);
+      }
+
+      icons.forEach((icon, index) => {
+        icon.classList.add('animate');
+        const delay = 0.25 + (index * 0.08);
+        setTimeout(() => {
+          icon.style.animation = 'none';
+          requestAnimationFrame(() => {
+            icon.style.animation = '';
+            icon.style.animation = `slideInFromRight 0.2s ease-out ${delay}s forwards`;
+          });
+        }, 10);
+      });
+    });
   }
 
   updateCartCount() {

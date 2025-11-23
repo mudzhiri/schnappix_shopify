@@ -129,9 +129,14 @@
   border: none;
   cursor: pointer;
   z-index: 10;
-  opacity: 0;
-  transform: translateX(-16px);
-  animation: slideInFromLeft 0.18s ease-out 0.1s forwards;
+  opacity: 0 !important;
+  transform: translateX(-16px) !important;
+  animation: slideInFromLeft 0.18s ease-out 0.1s forwards !important;
+}
+
+/* Force animation on load */
+.schnappix-header-premium__hamburger.animate {
+  animation: slideInFromLeft 0.18s ease-out 0.1s forwards !important;
 }
 
 @keyframes slideInFromLeft {
@@ -215,9 +220,14 @@
   align-items: center;
   text-decoration: none;
   color: var(--schnappix-white);
-  opacity: 0;
-  transform: translateY(4px);
-  animation: logoFadeIn 0.22s ease 0.15s forwards;
+  opacity: 0 !important;
+  transform: translateY(4px) !important;
+  animation: logoFadeIn 0.22s ease 0.15s forwards !important;
+}
+
+/* Force animation on load */
+.schnappix-header-premium__logo-link.animate {
+  animation: logoFadeIn 0.22s ease 0.15s forwards !important;
 }
 
 @keyframes logoFadeIn {
@@ -281,22 +291,27 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  opacity: 0;
-  transform: translateX(16px);
+  opacity: 0 !important;
+  transform: translateX(16px) !important;
   transition: transform 0.2s ease, color 0.2s ease, opacity 0.2s ease;
 }
 
 /* Staggered icon animation */
 .schnappix-header-premium__icon--search {
-  animation: slideInFromRight 0.2s ease-out 0.25s forwards;
+  animation: slideInFromRight 0.2s ease-out 0.25s forwards !important;
 }
 
 .schnappix-header-premium__icon--account {
-  animation: slideInFromRight 0.2s ease-out 0.33s forwards;
+  animation: slideInFromRight 0.2s ease-out 0.33s forwards !important;
 }
 
 .schnappix-header-premium__icon--cart {
-  animation: slideInFromRight 0.2s ease-out 0.41s forwards;
+  animation: slideInFromRight 0.2s ease-out 0.41s forwards !important;
+}
+
+/* Force animation on load */
+.schnappix-header-premium__icon.animate {
+  animation: slideInFromRight 0.2s ease-out forwards !important;
 }
 
 @keyframes slideInFromRight {

@@ -26,6 +26,7 @@
     },
     "header": {
       "type": "header",
+      "disabled": true,
       "settings": {
         "menu": "",
         "sticky_header_type": "on-scroll-up",
