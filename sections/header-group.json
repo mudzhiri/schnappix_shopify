@@ -11,20 +11,6 @@
   "name": "t:sections.header.name",
   "type": "header",
   "sections": {
-    "schnappix_header": {
-      "type": "schnappix-header",
-      "settings": {
-        "background_style": "black",
-        "enable_sticky": true,
-        "logo": "shopify://shop_images/SCHNAPPIX_black.svg",
-        "logo_width": 208,
-        "show_24_7": true,
-        "show_search": true,
-        "show_account": true,
-        "show_cart": true,
-        "show_locale_switcher": true
-      }
-    },
     "schnappix_header_premium": {
       "type": "schnappix-header-premium",
       "settings": {
@@ -56,7 +42,6 @@
     }
   },
   "order": [
-    "schnappix_header",
     "schnappix_header_premium",
     "header"
   ]
