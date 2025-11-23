@@ -1,0 +1,984 @@
+{% comment %}
+  Schnappix Header v1
+  Fully modular, flexible, versioned header section
+  Version: 1.0
+  Prefix: shx_v1_
+{% endcomment %}
+
+{%- liquid
+  assign header_id = 'shx_v1_header-' | append: section.id
+  assign hamburger_id = 'shx_v1_hamburger-' | append: section.id
+  assign drawer_id = 'shx_v1_drawer-' | append: section.id
+-%}
+
+<style>
+  /* ============================================
+     Schnappix Header v1 - CSS Variables
+     ============================================ */
+  :root {
+    --shx-v1-primary: #F15A29;
+    --shx-v1-black: #000000;
+    --shx-v1-white: #FFFFFF;
+  }
+
+  /* ============================================
+     Header Container
+     ============================================ */
+  #{{ header_id }} {
+    position: {% if section.settings.sticky_on_scroll %}sticky{% else %}relative{% endif %};
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    z-index: 1000;
+    transition: height 0.3s cubic-bezier(0.4, 0, 0.2, 1), 
+                box-shadow 0.3s ease,
+                background 0.3s ease;
+    height: {{ section.settings.header_height_desktop }}px;
+  }
+
+  /* Background Styles */
+  #{{ header_id }}.shx-v1-bg-black {
+    background: var(--shx-v1-black);
+  }
+
+  #{{ header_id }}.shx-v1-bg-gradient {
+    background: linear-gradient(135deg, #0a0a0f 0%, #000000 50%, #0a0a0f 100%);
+    position: relative;
+  }
+
+  #{{ header_id }}.shx-v1-bg-gradient::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(circle at 30% 20%, rgba(241, 90, 41, 0.08) 0%, transparent 60%);
+    opacity: 0.6;
+    pointer-events: none;
+  }
+
+  #{{ header_id }}.shx-v1-bg-transparent {
+    background: transparent;
+  }
+
+  /* Sticky Shrink Effect */
+  #{{ header_id }}.shx-v1-scrolled {
+    height: {{ section.settings.header_height_mobile }}px;
+    box-shadow: 0 4px 20px rgba(241, 90, 41, {{ section.settings.glow_intensity | divided_by: 100.0 }});
+    background: rgba(0, 0, 0, 0.95);
+    backdrop-filter: blur(10px);
+  }
+
+  /* ============================================
+     Header Inner Container
+     ============================================ */
+  .shx-v1-container {
+    position: relative;
+    z-index: 2;
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    gap: 2rem;
+    height: 100%;
+    padding: 0 {{ section.settings.padding_horizontal }}px;
+    max-width: var(--page-width, 1200px);
+    margin: 0 auto;
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  #{{ header_id }}.shx-v1-scrolled .shx-v1-container {
+    transform: scale(0.98);
+  }
+
+  /* ============================================
+     Hamburger Menu
+     ============================================ */
+  .shx-v1-hamburger {
+    position: relative;
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    border-radius: 8px;
+    cursor: pointer;
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    opacity: 0;
+    transform: translateX(-20px);
+    animation: shx-v1-slide-in-left 0.3s ease-out 0.1s forwards;
+    transition: background 0.2s ease, border-color 0.2s ease, transform 0.15s ease;
+  }
+
+  .shx-v1-hamburger:hover {
+    background: rgba(241, 90, 41, 0.18);
+    border-color: rgba(241, 90, 41, 0.6);
+    transform: translateX(2px);
+  }
+
+  .shx-v1-hamburger-line {
+    width: 20px;
+    height: 2px;
+    background: var(--shx-v1-white);
+    border-radius: 2px;
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), 
+                opacity 0.2s ease,
+                width 0.2s ease;
+  }
+
+  .shx-v1-hamburger.is-open .shx-v1-hamburger-line:nth-child(1) {
+    transform: translateY(7px) rotate(45deg);
+  }
+
+  .shx-v1-hamburger.is-open .shx-v1-hamburger-line:nth-child(2) {
+    opacity: 0;
+    width: 0;
+  }
+
+  .shx-v1-hamburger.is-open .shx-v1-hamburger-line:nth-child(3) {
+    transform: translateY(-7px) rotate(-45deg);
+  }
+
+  /* ============================================
+     Logo
+     ============================================ */
+  .shx-v1-logo-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    opacity: 0;
+    transform: translateY(4px);
+    animation: shx-v1-fade-in-up 0.4s ease 0.2s forwards;
+  }
+
+  #{{ header_id }}.shx-v1-scrolled .shx-v1-logo-wrapper {
+    transform: scale(0.92);
+  }
+
+  .shx-v1-logo-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+    color: var(--shx-v1-white);
+  }
+
+  .shx-v1-logo-image {
+    display: block;
+    max-width: {{ section.settings.logo_width }}px;
+    height: auto;
+    filter: drop-shadow(0 0 16px rgba(241, 90, 41, {{ section.settings.glow_intensity | divided_by: 100.0 | times: 0.3 }}));
+    transition: transform 0.2s ease;
+  }
+
+  .shx-v1-logo-link:hover .shx-v1-logo-image {
+    transform: scale(1.05);
+  }
+
+  .shx-v1-logo-text {
+    font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-weight: 800;
+    font-size: 2rem;
+    letter-spacing: -0.02em;
+    text-transform: uppercase;
+  }
+
+  .shx-v1-logo-text-main {
+    color: var(--shx-v1-white);
+  }
+
+  .shx-v1-logo-text-pix {
+    color: var(--shx-v1-primary);
+    text-shadow: 0 0 20px rgba(241, 90, 41, {{ section.settings.glow_intensity | divided_by: 100.0 | times: 0.3 }});
+  }
+
+  /* ============================================
+     Icons Container
+     ============================================ */
+  .shx-v1-icons {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    z-index: 10;
+  }
+
+  #{{ header_id }}.shx-v1-scrolled .shx-v1-icons {
+    transform: scale(0.95);
+  }
+
+  .shx-v1-icon {
+    position: relative;
+    width: 36px;
+    height: 36px;
+    padding: 0;
+    background: transparent;
+    border: 1px solid transparent;
+    border-radius: 8px;
+    cursor: pointer;
+    color: var(--shx-v1-white);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transform: translate(60px, 60px);
+    transition: background 0.2s ease, 
+                border-color 0.2s ease, 
+                transform 0.2s ease,
+                color 0.2s ease;
+  }
+
+  .shx-v1-icon:hover {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(241, 90, 41, 0.4);
+    color: var(--shx-v1-primary);
+    transform: translateY(-2px) scale(1.1);
+    box-shadow: 0 0 12px rgba(241, 90, 41, {{ section.settings.glow_intensity | divided_by: 100.0 | times: 0.4 }});
+  }
+
+  /* Staggered Icon Animation */
+  .shx-v1-icon:nth-child(1) {
+    animation: shx-v1-fly-in 0.5s cubic-bezier(0.4, 0, 0.2, 1) 0.3s forwards;
+  }
+
+  .shx-v1-icon:nth-child(2) {
+    animation: shx-v1-fly-in 0.5s cubic-bezier(0.4, 0, 0.2, 1) 0.4s forwards;
+  }
+
+  .shx-v1-icon:nth-child(3) {
+    animation: shx-v1-fly-in 0.5s cubic-bezier(0.4, 0, 0.2, 1) 0.5s forwards;
+  }
+
+  .shx-v1-icon:nth-child(4) {
+    animation: shx-v1-fly-in 0.5s cubic-bezier(0.4, 0, 0.2, 1) 0.6s forwards;
+  }
+
+  .shx-v1-icon svg {
+    width: 20px;
+    height: 20px;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    transition: filter 0.2s ease;
+  }
+
+  /* Cart Badge */
+  .shx-v1-cart-badge {
+    position: absolute;
+    top: -4px;
+    right: -4px;
+    min-width: 18px;
+    height: 18px;
+    padding: 0 4px;
+    background: var(--shx-v1-primary);
+    color: var(--shx-v1-white);
+    border-radius: 9px;
+    font-size: 0.7rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+    box-shadow: 0 2px 8px rgba(241, 90, 41, 0.5);
+  }
+
+  /* ============================================
+     Drawer Menu
+     ============================================ */
+  .shx-v1-drawer {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    z-index: 9999;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  .shx-v1-drawer.active {
+    pointer-events: all;
+    opacity: 1;
+  }
+
+  .shx-v1-drawer-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(4px);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  .shx-v1-drawer.active .shx-v1-drawer-overlay {
+    opacity: 1;
+  }
+
+  .shx-v1-drawer-panel {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 320px;
+    max-width: 85vw;
+    height: 100%;
+    background: var(--shx-v1-black);
+    border-right: 1px solid rgba(241, 90, 41, 0.2);
+    transform: translateX(-100%);
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    overflow-y: auto;
+    box-shadow: 4px 0 20px rgba(0, 0, 0, 0.5);
+  }
+
+  .shx-v1-drawer.active .shx-v1-drawer-panel {
+    transform: translateX(0);
+  }
+
+  .shx-v1-drawer-header {
+    display: flex;
+    justify-content: flex-end;
+    padding: 2rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .shx-v1-drawer-close {
+    width: 32px;
+    height: 32px;
+    padding: 0;
+    background: transparent;
+    border: none;
+    color: var(--shx-v1-white);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: color 0.2s ease, transform 0.2s ease;
+  }
+
+  .shx-v1-drawer-close:hover {
+    color: var(--shx-v1-primary);
+    transform: rotate(90deg);
+  }
+
+  .shx-v1-drawer-nav {
+    display: flex;
+    flex-direction: column;
+    padding: 2rem 0;
+  }
+
+  .shx-v1-drawer-link {
+    padding: 1.2rem 2rem;
+    color: var(--shx-v1-white);
+    text-decoration: none;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    font-size: 1.1rem;
+    transition: color 0.2s ease, background 0.2s ease, padding-left 0.2s ease;
+    border-left: 3px solid transparent;
+  }
+
+  .shx-v1-drawer-link:hover {
+    color: var(--shx-v1-primary);
+    background: rgba(241, 90, 41, 0.05);
+    padding-left: 2.5rem;
+    border-left-color: var(--shx-v1-primary);
+  }
+
+  /* ============================================
+     Animations
+     ============================================ */
+  @keyframes shx-v1-slide-in-left {
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  @keyframes shx-v1-fade-in-up {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes shx-v1-fly-in {
+    from {
+      opacity: 0;
+      transform: translate(60px, 60px) scale(0.8);
+    }
+    50% {
+      opacity: 0.7;
+      transform: translate(-10px, -10px) scale(1.1);
+    }
+    to {
+      opacity: 1;
+      transform: translate(0, 0) scale(1);
+    }
+  }
+
+  /* ============================================
+     Responsive Design
+     ============================================ */
+  @media screen and (max-width: 989px) {
+    #{{ header_id }} {
+      height: {{ section.settings.header_height_mobile }}px;
+    }
+
+    .shx-v1-container {
+      gap: 1rem;
+      padding: 0 1.5rem;
+    }
+
+    .shx-v1-logo-text {
+      font-size: 1.6rem;
+    }
+
+    .shx-v1-icons {
+      gap: 0.75rem;
+    }
+
+    .shx-v1-icon {
+      width: 32px;
+      height: 32px;
+    }
+
+    /* Hide account icon on mobile */
+    .shx-v1-icon--account {
+      display: none;
+    }
+  }
+
+  @media screen and (max-width: 749px) {
+    .shx-v1-container {
+      padding: 0 1rem;
+    }
+
+    .shx-v1-logo-text {
+      font-size: 1.4rem;
+    }
+
+    .shx-v1-icons {
+      gap: 0.5rem;
+    }
+  }
+
+  /* Accessibility */
+  @media (prefers-reduced-motion: reduce) {
+    * {
+      animation: none !important;
+      transition: none !important;
+    }
+  }
+</style>
+
+<header id="{{ header_id }}" class="shx-v1-header shx-v1-bg-{{ section.settings.background_style }}">
+  <div class="shx-v1-container">
+    
+    {%- comment -%} LEFT: Hamburger {%- endcomment -%}
+    {%- if section.settings.show_hamburger -%}
+      <button
+        id="{{ hamburger_id }}"
+        class="shx-v1-hamburger"
+        type="button"
+        aria-label="{{ 'sections.header.menu' | t | default: 'Menu' }}"
+        aria-expanded="false"
+        aria-controls="{{ drawer_id }}"
+      >
+        <span class="shx-v1-hamburger-line"></span>
+        <span class="shx-v1-hamburger-line"></span>
+        <span class="shx-v1-hamburger-line"></span>
+      </button>
+    {%- endif -%}
+
+    {%- comment -%} CENTER: Logo {%- endcomment -%}
+    <div class="shx-v1-logo-wrapper">
+      <a href="{{ routes.root_url }}" class="shx-v1-logo-link" aria-label="{{ shop.name }}">
+        {%- if section.settings.logo != blank -%}
+          {{
+            section.settings.logo
+            | image_url: width: section.settings.logo_width | times: 2
+            | image_tag:
+              class: 'shx-v1-logo-image',
+              alt: shop.name,
+              loading: 'eager'
+          }}
+        {%- else -%}
+          <span class="shx-v1-logo-text">
+            <span class="shx-v1-logo-text-main">SCHNAP</span><span class="shx-v1-logo-text-pix">PIX</span>
+          </span>
+        {%- endif -%}
+      </a>
+    </div>
+
+    {%- comment -%} RIGHT: Icons {%- endcomment -%}
+    <div class="shx-v1-icons">
+      
+      {%- if section.settings.show_search -%}
+        <a
+          href="{{ routes.search_url }}"
+          class="shx-v1-icon shx-v1-icon--search"
+          aria-label="{{ 'general.search.search' | t | default: 'Search' }}"
+        >
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <circle cx="11" cy="11" r="8"></circle>
+            <path d="m21 21-4.35-4.35"></path>
+          </svg>
+        </a>
+      {%- endif -%}
+
+      {%- if section.settings.show_account and shop.customer_accounts_enabled -%}
+        <a
+          href="{{ routes.account_url }}"
+          class="shx-v1-icon shx-v1-icon--account"
+          aria-label="{{ 'customer.account.title' | t | default: 'Account' }}"
+        >
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+            <circle cx="12" cy="7" r="4"></circle>
+          </svg>
+        </a>
+      {%- endif -%}
+
+      {%- if section.settings.show_language_selector and localization.available_languages.size > 1 -%}
+        <div class="shx-v1-icon shx-v1-icon--language">
+          <localization-form>
+            {%- form 'localization', id: 'HeaderLanguageForm', class: 'localization-form' -%}
+              {%- render 'language-localization', localPosition: 'HeaderLanguage' -%}
+            {%- endform -%}
+          </localization-form>
+        </div>
+      {%- endif -%}
+
+      {%- if section.settings.show_cart -%}
+        <a
+          href="{{ routes.cart_url }}"
+          class="shx-v1-icon shx-v1-icon--cart"
+          aria-label="{{ 'templates.cart.cart' | t | default: 'Cart' }}"
+          data-cart-icon
+        >
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <circle cx="9" cy="21" r="1"></circle>
+            <circle cx="20" cy="21" r="1"></circle>
+            <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+          </svg>
+          {%- if cart.item_count > 0 -%}
+            <span class="shx-v1-cart-badge" data-cart-count>{{ cart.item_count }}</span>
+          {%- endif -%}
+        </a>
+      {%- endif -%}
+
+      {%- comment -%} Custom Blocks (Additional Icons) {%- endcomment -%}
+      {%- for block in section.blocks -%}
+        {%- case block.type -%}
+          {%- when 'custom_icon' -%}
+            {%- if block.settings.icon_url != blank -%}
+              <a
+                href="{{ block.settings.icon_link }}"
+                class="shx-v1-icon shx-v1-icon--custom"
+                aria-label="{{ block.settings.icon_label }}"
+                {{ block.shopify_attributes }}
+              >
+                <img src="{{ block.settings.icon_url }}" alt="{{ block.settings.icon_label }}" width="20" height="20">
+              </a>
+            {%- endif -%}
+        {%- endcase -%}
+      {%- endfor -%}
+    </div>
+  </div>
+
+  {%- comment -%} Drawer Menu {%- endcomment -%}
+  {%- if section.settings.show_hamburger -%}
+    <div id="{{ drawer_id }}" class="shx-v1-drawer" data-drawer>
+      <div class="shx-v1-drawer-overlay" data-drawer-overlay></div>
+      <div class="shx-v1-drawer-panel">
+        <div class="shx-v1-drawer-header">
+          <button
+            type="button"
+            class="shx-v1-drawer-close"
+            aria-label="{{ 'accessibility.close' | t | default: 'Close' }}"
+            data-drawer-close
+          >
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="18" y1="6" x2="6" y2="18"></line>
+              <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+          </button>
+        </div>
+        <nav class="shx-v1-drawer-nav">
+          {%- for block in section.blocks -%}
+            {%- case block.type -%}
+              {%- when 'menu_link' -%}
+                {%- if block.settings.link_url != blank -%}
+                  <a href="{{ block.settings.link_url }}" class="shx-v1-drawer-link" {{ block.shopify_attributes }}>
+                    {{ block.settings.link_label }}
+                  </a>
+                {%- endif -%}
+              {%- when 'custom_html' -%}
+                <div class="shx-v1-drawer-custom" {{ block.shopify_attributes }}>
+                  {{ block.settings.html_content }}
+                </div>
+            {%- endcase -%}
+          {%- endfor -%}
+        </nav>
+      </div>
+    </div>
+  {%- endif -%}
+</header>
+
+<script>
+  (function() {
+    'use strict';
+    
+    const headerId = '{{ header_id }}';
+    const hamburgerId = '{{ hamburger_id }}';
+    const drawerId = '{{ drawer_id }}';
+    
+    const header = document.getElementById(headerId);
+    const hamburger = document.getElementById(hamburgerId);
+    const drawer = document.getElementById(drawerId);
+    const drawerOverlay = drawer ? drawer.querySelector('[data-drawer-overlay]') : null;
+    const drawerClose = drawer ? drawer.querySelector('[data-drawer-close]') : null;
+    const cartIcon = header ? header.querySelector('[data-cart-icon]') : null;
+    const cartCount = header ? header.querySelector('[data-cart-count]') : null;
+    
+    if (!header) return;
+    
+    let isScrolled = false;
+    let isDrawerOpen = false;
+    
+    // Sticky Scroll Handler
+    function handleScroll() {
+      const scrollY = window.scrollY || window.pageYOffset;
+      const shouldBeScrolled = scrollY > 40;
+      
+      if (shouldBeScrolled !== isScrolled) {
+        isScrolled = shouldBeScrolled;
+        if (isScrolled) {
+          header.classList.add('shx-v1-scrolled');
+        } else {
+          header.classList.remove('shx-v1-scrolled');
+        }
+      }
+    }
+    
+    // Hamburger Toggle
+    function toggleDrawer() {
+      if (isDrawerOpen) {
+        closeDrawer();
+      } else {
+        openDrawer();
+      }
+    }
+    
+    function openDrawer() {
+      if (!drawer || !hamburger) return;
+      isDrawerOpen = true;
+      drawer.classList.add('active');
+      hamburger.classList.add('is-open');
+      hamburger.setAttribute('aria-expanded', 'true');
+      document.body.style.overflow = 'hidden';
+    }
+    
+    function closeDrawer() {
+      if (!drawer || !hamburger) return;
+      isDrawerOpen = false;
+      drawer.classList.remove('active');
+      hamburger.classList.remove('is-open');
+      hamburger.setAttribute('aria-expanded', 'false');
+      document.body.style.overflow = '';
+    }
+    
+    // Cart Count Update
+    function updateCartCount() {
+      if (!cartCount) return;
+      
+      if (window.theme && window.theme.cart) {
+        const count = window.theme.cart.item_count || 0;
+        if (count > 0) {
+          cartCount.textContent = count;
+          cartCount.style.display = 'flex';
+        } else {
+          cartCount.style.display = 'none';
+        }
+      } else {
+        fetch('/cart.js')
+          .then(response => response.json())
+          .then(cart => {
+            const count = cart.item_count || 0;
+            if (count > 0) {
+              cartCount.textContent = count;
+              cartCount.style.display = 'flex';
+            } else {
+              cartCount.style.display = 'none';
+            }
+          })
+          .catch(() => {
+            cartCount.style.display = 'none';
+          });
+      }
+    }
+    
+    // Event Listeners
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll();
+    
+    if (hamburger) {
+      hamburger.addEventListener('click', toggleDrawer);
+    }
+    
+    if (drawerOverlay) {
+      drawerOverlay.addEventListener('click', closeDrawer);
+    }
+    
+    if (drawerClose) {
+      drawerClose.addEventListener('click', closeDrawer);
+    }
+    
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape' && isDrawerOpen) {
+        closeDrawer();
+      }
+    });
+    
+    // Cart Updates
+    updateCartCount();
+    document.addEventListener('cart:updated', updateCartCount);
+    
+    // Re-initialize on section load (Shopify Theme Editor)
+    document.addEventListener('shopify:section:load', function(event) {
+      if (event.detail.sectionId === '{{ section.id }}') {
+        location.reload();
+      }
+    });
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Schnappix Header v1",
+  "tag": "header",
+  "class": "section-header",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Logo Settings"
+    },
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": "Logo Image",
+      "info": "Upload your logo. If empty, text logo will be shown."
+    },
+    {
+      "type": "range",
+      "id": "logo_width",
+      "min": 80,
+      "max": 300,
+      "step": 10,
+      "unit": "px",
+      "label": "Logo Width",
+      "default": 180
+    },
+    {
+      "type": "header",
+      "content": "Visibility Settings"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_hamburger",
+      "label": "Show Hamburger Menu",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_search",
+      "label": "Show Search Icon",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_account",
+      "label": "Show Account Icon",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_cart",
+      "label": "Show Cart Icon",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_language_selector",
+      "label": "Show Language Selector",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Layout Settings"
+    },
+    {
+      "type": "range",
+      "id": "header_height_desktop",
+      "min": 60,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "Header Height (Desktop)",
+      "default": 84
+    },
+    {
+      "type": "range",
+      "id": "header_height_mobile",
+      "min": 50,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Header Height (Mobile)",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "padding_horizontal",
+      "min": 12,
+      "max": 48,
+      "step": 4,
+      "unit": "px",
+      "label": "Horizontal Padding",
+      "default": 24
+    },
+    {
+      "type": "header",
+      "content": "Style Settings"
+    },
+    {
+      "type": "select",
+      "id": "background_style",
+      "label": "Background Style",
+      "options": [
+        {
+          "value": "black",
+          "label": "Solid Black"
+        },
+        {
+          "value": "gradient",
+          "label": "Gradient Blue-Black"
+        },
+        {
+          "value": "transparent",
+          "label": "Transparent"
+        }
+      ],
+      "default": "gradient"
+    },
+    {
+      "type": "range",
+      "id": "glow_intensity",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "label": "Glow Effect Intensity",
+      "default": 30
+    },
+    {
+      "type": "checkbox",
+      "id": "sticky_on_scroll",
+      "label": "Sticky Header on Scroll",
+      "default": true
+    }
+  ],
+  "blocks": [
+    {
+      "type": "menu_link",
+      "name": "Menu Link",
+      "settings": [
+        {
+          "type": "text",
+          "id": "link_label",
+          "label": "Link Label",
+          "default": "Menu Item"
+        },
+        {
+          "type": "url",
+          "id": "link_url",
+          "label": "Link URL"
+        }
+      ]
+    },
+    {
+      "type": "custom_icon",
+      "name": "Custom Icon",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "icon_url",
+          "label": "Icon Image"
+        },
+        {
+          "type": "url",
+          "id": "icon_link",
+          "label": "Icon Link"
+        },
+        {
+          "type": "text",
+          "id": "icon_label",
+          "label": "Icon Label (Accessibility)",
+          "default": "Custom Icon"
+        }
+      ]
+    },
+    {
+      "type": "custom_html",
+      "name": "Custom HTML",
+      "settings": [
+        {
+          "type": "html",
+          "id": "html_content",
+          "label": "HTML Content",
+          "info": "Add custom HTML content to the drawer menu"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Schnappix Header v1",
+      "blocks": [
+        {
+          "type": "menu_link",
+          "settings": {
+            "link_label": "Home",
+            "link_url": "/"
+          }
+        },
+        {
+          "type": "menu_link",
+          "settings": {
+            "link_label": "Products",
+            "link_url": "/collections/all"
+          }
+        },
+        {
+          "type": "menu_link",
+          "settings": {
+            "link_label": "About",
+            "link_url": "/pages/about"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
+
