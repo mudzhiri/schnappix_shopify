@@ -65,14 +65,6 @@
             "link_url": "/"
           }
         },
-        "custom_icon_pyAD7Q": {
-          "type": "custom_icon",
-          "settings": {
-            "icon_url": "shopify://shop_images/1.svg",
-            "icon_link": "",
-            "icon_label": "Custom Icon"
-          }
-        },
         "menu_link_GxwAjn": {
           "type": "menu_link",
           "settings": {
@@ -92,13 +84,13 @@
         "custom_html_xkiUeT",
         "menu_link_fYzRda",
         "menu_link_tpp3AG",
-        "custom_icon_pyAD7Q",
         "menu_link_GxwAjn",
         "menu_link_7J9MpD"
       ],
       "name": "Schnappix Header v1",
       "settings": {
         "logo_width": 180,
+        "menu": "schnappix",
         "show_hamburger": true,
         "show_search": true,
         "show_account": true,
