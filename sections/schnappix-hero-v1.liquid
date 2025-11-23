@@ -125,12 +125,11 @@
       {%- when 'video' -%}
         {%- if section.settings.video_url != blank -%}
           <video
-            class="shx-hero-v1-background-video"
+            class="shx-hero-v1-background-video{% if section.settings.enable_ken_burn %} shx-hero-v1-ken-burn{% endif %}"
             autoplay
             muted
             loop
             playsinline
-            data-ken-burn="{{ section.settings.enable_ken_burn }}"
           >
             <source src="{{ section.settings.video_url }}" type="video/mp4">
           </video>

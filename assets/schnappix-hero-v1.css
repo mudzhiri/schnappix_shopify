@@ -96,7 +96,7 @@
 }
 
 /* Ken-Burn Effect */
-.shx-hero-v1-background-video[data-ken-burn="true"] {
+.shx-hero-v1-ken-burn {
   animation: kenBurn 20s ease-in-out infinite alternate;
 }
 
