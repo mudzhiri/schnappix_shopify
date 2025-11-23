@@ -152,7 +152,7 @@ class SchnappixHeaderPremium {
           icon.style.animation = 'none';
           requestAnimationFrame(() => {
             icon.style.animation = '';
-            icon.style.animation = `slideInFromRight 0.2s ease-out ${delay}s forwards`;
+            icon.style.animation = `flyInFromBottomLeft 0.4s cubic-bezier(0.4, 0, 0.2, 1) ${delay}s forwards`;
           });
         }, 10);
       });

@@ -292,32 +292,47 @@
   align-items: center;
   justify-content: center;
   opacity: 0 !important;
-  transform: translateX(16px) !important;
+  transform: translate(-60px, 60px) !important;
   transition: transform 0.2s ease, color 0.2s ease, opacity 0.2s ease;
 }
 
-/* Staggered icon animation */
+/* Staggered icon animation - fly from bottom-left to top-right */
 .schnappix-header-premium__icon--search {
-  animation: slideInFromRight 0.2s ease-out 0.25s forwards !important;
+  animation: flyInFromBottomLeft 0.4s cubic-bezier(0.4, 0, 0.2, 1) 0.25s forwards !important;
 }
 
 .schnappix-header-premium__icon--account {
-  animation: slideInFromRight 0.2s ease-out 0.33s forwards !important;
+  animation: flyInFromBottomLeft 0.4s cubic-bezier(0.4, 0, 0.2, 1) 0.33s forwards !important;
 }
 
 .schnappix-header-premium__icon--cart {
-  animation: slideInFromRight 0.2s ease-out 0.41s forwards !important;
+  animation: flyInFromBottomLeft 0.4s cubic-bezier(0.4, 0, 0.2, 1) 0.41s forwards !important;
 }
 
 /* Force animation on load */
 .schnappix-header-premium__icon.animate {
-  animation: slideInFromRight 0.2s ease-out forwards !important;
+  animation: flyInFromBottomLeft 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards !important;
 }
 
 @keyframes slideInFromRight {
   to {
     opacity: 1;
     transform: translateX(0);
+  }
+}
+
+@keyframes flyInFromBottomLeft {
+  from {
+    opacity: 0;
+    transform: translate(-60px, 60px) scale(0.8);
+  }
+  50% {
+    opacity: 0.7;
+    transform: translate(-20px, 20px) scale(1.1);
+  }
+  to {
+    opacity: 1;
+    transform: translate(0, 0) scale(1);
   }
 }
 
