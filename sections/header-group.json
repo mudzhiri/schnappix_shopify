@@ -11,23 +11,8 @@
   "name": "t:sections.header.name",
   "type": "header",
   "sections": {
-    "schnappix-header": {
-      "type": "schnappix-header",
-      "settings": {
-        "menu": "schnappix",
-        "background_color": "#000000",
-        "text_color": "#ffffff",
-        "accent_color": "#e45521",
-        "header_height": 80,
-        "sticky_header": true,
-        "show_search": true,
-        "show_account": true,
-        "hamburger_on_desktop": true
-      }
-    },
     "header": {
       "type": "header",
-      "disabled": true,
       "settings": {
         "menu": "",
         "sticky_header_type": "on-scroll-up",
@@ -44,7 +29,6 @@
     }
   },
   "order": [
-    "schnappix-header",
     "header"
   ]
 }
