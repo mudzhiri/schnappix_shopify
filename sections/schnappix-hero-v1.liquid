@@ -94,9 +94,13 @@
               sizes: '100vw',
               widths: '375, 550, 750, 1100, 1500, 1780, 2000, 3000, 3840',
               alt: section.settings.title | escape,
-              class: 'shx-hero-v1-background-image',
-              data-parallax: section.settings.enable_parallax
+              class: 'shx-hero-v1-background-image'
           }}
+          {%- if section.settings.enable_parallax -%}
+            <script>
+              document.querySelector('#{{ hero_id }} .shx-hero-v1-background-image').setAttribute('data-parallax', 'true');
+            </script>
+          {%- endif -%}
         {%- endif -%}
         {%- if section.settings.background_image_mobile != blank -%}
           {{
@@ -108,9 +112,13 @@
               sizes: '100vw',
               widths: '375, 550, 750',
               alt: section.settings.title | escape,
-              class: 'shx-hero-v1-background-image-mobile',
-              data-parallax: section.settings.enable_parallax
+              class: 'shx-hero-v1-background-image-mobile'
           }}
+          {%- if section.settings.enable_parallax -%}
+            <script>
+              document.querySelector('#{{ hero_id }} .shx-hero-v1-background-image-mobile').setAttribute('data-parallax', 'true');
+            </script>
+          {%- endif -%}
         {%- endif -%}
       {%- when 'video' -%}
         {%- if section.settings.video_url != blank -%}
