@@ -1,0 +1,316 @@
+/**
+ * Schnappix Hero Section v1
+ * Fully modular, flexible hero component
+ * Version: 1.0
+ */
+
+/* ============================================
+   CSS Variables
+   ============================================ */
+:root {
+  --shx-hero-primary: #F15A29;
+  --shx-hero-black: #000000;
+  --shx-hero-white: #FFFFFF;
+  --shx-hero-text-color: #FFFFFF;
+  --shx-hero-overlay-color: rgba(0, 0, 0, 0.4);
+}
+
+/* ============================================
+   Hero Container
+   ============================================ */
+.shx-hero-v1 {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--shx-hero-text-color);
+  padding: var(--shx-hero-padding-top) var(--shx-hero-padding-right) var(--shx-hero-padding-bottom) var(--shx-hero-padding-left);
+}
+
+/* Hide on mobile/desktop */
+.shx-hero-v1[data-hide-mobile="true"] {
+  display: none;
+}
+
+@media screen and (min-width: 750px) {
+  .shx-hero-v1[data-hide-mobile="true"] {
+    display: flex;
+  }
+  
+  .shx-hero-v1[data-hide-desktop="true"] {
+    display: none;
+  }
+}
+
+/* ============================================
+   Background Layer
+   ============================================ */
+.shx-hero-v1-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  overflow: hidden;
+}
+
+.shx-hero-v1-background-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+}
+
+.shx-hero-v1-background-image-mobile {
+  display: none;
+}
+
+@media screen and (max-width: 749px) {
+  .shx-hero-v1-background-image {
+    display: none;
+  }
+  
+  .shx-hero-v1-background-image-mobile {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+  }
+}
+
+.shx-hero-v1-background-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+/* Parallax Effect */
+.shx-hero-v1-background-image[data-parallax="true"],
+.shx-hero-v1-background-image-mobile[data-parallax="true"] {
+  will-change: transform;
+}
+
+/* Ken-Burn Effect */
+.shx-hero-v1-background-video[data-ken-burn="true"] {
+  animation: kenBurn 20s ease-in-out infinite alternate;
+}
+
+@keyframes kenBurn {
+  0% {
+    transform: scale(1) translate(0, 0);
+  }
+  100% {
+    transform: scale(1.1) translate(-2%, -2%);
+  }
+}
+
+/* Overlay */
+.shx-hero-v1-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--shx-hero-overlay-color);
+  z-index: 2;
+}
+
+/* ============================================
+   Content Container
+   ============================================ */
+.shx-hero-v1-container {
+  position: relative;
+  z-index: 3;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.shx-hero-v1-content {
+  width: var(--shx-hero-content-width);
+  max-width: var(--shx-hero-max-width);
+  display: flex;
+  flex-direction: column;
+  gap: var(--shx-hero-gap);
+  position: relative;
+}
+
+/* ============================================
+   Typography
+   ============================================ */
+.shx-hero-v1-title {
+  font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-weight: 800;
+  font-size: clamp(2.5rem, 5vw, 4.5rem);
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  margin: 0;
+  color: var(--shx-hero-text-color);
+  text-transform: uppercase;
+}
+
+.shx-hero-v1-title--glow {
+  text-shadow: 
+    0 0 20px rgba(241, 90, 41, 0.5),
+    0 0 40px rgba(241, 90, 41, 0.3),
+    0 0 60px rgba(241, 90, 41, 0.1);
+  animation: neonPulse 2s ease-in-out infinite alternate;
+}
+
+@keyframes neonPulse {
+  from {
+    text-shadow: 
+      0 0 20px rgba(241, 90, 41, 0.5),
+      0 0 40px rgba(241, 90, 41, 0.3),
+      0 0 60px rgba(241, 90, 41, 0.1);
+  }
+  to {
+    text-shadow: 
+      0 0 30px rgba(241, 90, 41, 0.7),
+      0 0 60px rgba(241, 90, 41, 0.5),
+      0 0 90px rgba(241, 90, 41, 0.3);
+  }
+}
+
+.shx-hero-v1-subtitle {
+  font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-weight: 400;
+  font-size: clamp(1.1rem, 2vw, 1.5rem);
+  line-height: 1.6;
+  color: var(--shx-hero-text-color);
+  opacity: 0.9;
+}
+
+.shx-hero-v1-subtitle p {
+  margin: 0;
+}
+
+.shx-hero-v1-subtitle p + p {
+  margin-top: 1rem;
+}
+
+/* ============================================
+   Buttons
+   ============================================ */
+.shx-hero-v1-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-top: calc(var(--shx-hero-gap) * 0.5);
+}
+
+.shx-hero-v1-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.2rem 2.4rem;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 700;
+  font-size: 1.1rem;
+  text-decoration: none;
+  border-radius: 0;
+  border: 2px solid transparent;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.shx-hero-v1-button--primary {
+  background-color: var(--shx-hero-primary);
+  color: var(--shx-hero-white);
+  border-color: var(--shx-hero-primary);
+  box-shadow: 0 4px 20px rgba(241, 90, 41, 0.3);
+}
+
+.shx-hero-v1-button--primary:hover {
+  background-color: #D1450F;
+  border-color: #D1450F;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 30px rgba(241, 90, 41, 0.5);
+}
+
+.shx-hero-v1-button--secondary {
+  background-color: transparent;
+  color: var(--shx-hero-text-color);
+  border-color: var(--shx-hero-text-color);
+}
+
+.shx-hero-v1-button--secondary:hover {
+  background-color: var(--shx-hero-text-color);
+  color: var(--shx-hero-black);
+  transform: translateY(-2px);
+}
+
+/* ============================================
+   Animation States (Initial)
+   ============================================ */
+.shx-hero-v1-content[data-animated="false"] .shx-hero-v1-title,
+.shx-hero-v1-content[data-animated="false"] .shx-hero-v1-subtitle,
+.shx-hero-v1-content[data-animated="false"] .shx-hero-v1-button {
+  opacity: 0;
+}
+
+/* ============================================
+   Responsive Design
+   ============================================ */
+@media screen and (max-width: 749px) {
+  .shx-hero-v1 {
+    padding: calc(var(--shx-hero-padding-top) * 0.6) calc(var(--shx-hero-padding-right) * 0.8) calc(var(--shx-hero-padding-bottom) * 0.6) calc(var(--shx-hero-padding-left) * 0.8);
+  }
+
+  .shx-hero-v1-content {
+    gap: calc(var(--shx-hero-gap) * 0.8);
+  }
+
+  .shx-hero-v1-buttons {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .shx-hero-v1-button {
+    width: 100%;
+    padding: 1rem 2rem;
+  }
+}
+
+/* ============================================
+   Accessibility
+   ============================================ */
+@media (prefers-reduced-motion: reduce) {
+  .shx-hero-v1-background-video[data-ken-burn="true"],
+  .shx-hero-v1-title--glow {
+    animation: none !important;
+  }
+  
+  .shx-hero-v1-content[data-animated="false"] .shx-hero-v1-title,
+  .shx-hero-v1-content[data-animated="false"] .shx-hero-v1-subtitle,
+  .shx-hero-v1-content[data-animated="false"] .shx-hero-v1-button {
+    opacity: 1 !important;
+  }
+}
+
+/* ============================================
+   Print Styles
+   ============================================ */
+@media print {
+  .shx-hero-v1-background {
+    display: none;
+  }
+  
+  .shx-hero-v1 {
+    background: white;
+    color: black;
+    min-height: auto;
+    padding: 2rem;
+  }
+}
+

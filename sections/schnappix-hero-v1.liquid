@@ -1,0 +1,614 @@
+{% comment %}
+  Schnappix Hero Section v1
+  Fully modular, flexible hero component
+  Version: 1.0
+  Prefix: shx-hero-v1-
+{% endcomment %}
+
+{{ 'schnappix-hero-v1.css' | asset_url | stylesheet_tag }}
+
+{%- liquid
+  assign hero_id = 'shx-hero-v1-' | append: section.id
+  assign content_alignment = section.settings.content_alignment
+  assign content_vertical = section.settings.content_vertical
+  assign text_direction = section.settings.text_direction
+  assign content_width = section.settings.content_width
+  assign max_width = section.settings.max_width
+-%}
+
+{%- style -%}
+  #{{ hero_id }} {
+    --shx-hero-padding-top: {{ section.settings.padding_top }}px;
+    --shx-hero-padding-bottom: {{ section.settings.padding_bottom }}px;
+    --shx-hero-padding-left: {{ section.settings.padding_left }}px;
+    --shx-hero-padding-right: {{ section.settings.padding_right }}px;
+    --shx-hero-gap: {{ section.settings.gap }}px;
+    --shx-hero-max-width: {{ max_width }}px;
+    --shx-hero-content-width: {% if content_width == 'fixed' %}{{ max_width }}px{% else %}100%{% endif %};
+    min-height: {{ section.settings.min_height_desktop }}px;
+  }
+
+  @media screen and (max-width: 749px) {
+    #{{ hero_id }} {
+      min-height: {{ section.settings.min_height_mobile }}px;
+    }
+  }
+
+  #{{ hero_id }} .shx-hero-v1-content {
+    text-align: {{ content_alignment }};
+    justify-content: {% if content_vertical == 'top' %}flex-start{% elsif content_vertical == 'bottom' %}flex-end{% else %}center{% endif %};
+    flex-direction: {% if text_direction == 'vertical' %}column{% else %}row{% endif %};
+  }
+
+  {%- if section.settings.background_type == 'image' and section.settings.background_image != blank -%}
+    #{{ hero_id }} .shx-hero-v1-background-image {
+      object-position: {{ section.settings.focal_point }};
+      object-fit: {{ section.settings.image_fit }};
+    }
+  {%- endif -%}
+
+  {%- if section.settings.background_type == 'gradient' -%}
+    #{{ hero_id }} {
+      background: {{ section.settings.gradient }};
+    }
+  {%- endif -%}
+
+  {%- if section.settings.color_scheme == 'dark' -%}
+    #{{ hero_id }} {
+      --shx-hero-text-color: #FFFFFF;
+      --shx-hero-overlay-color: rgba(0, 0, 0, {{ section.settings.overlay_opacity | divided_by: 100.0 }});
+    }
+  {%- else -%}
+    #{{ hero_id }} {
+      --shx-hero-text-color: #000000;
+      --shx-hero-overlay-color: rgba(255, 255, 255, {{ section.settings.overlay_opacity | divided_by: 100.0 }});
+    }
+  {%- endif -%}
+{%- endstyle -%}
+
+<section 
+  id="{{ hero_id }}" 
+  class="shx-hero-v1 shx-hero-v1--{{ section.settings.background_type }} shx-hero-v1--{{ section.settings.color_scheme }}" 
+  data-hero-v1
+  data-animation="{{ section.settings.load_animation }}"
+  data-duration="{{ section.settings.animation_duration }}"
+  data-delay="{{ section.settings.animation_delay }}"
+  data-easing="{{ section.settings.animation_easing }}"
+  data-parallax="{{ section.settings.enable_parallax }}"
+  data-ken-burn="{{ section.settings.enable_ken_burn }}"
+  data-hide-mobile="{{ section.settings.hide_on_mobile }}"
+  data-hide-desktop="{{ section.settings.hide_on_desktop }}"
+>
+  
+  {%- comment -%} Background Layer {%- endcomment -%}
+  <div class="shx-hero-v1-background">
+    {%- case section.settings.background_type -%}
+      {%- when 'image' -%}
+        {%- if section.settings.background_image != blank -%}
+          {{
+            section.settings.background_image
+            | image_url: width: 3840
+            | image_tag:
+              loading: 'eager',
+              fetchpriority: 'high',
+              sizes: '100vw',
+              widths: '375, 550, 750, 1100, 1500, 1780, 2000, 3000, 3840',
+              alt: section.settings.title | escape,
+              class: 'shx-hero-v1-background-image',
+              data-parallax: section.settings.enable_parallax
+          }}
+        {%- endif -%}
+        {%- if section.settings.background_image_mobile != blank -%}
+          {{
+            section.settings.background_image_mobile
+            | image_url: width: 750
+            | image_tag:
+              loading: 'eager',
+              fetchpriority: 'high',
+              sizes: '100vw',
+              widths: '375, 550, 750',
+              alt: section.settings.title | escape,
+              class: 'shx-hero-v1-background-image-mobile',
+              data-parallax: section.settings.enable_parallax
+          }}
+        {%- endif -%}
+      {%- when 'video' -%}
+        {%- if section.settings.video_url != blank -%}
+          <video
+            class="shx-hero-v1-background-video"
+            autoplay
+            muted
+            loop
+            playsinline
+            data-ken-burn="{{ section.settings.enable_ken_burn }}"
+          >
+            <source src="{{ section.settings.video_url }}" type="video/mp4">
+          </video>
+        {%- endif -%}
+    {%- endcase -%}
+    
+    {%- if section.settings.overlay_opacity > 0 -%}
+      <div class="shx-hero-v1-overlay"></div>
+    {%- endif -%}
+  </div>
+
+  {%- comment -%} Content Layer {%- endcomment -%}
+  <div class="shx-hero-v1-container page-width">
+    <div class="shx-hero-v1-content" data-hero-content>
+      
+      {%- if section.settings.title != blank -%}
+        <h1 class="shx-hero-v1-title{% if section.settings.enable_neon_glow %} shx-hero-v1-title--glow{% endif %}" data-hero-title>
+          {{ section.settings.title }}
+        </h1>
+      {%- endif -%}
+
+      {%- if section.settings.subtitle != blank -%}
+        <div class="shx-hero-v1-subtitle" data-hero-subtitle>
+          {{ section.settings.subtitle }}
+        </div>
+      {%- endif -%}
+
+      {%- if section.settings.button_1_text != blank or section.settings.button_2_text != blank -%}
+        <div class="shx-hero-v1-buttons" data-hero-buttons>
+          {%- if section.settings.button_1_text != blank -%}
+            <a
+              href="{{ section.settings.button_1_link }}"
+              class="shx-hero-v1-button shx-hero-v1-button--primary"
+              data-hero-button-1
+            >
+              {{ section.settings.button_1_text }}
+            </a>
+          {%- endif -%}
+          {%- if section.settings.button_2_text != blank -%}
+            <a
+              href="{{ section.settings.button_2_link }}"
+              class="shx-hero-v1-button shx-hero-v1-button--secondary"
+              data-hero-button-2
+            >
+              {{ section.settings.button_2_text }}
+            </a>
+          {%- endif -%}
+        </div>
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+<script src="{{ 'schnappix-hero-v1.js' | asset_url }}" defer="defer"></script>
+
+{% schema %}
+{
+  "name": "Schnappix Hero v1",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "Premium Snacks & Drinks 24/7"
+    },
+    {
+      "type": "richtext",
+      "id": "subtitle",
+      "label": "Subtitle",
+      "default": "<p>Moderne Selbstbedienungsautomaten an öffentlichen Plätzen, Bahnhöfen und Wohngebieten. Immer verfügbar, immer frisch.</p>"
+    },
+    {
+      "type": "header",
+      "content": "Buttons"
+    },
+    {
+      "type": "text",
+      "id": "button_1_text",
+      "label": "Button 1 Text",
+      "default": "Standorte finden"
+    },
+    {
+      "type": "url",
+      "id": "button_1_link",
+      "label": "Button 1 Link"
+    },
+    {
+      "type": "text",
+      "id": "button_2_text",
+      "label": "Button 2 Text",
+      "default": "Mehr erfahren"
+    },
+    {
+      "type": "url",
+      "id": "button_2_link",
+      "label": "Button 2 Link"
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "select",
+      "id": "content_alignment",
+      "label": "Content Alignment",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "select",
+      "id": "content_vertical",
+      "label": "Vertical Position",
+      "options": [
+        {
+          "value": "top",
+          "label": "Top"
+        },
+        {
+          "value": "middle",
+          "label": "Middle"
+        },
+        {
+          "value": "bottom",
+          "label": "Bottom"
+        }
+      ],
+      "default": "middle"
+    },
+    {
+      "type": "select",
+      "id": "text_direction",
+      "label": "Text Direction",
+      "options": [
+        {
+          "value": "horizontal",
+          "label": "Horizontal"
+        },
+        {
+          "value": "vertical",
+          "label": "Vertical"
+        }
+      ],
+      "default": "horizontal"
+    },
+    {
+      "type": "select",
+      "id": "content_width",
+      "label": "Content Width",
+      "options": [
+        {
+          "value": "fixed",
+          "label": "Fixed"
+        },
+        {
+          "value": "fluid",
+          "label": "Fluid"
+        }
+      ],
+      "default": "fixed"
+    },
+    {
+      "type": "range",
+      "id": "max_width",
+      "min": 400,
+      "max": 1200,
+      "step": 50,
+      "unit": "px",
+      "label": "Max Width",
+      "default": 800
+    },
+    {
+      "type": "header",
+      "content": "Background"
+    },
+    {
+      "type": "select",
+      "id": "background_type",
+      "label": "Background Type",
+      "options": [
+        {
+          "value": "image",
+          "label": "Image"
+        },
+        {
+          "value": "gradient",
+          "label": "Gradient"
+        },
+        {
+          "value": "video",
+          "label": "Video"
+        }
+      ],
+      "default": "image"
+    },
+    {
+      "type": "image_picker",
+      "id": "background_image",
+      "label": "Background Image",
+      "info": "Recommended: 1920x1080px or larger"
+    },
+    {
+      "type": "image_picker",
+      "id": "background_image_mobile",
+      "label": "Background Image (Mobile Override)",
+      "info": "Optional: Different image for mobile devices"
+    },
+    {
+      "type": "text",
+      "id": "focal_point",
+      "label": "Focal Point",
+      "default": "center center",
+      "info": "CSS object-position value (e.g., 'center center', 'left top', 'right bottom')"
+    },
+    {
+      "type": "select",
+      "id": "image_fit",
+      "label": "Image Fit",
+      "options": [
+        {
+          "value": "cover",
+          "label": "Cover"
+        },
+        {
+          "value": "contain",
+          "label": "Contain"
+        }
+      ],
+      "default": "cover"
+    },
+    {
+      "type": "color_background",
+      "id": "gradient",
+      "label": "Gradient",
+      "default": "linear-gradient(135deg, #0a0a0f 0%, #000000 50%, #0a0a0f 100%)"
+    },
+    {
+      "type": "text",
+      "id": "video_url",
+      "label": "Video URL (MP4)",
+      "info": "Enter direct link to MP4 video file"
+    },
+    {
+      "type": "header",
+      "content": "Style"
+    },
+    {
+      "type": "select",
+      "id": "color_scheme",
+      "label": "Color Scheme",
+      "options": [
+        {
+          "value": "dark",
+          "label": "Dark"
+        },
+        {
+          "value": "light",
+          "label": "Light"
+        }
+      ],
+      "default": "dark"
+    },
+    {
+      "type": "range",
+      "id": "overlay_opacity",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "label": "Overlay Opacity",
+      "default": 40
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_neon_glow",
+      "label": "Enable Neon Glow on Title",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "Spacing"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 200,
+      "step": 10,
+      "unit": "px",
+      "label": "Padding Top",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 200,
+      "step": 10,
+      "unit": "px",
+      "label": "Padding Bottom",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding_left",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "label": "Padding Left",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "padding_right",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "label": "Padding Right",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "gap",
+      "min": 0,
+      "max": 80,
+      "step": 4,
+      "unit": "px",
+      "label": "Gap Between Elements",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "min_height_desktop",
+      "min": 300,
+      "max": 1000,
+      "step": 50,
+      "unit": "px",
+      "label": "Min Height (Desktop)",
+      "default": 600
+    },
+    {
+      "type": "range",
+      "id": "min_height_mobile",
+      "min": 200,
+      "max": 800,
+      "step": 50,
+      "unit": "px",
+      "label": "Min Height (Mobile)",
+      "default": 400
+    },
+    {
+      "type": "header",
+      "content": "Animation"
+    },
+    {
+      "type": "select",
+      "id": "load_animation",
+      "label": "Load Animation",
+      "options": [
+        {
+          "value": "fade",
+          "label": "Fade"
+        },
+        {
+          "value": "slide-up",
+          "label": "Slide Up"
+        },
+        {
+          "value": "slide-left",
+          "label": "Slide Left"
+        },
+        {
+          "value": "zoom-in",
+          "label": "Zoom In"
+        },
+        {
+          "value": "fly-in",
+          "label": "Fly In (Multiple Directions)"
+        },
+        {
+          "value": "none",
+          "label": "None"
+        }
+      ],
+      "default": "fade"
+    },
+    {
+      "type": "range",
+      "id": "animation_duration",
+      "min": 200,
+      "max": 2000,
+      "step": 100,
+      "unit": "ms",
+      "label": "Animation Duration",
+      "default": 800
+    },
+    {
+      "type": "range",
+      "id": "animation_delay",
+      "min": 0,
+      "max": 1000,
+      "step": 50,
+      "unit": "ms",
+      "label": "Animation Delay",
+      "default": 0
+    },
+    {
+      "type": "select",
+      "id": "animation_easing",
+      "label": "Animation Easing",
+      "options": [
+        {
+          "value": "ease",
+          "label": "Ease"
+        },
+        {
+          "value": "ease-in",
+          "label": "Ease In"
+        },
+        {
+          "value": "ease-out",
+          "label": "Ease Out"
+        },
+        {
+          "value": "ease-in-out",
+          "label": "Ease In Out"
+        },
+        {
+          "value": "cubic-bezier(0.16, 1, 0.3, 1)",
+          "label": "Custom (Smooth)"
+        }
+      ],
+      "default": "ease-out"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_parallax",
+      "label": "Enable Parallax Effect",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_ken_burn",
+      "label": "Enable Ken-Burn Effect (Video)",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "Advanced"
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_on_mobile",
+      "label": "Hide on Mobile",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_on_desktop",
+      "label": "Hide on Desktop",
+      "default": false
+    }
+  ],
+  "presets": [
+    {
+      "name": "Schnappix Hero v1"
+    }
+  ]
+}
+{% endschema %}
+
