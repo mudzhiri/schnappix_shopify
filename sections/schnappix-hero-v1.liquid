@@ -103,7 +103,6 @@
             alt="{{ section.settings.title | escape }}"
             class="shx-hero-v1-background-image{% if section.settings.enable_parallax %} shx-hero-v1-parallax{% endif %}"
             loading="eager"
-            fetchpriority="high"
           >
         {%- endif -%}
         {%- if section.settings.background_image_mobile != blank -%}
@@ -119,7 +118,6 @@
             alt="{{ section.settings.title | escape }}"
             class="shx-hero-v1-background-image-mobile{% if section.settings.enable_parallax %} shx-hero-v1-parallax{% endif %}"
             loading="eager"
-            fetchpriority="high"
           >
         {%- endif -%}
       {%- when 'video' -%}
