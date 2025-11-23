@@ -1,0 +1,205 @@
+{% comment %}
+  Premium Animated Header for Schnappix 24/7
+  Modern, clean, energetic design with tech vibes and subtle neon glow
+{% endcomment %}
+
+{{ 'schnappix-header-premium.css' | asset_url | stylesheet_tag }}
+
+{%- style -%}
+  #SchnappixHeader-{{ section.id }} {
+    --header-bg-variant: {{ section.settings.background_variant }};
+  }
+{%- endstyle -%}
+
+<header id="SchnappixHeader-{{ section.id }}" class="schnappix-header-premium" data-header-premium>
+  <div class="schnappix-header-premium__container page-width">
+    
+    {%- comment -%} Left: Hamburger Menu {%- endcomment -%}
+    <button
+      type="button"
+      class="schnappix-header-premium__hamburger"
+      aria-label="{{ 'accessibility.menu' | t }}"
+      data-menu-toggle
+      aria-expanded="false"
+    >
+      <span class="schnappix-header-premium__hamburger-box">
+        <span class="schnappix-header-premium__hamburger-inner"></span>
+      </span>
+    </button>
+
+    {%- comment -%} Center: Logo {%- endcomment -%}
+    <div class="schnappix-header-premium__logo-wrapper">
+      {%- if request.page_type == 'index' -%}
+        <h1 class="schnappix-header-premium__logo">
+      {%- else -%}
+        <div class="schnappix-header-premium__logo">
+      {%- endif -%}
+        <a href="{{ routes.root_url }}" class="schnappix-header-premium__logo-link">
+          <span class="schnappix-header-premium__logo-text">
+            <span class="schnappix-header-premium__logo-schnap">SCHNAP</span><span class="schnappix-header-premium__logo-pix">PIX</span>
+          </span>
+          {%- if section.settings.show_24_7 -%}
+            <span class="schnappix-header-premium__logo-subtitle">24/7</span>
+          {%- endif -%}
+        </a>
+      {%- if request.page_type == 'index' -%}
+        </h1>
+      {%- else -%}
+        </div>
+      {%- endif -%}
+    </div>
+
+    {%- comment -%} Right: Icons (Search, Account, Cart, Localization) {%- endcomment -%}
+    <div class="schnappix-header-premium__actions">
+      
+      {%- comment -%} Search Icon {%- endcomment -%}
+      {%- if section.settings.show_search -%}
+        <button
+          type="button"
+          class="schnappix-header-premium__icon schnappix-header-premium__icon--search"
+          aria-label="{{ 'general.search.search' | t }}"
+          data-search-toggle
+        >
+          <svg class="schnappix-header-premium__icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="11" cy="11" r="8"></circle>
+            <path d="m21 21-4.35-4.35"></path>
+          </svg>
+        </button>
+      {%- endif -%}
+
+      {%- comment -%} Account Icon {%- endcomment -%}
+      {%- if shop.customer_accounts_enabled and section.settings.show_account -%}
+        <a
+          href="{{ routes.account_url }}"
+          class="schnappix-header-premium__icon schnappix-header-premium__icon--account"
+          aria-label="{{ 'customer.account.title' | t }}"
+        >
+          <svg class="schnappix-header-premium__icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+            <circle cx="12" cy="7" r="4"></circle>
+          </svg>
+        </a>
+      {%- endif -%}
+
+      {%- comment -%} Cart Icon {%- endcomment -%}
+      <a
+        href="{{ routes.cart_url }}"
+        class="schnappix-header-premium__icon schnappix-header-premium__icon--cart"
+        aria-label="{{ 'templates.cart.cart' | t }}"
+        data-cart-icon
+      >
+        <svg class="schnappix-header-premium__icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="9" cy="21" r="1"></circle>
+          <circle cx="20" cy="21" r="1"></circle>
+          <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+        </svg>
+        <span class="schnappix-header-premium__cart-count" data-cart-count>{% if cart.item_count > 0 %}{{ cart.item_count }}{% endif %}</span>
+      </a>
+
+      {%- comment -%} Localization {%- endcomment -%}
+      {%- if section.settings.show_localization and localization.available_countries.size > 1 -%}
+        <div class="schnappix-header-premium__localization">
+          {%- render 'localization-form', location: 'header', show_country_selector: section.settings.show_country_selector, show_language_selector: section.settings.show_language_selector -%}
+        </div>
+      {%- endif -%}
+    </div>
+  </div>
+
+  {%- comment -%} Menu Drawer {%- endcomment -%}
+  {%- if section.settings.menu != blank -%}
+    <div class="schnappix-header-premium__drawer" data-menu-drawer>
+      <div class="schnappix-header-premium__drawer-overlay" data-menu-overlay></div>
+      <div class="schnappix-header-premium__drawer-panel">
+        <div class="schnappix-header-premium__drawer-header">
+          <button
+            type="button"
+            class="schnappix-header-premium__drawer-close"
+            aria-label="{{ 'accessibility.close' | t }}"
+            data-menu-close
+          >
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="18" y1="6" x2="6" y2="18"></line>
+              <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+          </button>
+        </div>
+        <nav class="schnappix-header-premium__drawer-nav">
+          {%- for link in section.settings.menu.links -%}
+            <a href="{{ link.url }}" class="schnappix-header-premium__drawer-link">
+              {{ link.title }}
+            </a>
+          {%- endfor -%}
+        </nav>
+      </div>
+    </div>
+  {%- endif -%}
+</header>
+
+<script src="{{ 'schnappix-header-premium.js' | asset_url }}" defer="defer"></script>
+
+{% schema %}
+{
+  "name": "Schnappix Premium Header",
+  "settings": [
+    {
+      "type": "link_list",
+      "id": "menu",
+      "label": "Menu",
+      "default": "main-menu"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_search",
+      "label": "Show Search Icon",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_account",
+      "label": "Show Account Icon",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_24_7",
+      "label": "Show '24/7' Subtitle",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_localization",
+      "label": "Show Localization",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_country_selector",
+      "label": "Show Country Selector",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_language_selector",
+      "label": "Show Language Selector",
+      "default": true
+    },
+    {
+      "type": "select",
+      "id": "background_variant",
+      "label": "Background Style",
+      "options": [
+        {
+          "value": "black",
+          "label": "Clean Black"
+        },
+        {
+          "value": "gradient",
+          "label": "Dark Blue-Black Gradient"
+        }
+      ],
+      "default": "black"
+    }
+  ]
+}
+{% endschema %}
+

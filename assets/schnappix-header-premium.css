@@ -1,0 +1,527 @@
+/**
+ * Premium Animated Header for Schnappix 24/7
+ * Modern, clean, energetic design with tech vibes and subtle neon glow
+ */
+
+/* ============================================
+   CSS Variables
+   ============================================ */
+:root {
+  --schnappix-orange: #F15A29;
+  --schnappix-black: #000000;
+  --schnappix-white: #FFFFFF;
+  --header-height-desktop: 84px;
+  --header-height-mobile: 60px;
+  --header-height-shrink: 56px;
+  --header-padding: 24px;
+  --icon-size: 24px;
+  --icon-stroke: 2px;
+}
+
+/* ============================================
+   Header Container
+   ============================================ */
+.schnappix-header-premium {
+  position: sticky;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  z-index: 1000;
+  transition: height 0.3s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s ease;
+  height: var(--header-height-desktop);
+  box-shadow: 0 0 0 rgba(241, 90, 41, 0);
+}
+
+/* Background Variant: Clean Black */
+.schnappix-header-premium[style*="--header-bg-variant: black"] {
+  background: #000000;
+  position: relative;
+}
+
+.schnappix-header-premium[style*="--header-bg-variant: black"]::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: 
+    radial-gradient(circle at 20% 50%, rgba(241, 90, 41, 0.03) 0%, transparent 50%),
+    radial-gradient(circle at 80% 50%, rgba(241, 90, 41, 0.03) 0%, transparent 50%);
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.schnappix-header-premium[style*="--header-bg-variant: black"]::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: 
+    repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(255, 255, 255, 0.02) 2px, rgba(255, 255, 255, 0.02) 4px);
+  opacity: 0.3;
+  pointer-events: none;
+}
+
+/* Background Variant: Dark Blue-Black Gradient */
+.schnappix-header-premium[style*="--header-bg-variant: gradient"] {
+  background: linear-gradient(135deg, #0a0a0f 0%, #000000 50%, #0a0a0f 100%);
+  position: relative;
+}
+
+.schnappix-header-premium[style*="--header-bg-variant: gradient"]::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: 
+    radial-gradient(circle at 30% 20%, rgba(241, 90, 41, 0.08) 0%, transparent 60%),
+    radial-gradient(circle at 70% 80%, rgba(15, 82, 186, 0.05) 0%, transparent 60%);
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+/* Header Shrink on Scroll */
+.schnappix-header-premium.scrolled {
+  height: var(--header-height-shrink);
+  box-shadow: 0 4px 20px rgba(241, 90, 41, 0.08);
+}
+
+.schnappix-header-premium.scrolled .schnappix-header-premium__container {
+  transform: scale(0.98);
+}
+
+.schnappix-header-premium.scrolled .schnappix-header-premium__icon {
+  transform: scale(0.92);
+}
+
+/* ============================================
+   Header Container (Inner)
+   ============================================ */
+.schnappix-header-premium__container {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 2rem;
+  height: 100%;
+  padding: 0 var(--header-padding);
+  max-width: var(--page-width);
+  margin: 0 auto;
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ============================================
+   Hamburger Menu
+   ============================================ */
+.schnappix-header-premium__hamburger {
+  position: relative;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  z-index: 10;
+  opacity: 0;
+  transform: translateX(-16px);
+  animation: slideInFromLeft 0.18s ease-out 0.1s forwards;
+}
+
+@keyframes slideInFromLeft {
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.schnappix-header-premium__hamburger-box {
+  width: 24px;
+  height: 18px;
+  position: relative;
+  display: block;
+}
+
+.schnappix-header-premium__hamburger-inner {
+  display: block;
+  top: 50%;
+  margin-top: -1px;
+}
+
+.schnappix-header-premium__hamburger-inner,
+.schnappix-header-premium__hamburger-inner::before,
+.schnappix-header-premium__hamburger-inner::after {
+  width: 24px;
+  height: 2px;
+  background-color: var(--schnappix-white);
+  border-radius: 2px;
+  position: absolute;
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.2s ease;
+}
+
+.schnappix-header-premium__hamburger-inner::before,
+.schnappix-header-premium__hamburger-inner::after {
+  content: '';
+  display: block;
+}
+
+.schnappix-header-premium__hamburger-inner::before {
+  top: -8px;
+}
+
+.schnappix-header-premium__hamburger-inner::after {
+  bottom: -8px;
+}
+
+/* Hamburger Active (X) */
+.schnappix-header-premium__hamburger[aria-expanded="true"] .schnappix-header-premium__hamburger-inner {
+  transform: rotate(45deg);
+}
+
+.schnappix-header-premium__hamburger[aria-expanded="true"] .schnappix-header-premium__hamburger-inner::before {
+  top: 0;
+  transform: rotate(-90deg);
+}
+
+.schnappix-header-premium__hamburger[aria-expanded="true"] .schnappix-header-premium__hamburger-inner::after {
+  bottom: 0;
+  opacity: 0;
+}
+
+/* ============================================
+   Logo
+   ============================================ */
+.schnappix-header-premium__logo-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+.schnappix-header-premium__logo {
+  margin: 0;
+  line-height: 1;
+}
+
+.schnappix-header-premium__logo-link {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  text-decoration: none;
+  color: var(--schnappix-white);
+  opacity: 0;
+  transform: translateY(4px);
+  animation: logoFadeIn 0.22s ease 0.15s forwards;
+}
+
+@keyframes logoFadeIn {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.schnappix-header-premium__logo-text {
+  font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-weight: 800;
+  font-size: 2.4rem;
+  letter-spacing: -0.02em;
+  line-height: 1;
+  text-transform: uppercase;
+  display: inline-block;
+  position: relative;
+}
+
+.schnappix-header-premium__logo-schnap {
+  color: var(--schnappix-white);
+}
+
+.schnappix-header-premium__logo-pix {
+  color: var(--schnappix-orange);
+  text-shadow: 0 0 20px rgba(241, 90, 41, 0.3), 0 0 40px rgba(241, 90, 41, 0.15);
+}
+
+.schnappix-header-premium__logo-subtitle {
+  font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-weight: 600;
+  font-size: 0.75rem;
+  letter-spacing: 0.15em;
+  color: var(--schnappix-white);
+  opacity: 0.7;
+  margin-top: 2px;
+  text-transform: uppercase;
+}
+
+/* ============================================
+   Actions (Icons)
+   ============================================ */
+.schnappix-header-premium__actions {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  z-index: 10;
+}
+
+.schnappix-header-premium__icon {
+  position: relative;
+  width: var(--icon-size);
+  height: var(--icon-size);
+  padding: 0;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: var(--schnappix-white);
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transform: translateX(16px);
+  transition: transform 0.2s ease, color 0.2s ease, opacity 0.2s ease;
+}
+
+/* Staggered icon animation */
+.schnappix-header-premium__icon--search {
+  animation: slideInFromRight 0.2s ease-out 0.25s forwards;
+}
+
+.schnappix-header-premium__icon--account {
+  animation: slideInFromRight 0.2s ease-out 0.33s forwards;
+}
+
+.schnappix-header-premium__icon--cart {
+  animation: slideInFromRight 0.2s ease-out 0.41s forwards;
+}
+
+@keyframes slideInFromRight {
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.schnappix-header-premium__icon-svg {
+  width: 100%;
+  height: 100%;
+  stroke-width: var(--icon-stroke);
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transition: transform 0.2s ease, color 0.2s ease;
+}
+
+.schnappix-header-premium__icon:hover {
+  color: var(--schnappix-orange);
+  transform: scale(1.1);
+}
+
+.schnappix-header-premium__icon:hover .schnappix-header-premium__icon-svg {
+  filter: drop-shadow(0 0 8px rgba(241, 90, 41, 0.4));
+}
+
+/* Cart Count Badge */
+.schnappix-header-premium__cart-count {
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 4px;
+  background: var(--schnappix-orange);
+  color: var(--schnappix-white);
+  border-radius: 9px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+  box-shadow: 0 2px 8px rgba(241, 90, 41, 0.4);
+}
+
+/* ============================================
+   Menu Drawer
+   ============================================ */
+.schnappix-header-premium__drawer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  z-index: 9999;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.schnappix-header-premium__drawer.active {
+  pointer-events: all;
+  opacity: 1;
+}
+
+.schnappix-header-premium__drawer-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(4px);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.schnappix-header-premium__drawer.active .schnappix-header-premium__drawer-overlay {
+  opacity: 1;
+}
+
+.schnappix-header-premium__drawer-panel {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 320px;
+  max-width: 85vw;
+  height: 100%;
+  background: var(--schnappix-black);
+  border-right: 1px solid rgba(241, 90, 41, 0.2);
+  transform: translateX(-100%);
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow-y: auto;
+  box-shadow: 4px 0 20px rgba(0, 0, 0, 0.5);
+}
+
+.schnappix-header-premium__drawer.active .schnappix-header-premium__drawer-panel {
+  transform: translateX(0);
+}
+
+.schnappix-header-premium__drawer-header {
+  display: flex;
+  justify-content: flex-end;
+  padding: 2rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.schnappix-header-premium__drawer-close {
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  background: transparent;
+  border: none;
+  color: var(--schnappix-white);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.schnappix-header-premium__drawer-close:hover {
+  color: var(--schnappix-orange);
+  transform: rotate(90deg);
+}
+
+.schnappix-header-premium__drawer-close svg {
+  width: 24px;
+  height: 24px;
+  stroke-width: 2;
+}
+
+.schnappix-header-premium__drawer-nav {
+  display: flex;
+  flex-direction: column;
+  padding: 2rem 0;
+}
+
+.schnappix-header-premium__drawer-link {
+  padding: 1.2rem 2rem;
+  color: var(--schnappix-white);
+  text-decoration: none;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 600;
+  font-size: 1.1rem;
+  transition: color 0.2s ease, background 0.2s ease, padding-left 0.2s ease;
+  border-left: 3px solid transparent;
+}
+
+.schnappix-header-premium__drawer-link:hover {
+  color: var(--schnappix-orange);
+  background: rgba(241, 90, 41, 0.05);
+  padding-left: 2.5rem;
+  border-left-color: var(--schnappix-orange);
+}
+
+/* ============================================
+   Responsive Design
+   ============================================ */
+@media screen and (max-width: 989px) {
+  .schnappix-header-premium {
+    height: var(--header-height-mobile);
+  }
+
+  .schnappix-header-premium.scrolled {
+    height: var(--header-height-shrink);
+  }
+
+  .schnappix-header-premium__container {
+    grid-template-columns: auto 1fr auto;
+    gap: 1rem;
+    padding: 0 1.5rem;
+  }
+
+  .schnappix-header-premium__logo-text {
+    font-size: 1.8rem;
+  }
+
+  .schnappix-header-premium__logo-subtitle {
+    font-size: 0.65rem;
+  }
+
+  .schnappix-header-premium__actions {
+    gap: 1rem;
+  }
+
+  .schnappix-header-premium__icon {
+    width: 20px;
+    height: 20px;
+  }
+
+  /* Hide some icons on mobile, show in drawer */
+  .schnappix-header-premium__icon--account {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 749px) {
+  .schnappix-header-premium__container {
+    padding: 0 1rem;
+  }
+
+  .schnappix-header-premium__logo-text {
+    font-size: 1.6rem;
+  }
+
+  .schnappix-header-premium__actions {
+    gap: 0.75rem;
+  }
+}
+
+/* ============================================
+   Accessibility
+   ============================================ */
+@media (prefers-reduced-motion: reduce) {
+  .schnappix-header-premium,
+  .schnappix-header-premium__container,
+  .schnappix-header-premium__hamburger,
+  .schnappix-header-premium__logo-link,
+  .schnappix-header-premium__icon,
+  .schnappix-header-premium__drawer-panel {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+

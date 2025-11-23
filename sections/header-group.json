@@ -11,8 +11,22 @@
   "name": "t:sections.header.name",
   "type": "header",
   "sections": {
+    "schnappix_header_premium": {
+      "type": "schnappix-header-premium",
+      "settings": {
+        "menu": "main-menu",
+        "show_search": true,
+        "show_account": true,
+        "show_24_7": true,
+        "show_localization": true,
+        "show_country_selector": true,
+        "show_language_selector": true,
+        "background_variant": "black"
+      }
+    },
     "header": {
       "type": "header",
+      "disabled": true,
       "settings": {
         "menu": "",
         "sticky_header_type": "on-scroll-up",
@@ -29,6 +43,7 @@
     }
   },
   "order": [
+    "schnappix_header_premium",
     "header"
   ]
 }
